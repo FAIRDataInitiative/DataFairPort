@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+
+<rdf:RDF
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+xml:base="http://example.com/DCATProfile.rdfs#">
+
+<rdf:Class ID="DPSProfile">
+  <rdfs:label xml:lang="en">DCAT Profile Schema Class</rdfs:label>
+  <rdfs:comment>Represents a DCAT Class</rdfs:comment>
+</rdf:Class>
+
+<rdf:Class ID="DPSClass">
+  <rdfs:label xml:lang="en">DCAT Profile Schema Class</rdfs:label>
+  <rdfs:comment>Represents a DCAT Class</rdfs:comment>
+</rdf:Class>
+
+<rdf:Class rdf:ID="DPSProperty">
+  <rdfs:label xml:lang="en">DCAT Profile Schema Property</rdfs:label>
+  <rdfs:comment>Represents a DCAT Property</rdfs:comment>
+</rdf:Class>
+
+<rdf:Property rdf:ID="has_class">
+  <rdfs:label xml:lang="en">has Class</rdfs:label>
+  <rdfs:comment>the one-to-many relationship between a Profile and the DCAT classes that are included in that profile</rdfs:comment>
+  <rdfs:domain rdf:resource="#DPSProfile"/>
+  <rdfs:domain rdf:resource="#DPSClass"/>
+</rdf:Property>
+
+
+<rdf:Property rdf:ID="has_property">
+  <rdfs:label xml:lang="en">has property</rdfs:label>
+  <rdfs:comment>the one-to-many relationship between a class and the properties that class has</rdfs:comment>
+  <rdfs:domain rdf:resource="#DPSClass"/>
+  <rdfs:domain rdf:resource="#DPSProperty"/>
+</rdf:Property>
+
+<rdf:Property rdf:ID="ClassType">
+  <rdfs:label xml:lang="en">Class Type</rdfs:label>
+  <rdfs:comment>The DCAT (or other ontology) Class URI</rdfs:comment>
+  <rdfs:domain rdf:resource="#DPSClass"/>
+</rdf:Property>
+
+
+<rdf:Property rdf:ID="PropertyType">
+  <rdfs:label xml:lang="en">PropertyType</rdfs:label>
+  <rdfs:comment>The DCAT (or other ontology) Property URI</rdfs:comment>
+  <rdfs:domain rdf:resource="#DPSProperty"/>
+</rdf:Property>
+
+<rdf:Property rdf:ID="AllowedValues">
+  <rdfs:label xml:lang="en">Allowed Values</rdfs:label>
+  <rdfs:comment>The SKOSified representation of the valid ontology terms that could be values for this property</rdfs:comment>
+  <rdfs:domain rdf:resource="#DPSProperty"/>
+</rdf:Property>
+
+
+<rdf:Property rdf:ID="RequirementStatus">
+  <rdfs:label xml:lang="en">Requirement Status</rdfs:label>
+  <rdfs:comment>Is this property required or optional for this Profile?</rdfs:comment>
+  <rdfs:domain rdf:resource="#DPSProperty"/>
+</rdf:Property>
+
+
+</rdf:RDF> 
