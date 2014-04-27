@@ -1,0 +1,53 @@
+We looked at the DCAT spec as a likely solution to much of the FAIRPORT problem.
+
+DCAT (http://www.w3.org/TR/vocab-dcat) is a way of describing the structure 
+of datasets.  The DCAT specification mentions that it is possible to put 
+constraints on a DCAT record (e.g. this facet is optional, this facet 
+is required) by creating a DCAT Profile.  
+
+Unfortunately (as far as we can tell) there is no specification for what
+a DCAT profile is.  So the first task of the hackathon was to create a
+DCAT Profile schema (in RDFS, since there are really no semantics in our
+vision of the intent of this document), and the supporting libraries.
+
+
+
+The idea is something along these lines:
+
+PREFIX dps <DCAT profile schema -  created by us>
+ProfileX
+	dps:includes_class
+		ClassY
+ClassY 
+	dps:classname
+		dcat:Dataset
+dcat:Dataset
+	dps:has_property
+		PropertyZ
+	dps:has_property
+		PropertyQ
+PropertyZ
+	dps:propertyname
+		dcat:language
+	dps:requirement_status
+		dcat:required
+	dps:value_range
+		go_skos:LimitedChoices
+
+PropertyQ
+	dps:propertyname
+		external:someProperty
+	dps:requirement_status
+		dcat:optional
+	dps:value_range
+		fma_skos:SomePartOfFMA
+
+
+the go_skos and fma_skos are referring to concept schemas created using the
+"views of ontologies" approach (Taking a view on bio-ontologies; Jupp et al.) 
+that we have talked about over the past few teleconferences.  These are used 
+to limit the possible values of different facets to segments of one or more 
+ontologies (in a manner akin to what RightField does, but we have no rep. from
+the RightField community at the Hackathon today, and we haven't yet seen an
+example of their internal thing-to-termset mapping scheme)
+
