@@ -24,7 +24,7 @@ xml:base="http://example.com/DCATProfile.rdfs#">
   <rdfs:label xml:lang="en">has Class</rdfs:label>
   <rdfs:comment>the one-to-many relationship between a Profile and the DCAT classes that are included in that profile</rdfs:comment>
   <rdfs:domain rdf:resource="#DPSProfile"/>
-  <rdfs:domain rdf:resource="#DPSClass"/>
+  <rdfs:range rdf:resource="#DPSClass"/>
 </rdf:Property>
 
 
@@ -32,7 +32,7 @@ xml:base="http://example.com/DCATProfile.rdfs#">
   <rdfs:label xml:lang="en">has property</rdfs:label>
   <rdfs:comment>the one-to-many relationship between a class and the properties that class has</rdfs:comment>
   <rdfs:domain rdf:resource="#DPSClass"/>
-  <rdfs:domain rdf:resource="#DPSProperty"/>
+  <rdfs:range rdf:resource="#DPSProperty"/>
 </rdf:Property>
 
 <rdf:Property rdf:ID="ClassType">
