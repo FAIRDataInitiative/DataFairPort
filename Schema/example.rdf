@@ -1,10 +1,10 @@
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dps="http://dcat.profile.schema/">
-<dps:DPSProfile rdf:about="#barebones">
+<dps:DPSProfile rdf:about="#Horizon2020_BareMinimum">
 	<dps:has_class>
-		<dps:DPSClass rdf:about="#myclass">
+		<dps:DPSClass rdf:about="#H2020_Dataset">
 			<dps:class_type>http://www.w3.org/ns/dcat/Dataset</dps:class_type>
 			<dps:has_property>
-				<dps:DPSProperty rdf:about="#myfirstproperty">
+				<dps:DPSProperty rdf:about="#H2020_titleproperty">
 					<dps:property_type>http://www.w3.org/ns/dcat/title</dps:property_type>
 					<dps:requirement_status>REQUIRED</dps:requirement_status>
 					<dps:allowed_values>how shold we represent this?</dps:allowed_values>
