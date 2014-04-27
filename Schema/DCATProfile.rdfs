@@ -35,27 +35,27 @@ xml:base="http://example.com/DCATProfile.rdfs#">
   <rdfs:range rdf:resource="#DPSProperty"/>
 </rdf:Property>
 
-<rdf:Property rdf:ID="ClassType">
+<rdf:Property rdf:ID="class_type">
   <rdfs:label xml:lang="en">Class Type</rdfs:label>
   <rdfs:comment>The DCAT (or other ontology) Class URI</rdfs:comment>
   <rdfs:domain rdf:resource="#DPSClass"/>
 </rdf:Property>
 
 
-<rdf:Property rdf:ID="PropertyType">
+<rdf:Property rdf:ID="property_type">
   <rdfs:label xml:lang="en">PropertyType</rdfs:label>
   <rdfs:comment>The DCAT (or other ontology) Property URI</rdfs:comment>
   <rdfs:domain rdf:resource="#DPSProperty"/>
 </rdf:Property>
 
-<rdf:Property rdf:ID="AllowedValues">
+<rdf:Property rdf:ID="allowed_values">
   <rdfs:label xml:lang="en">Allowed Values</rdfs:label>
   <rdfs:comment>The SKOSified representation of the valid ontology terms that could be values for this property</rdfs:comment>
   <rdfs:domain rdf:resource="#DPSProperty"/>
 </rdf:Property>
 
 
-<rdf:Property rdf:ID="RequirementStatus">
+<rdf:Property rdf:ID="requirement_status">
   <rdfs:label xml:lang="en">Requirement Status</rdfs:label>
   <rdfs:comment>Is this property required or optional for this Profile?</rdfs:comment>
   <rdfs:domain rdf:resource="#DPSProperty"/>
