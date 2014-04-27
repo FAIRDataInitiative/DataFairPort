@@ -6,18 +6,18 @@ xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
 xml:base="http://example.com/DCATProfile.rdfs#">
 
 <rdf:Class ID="DPSProfile">
-  <rdfs:label xml:lang="en">DCAT Profile Schema Class</rdfs:label>
-  <rdfs:comment>Represents a DCAT Class</rdfs:comment>
+  <rdfs:label xml:lang="en">DCAT Profile</rdfs:label>
+  <rdfs:comment>Represents a DCAT Profile</rdfs:comment>
 </rdf:Class>
 
 <rdf:Class ID="DPSClass">
   <rdfs:label xml:lang="en">DCAT Profile Schema Class</rdfs:label>
-  <rdfs:comment>Represents a DCAT Class</rdfs:comment>
+  <rdfs:comment>Represents a DCAT Class within a Profile</rdfs:comment>
 </rdf:Class>
 
 <rdf:Class rdf:ID="DPSProperty">
   <rdfs:label xml:lang="en">DCAT Profile Schema Property</rdfs:label>
-  <rdfs:comment>Represents a DCAT Property</rdfs:comment>
+  <rdfs:comment>Represents a DCAT Property within a Profile</rdfs:comment>
 </rdf:Class>
 
 <rdf:Property rdf:ID="has_class">
