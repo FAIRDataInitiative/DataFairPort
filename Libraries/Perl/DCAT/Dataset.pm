@@ -1,10 +1,12 @@
 package DCAT::Dataset;
 use strict;
-use RDF::NS '20131205';
-use Carp;
-use vars qw($AUTOLOAD @ISA);
 use lib "..";
+use Carp;
+use DCAT::Base;
 use DCAT::NAMESPACES;
+use vars qw($AUTOLOAD @ISA);
+
+use base 'DCAT::Base';
 
 use vars qw /$VERSION/;
 $VERSION = sprintf "%d.%02d", q$Revision: 1.5 $ =~ /: (\d+)\.(\d+)/;
@@ -44,8 +46,9 @@ Mark Wilkinson (markw at illuminae dot com)
 	#___________________________________________________________
 	#ATTRIBUTES
 	my $ns = RDF::NS->new();
-	use Data::UUID::MT; 
+	use Data::UUID::MT;  
 	my $ug1 = Data::UUID::MT->new( version => 4 );
+	$ug1 = $ug1->create_string;
 
 	my %_attr_data =    #     				DEFAULT    	ACCESSIBILITY
 	  (
@@ -54,13 +57,14 @@ Mark Wilkinson (markw at illuminae dot com)
 		issued => [ undef, 'read/write' ],
 		modified => [ undef, 'read/write' ],
                 identifier => [ undef, 'read/write' ],
-                keyword => [ undef, 'read/write' ],
+                keyword => [ undef, 'read/write' ],   # TODO - shouldn't this be a list??
+                language => [ undef, 'read/write' ],
                 contactPoint => [ undef, 'read/write' ],
                 temporal => [ undef, 'read/write' ],
     		spatial => [ undef, 'read/write' ],
 		landingPage => [ undef, 'read/write' ],
                 accrualPeriodicity => [ undef, 'read/write' ],
-		type => [ $ns->dc->Dataset, 'read/write' ],
+		type => [ $ns->dc('Dataset'), 'read/write' ],   #TODO - this needs to have multiple RDF types...  
 		_themes  => [[], 'read/write'],
 		_publisher => ['undef', 'read/write'],
 		_distributions => [[], 'read/write'],
@@ -109,11 +113,11 @@ sub new {
 }
 
 
-sub add_Theme {
+sub add_Distribution {
 	my ($self, @themes) = @_;
 	foreach my $set(@themes)
 	{
-		die "not a skos:Concept" unless $set->type eq RDF::NS->new->skos("Concept");
+		die "not a dcat:Distribution" unless $set->type eq DCAT."Distribution";
 		my $sets = $self->_distributions;
 		push @$sets, $set;
 	}
@@ -121,17 +125,36 @@ sub add_Theme {
 }
 
 
-sub add_Distribution {
+sub distribution {
+	my ($self) = shift;
+	if (@_) {
+		print STDERR "YOU CANNOT ADD DISTRIBUTIONS USING THE ->distributions method@  use add_Distribution instead!\n";
+		return 0;
+	}
+	return $self->_distributions;  # an arrayref
+	
+}
+
+sub add_Theme {
 	my ($self, @dists) = @_;
 	foreach my $set(@dists)
 	{
-		die "not a dcat:Distribution" unless $set->type eq DCAT."Distribution";
+		die "not a skos:Concept" unless $set->type eq RDF::NS->new->skos("Concept");
 		my $sets = $self->_themes;
 		push @$sets, $set;
 	}
 	return $self->_themes;
 }
 
+sub theme {
+	my ($self) = shift;
+	if (@_) {
+		print STDERR "YOU CANNOT ADD THEMES USING THE ->theme method@  use add_Distribution instead!\n";
+		return 0;
+	}
+	return $self->_themes;
+	
+}
 
 sub add_Publisher {
 	my ($self, $publisher) = @_;
@@ -140,76 +163,14 @@ sub add_Publisher {
 	return $self->_publisher;
 }
 
-sub toTriples {
-	my ($self) = @_;
-	my $store = RDF::Trine::Store::Memory->new();
-	my $model = RDF::Trine::Model->new($store);
-
-	my $dct = RDF::Trine::Namespace->new( DCT);
-	my $dcat = RDF::Trine::Namespace->new( DCAT);
-
-	my $sub = $self->_URI;
-
-	my @facets = qw(title description issued modified identifier keyword language contactPoint temporal spatial accrualPeriodicity landingPage);
-
-	foreach my $facet(@facets){
-		my $pred  =$dcat->$facet;
-		my $obj = $self->$facet;
-		next unless $obj;
-		my $stm = statement($sub, $pred, $obj);
-		$model->add_statement($stm);
+sub publisher {
+	my ($self) = shift;
+	if (@_) {
+		print STDERR "YOU CANNOT ADD PUBLISHERS USING THE ->publisher method@  use add_Publisher instead!\n";
+		return 0;
 	}
-	
-	$model->add_statement(statement($sub, RDF."type", $self->type));
-	if (@{$self->_distributions}[0]) {
-		foreach my $dist(@{$self->_distributions}){
-			my $stm = statement($sub, DCAT."distribution", $dist->_URI);
-			$model->add_statement($stm);
-		}
-	}
-	$model->add_statement(statement($sub, DCT."publisher", $self->publisher->agent));
-	if (@{$self->_themes}[0]) {
-		foreach my $theme(@{$self->_themes}){
-			my $stm = statement($sub, DCAT."theme", $theme->concept);
-			$model->add_statement($stm);
-		}
-	}
-	
-	my $iter = $model->get_statements();
-	my @statements;
-	while (my $st = $iter->next) {
-		push @statements, $st;    
-	}
-	return @statements;
+	return $self->_publisher;	
 }
-	
-
-
-sub statement {
-	my ($s, $p, $o) = @_;
-	unless (ref($s) =~ /Trine/){
-		$s =~ s/[\<\>]//g;
-		$s = RDF::Trine::Node::Resource->new($s);
-	}
-	unless (ref($p) =~ /Trine/){
-		$p =~ s/[\<\>]//g;
-		$p = RDF::Trine::Node::Resource->new($p);
-	}
-	unless (ref($o) =~ /Trine/){
-		if ($o =~ /http\:\/\//){
-			$o =~ s/[\<\>]//g;
-			$o = RDF::Trine::Node::Resource->new($o);
-		} elsif ($o =~ /\D/) {
-			$o = RDF::Trine::Node::Literal->new($o);
-		} else {
-			$o = RDF::Trine::Node::Literal->new($o);				
-		}
-	}
-	my $statement = RDF::Trine::Statement->new($s, $p, $o);
-	return $statement;
-}
-
-
 
 
 

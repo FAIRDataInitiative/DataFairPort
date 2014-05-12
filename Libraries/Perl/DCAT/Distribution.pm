@@ -1,9 +1,12 @@
 package DCAT::Distribution;
 use strict;
 use Carp;
-use vars qw($AUTOLOAD @ISA);
 use lib "..";
+use DCAT::Base;
 use DCAT::NAMESPACES;
+use vars qw($AUTOLOAD @ISA);
+
+use base 'DCAT::Base';
 
 use vars qw /$VERSION/;
 $VERSION = sprintf "%d.%02d", q$Revision: 1.5 $ =~ /: (\d+)\.(\d+)/;
@@ -42,8 +45,9 @@ Mark Wilkinson (markw at illuminae dot com)
 	# DATA
 	#___________________________________________________________
 	#ATTRIBUTES
-	use Data::UUID::MT; 
+	use Data::UUID::MT;
 	my $ug1 = Data::UUID::MT->new( version => 4 );
+	$ug1 = $ug1->create_string;
 
 	my %_attr_data =    #     				DEFAULT    	ACCESSIBILITY
 	  (
