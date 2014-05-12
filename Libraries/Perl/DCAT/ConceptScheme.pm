@@ -1,10 +1,12 @@
 package DCAT::ConceptScheme;
 use strict;
 use Carp;
-use RDF::NS '20131205';
-use vars qw($AUTOLOAD @ISA);
 use lib "..";
+use DCAT::Base;
 use DCAT::NAMESPACES;
+use vars qw($AUTOLOAD @ISA);
+
+use base 'DCAT::Base';
 
 use vars qw /$VERSION/;
 $VERSION = sprintf "%d.%02d", q$Revision: 1.5 $ =~ /: (\d+)\.(\d+)/;
@@ -36,25 +38,6 @@ Mark Wilkinson (markw at illuminae dot com)
 
 =cut
 
-=head2 articleName
-
-
-=cut
-
-=head2 objectType
-
-
-=cut
-
-=head2 namespaces
-
-
-=cut
-
-=head2 addNamespace
-
-
-=cut
 
 {
 
@@ -65,7 +48,8 @@ Mark Wilkinson (markw at illuminae dot com)
 	my $ns = RDF::NS->new();
 	my %_attr_data =    #     				DEFAULT    	ACCESSIBILITY
 	  (
-		conceptscheme => [ undef, 'read/write' ],
+		_URI => [ undef, 'read/write' ],
+		label => [undef, 'read/write'],
 		type  => [$ns->skos('ConceptScheme'), 'read']
 	  );
 
@@ -97,6 +81,11 @@ sub new {
 	my $class = $caller_is_obj || $caller;
 	my $proxy;
 	my $self = bless {}, $class;
+	
+	my $URI = $args{'conceptscheme'};  # pass agent as an argument
+	die "must pass conceptscheme URI" unless $URI;
+	$args{'_URI'} = $URI;
+
 	foreach my $attrname ( $self->_standard_keys ) {
 		if ( exists $args{$attrname} ) {
 			$self->{$attrname} = $args{$attrname};

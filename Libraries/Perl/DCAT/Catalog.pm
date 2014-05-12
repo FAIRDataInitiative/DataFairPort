@@ -1,9 +1,12 @@
 package DCAT::Catalog;
 use strict;
 use Carp;
-use vars qw($AUTOLOAD @ISA);
 use lib "..";
+use DCAT::Base;
 use DCAT::NAMESPACES;
+use vars qw($AUTOLOAD @ISA);
+use base 'DCAT::Base';
+
 
 use vars qw /$VERSION/;
 $VERSION = sprintf "%d.%02d", q$Revision: 1.5 $ =~ /: (\d+)\.(\d+)/;
@@ -41,8 +44,9 @@ Mark Wilkinson (markw at illuminae dot com)
 	# DATA
 	#___________________________________________________________
 	#ATTRIBUTES
-	use Data::UUID::MT; 
+	use Data::UUID::MT;
 	my $ug1 = Data::UUID::MT->new( version => 4 );
+	$ug1 = $ug1->create_string;
 
 	my %_attr_data =    #     				DEFAULT    	ACCESSIBILITY
 	  (
@@ -103,7 +107,7 @@ sub new {
 	return $self;
 }
 
-sub has_themeTaxonomy {
+sub add_themeTaxonomy {
 	my ($self, $tax) = @_;
 	die "not a Skos concept scheme" unless $tax->type eq RDF::NS->new->skos('ConceptScheme');
 	$self->_themeTaxonomy($tax);
@@ -111,12 +115,29 @@ sub has_themeTaxonomy {
 	
 }
 
-sub has_Publisher {
+sub themeTaxonomy {
+	my ($self) = shift;
+	if (@_) {
+		print STDERR "YOU CANNOT ADD THEME TAXONOMIES USING THE ->themeTaxonomn method@  use add_themeTaxonomy method instead!\n";
+		return 0;
+	}
+	return $self->_themeTaxonomy;	
+}
+
+sub add_Publisher {
 	my ($self, $agent) = @_;
 	die "not a foaf:Agent" unless $agent->type eq RDF::NS->new->foaf('Agent');
 	$self->_publisher($agent);
-	return $self->_publiher;
-	
+	return $self->_publisher;
+}
+
+sub publisher {
+	my ($self) = shift;
+	if (@_) {
+		print STDERR "YOU CANNOT ADD Publishers USING THE ->publisher method@  use add_Publisher method instead!\n";
+		return 0;
+	}
+	return $self->_publisher;	
 }
 
 sub add_Dataset {
@@ -130,6 +151,16 @@ sub add_Dataset {
 	return $self->_datasets;
 }
 
+sub dataset {
+	my ($self) = shift;
+	if (@_) {
+		print STDERR "YOU CANNOT ADD DATASETS USING THE ->dataset method@  use add_Dataset method instead!\n";
+		return 0;
+	}
+	return $self->_datasets;	
+}
+
+
 sub add_Record {
 	my ($self, @records) = @_;
 	foreach my $set(@records)
@@ -140,6 +171,16 @@ sub add_Record {
 	}
 	return $self->_catalogrecords;
 }
+
+sub record {
+	my ($self) = shift;
+	if (@_) {
+		print STDERR "YOU CANNOT ADD RECORDS USING THE ->record method@  use add_Record method instead!\n";
+		return 0;
+	}
+	return $self->_catalogrecords;	
+}
+
 
 sub AUTOLOAD {
 	no strict "refs";

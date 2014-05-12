@@ -1,9 +1,12 @@
 package DCAT::CatalogRecord;
 use strict;
 use Carp;
-use vars qw($AUTOLOAD @ISA);
 use lib "..";
+use DCAT::Base;
 use DCAT::NAMESPACES;
+use vars qw($AUTOLOAD @ISA);
+
+use base 'DCAT::Base';
 
 use vars qw /$VERSION/;
 $VERSION = sprintf "%d.%02d", q$Revision: 1.5 $ =~ /: (\d+)\.(\d+)/;
@@ -44,7 +47,8 @@ Mark Wilkinson (markw at illuminae dot com)
 	#ATTRIBUTES
 	use Data::UUID::MT; 
 	my $ug1 = Data::UUID::MT->new( version => 4 );
-
+	$ug1 = $ug1->create_string;
+	
 	my %_attr_data =    #     				DEFAULT    	ACCESSIBILITY
 	  (
 		title => [ undef, 'read/write' ],
@@ -97,7 +101,7 @@ sub new {
 	return $self;
 }
 
-sub has_primaryTopic {
+sub add_primaryTopic {
 	my ($self, $topic) = @_;
 	die "not a dc:Dataset (foaf:primarytopic)" unless $topic->type eq RDF::NS->new->dc('Dataset');
 	$self->_primarytopic($topic);
@@ -105,6 +109,18 @@ sub has_primaryTopic {
 
 	
 }
+
+
+sub primaryTopic {
+	my ($self) = shift;
+	if (@_) {
+		print STDERR "YOU CANNOT ADD PRIMARY TOPICS USING THE ->primaryTopic method;  use add_primaryTopic method instead!\n";
+		return 0;
+	}
+	return $self->_primarytopic;
+}
+
+
 sub AUTOLOAD {
 	no strict "refs";
 	my ( $self, $newval ) = @_;

@@ -1,10 +1,12 @@
 package DCAT::Concept;
 use strict;
 use Carp;
-use RDF::NS '20131205';
-use vars qw($AUTOLOAD @ISA);
 use lib "..";
+use DCAT::Base;
 use DCAT::NAMESPACES;
+use vars qw($AUTOLOAD @ISA);
+
+use base 'DCAT::Base';
 
 use vars qw /$VERSION/;
 $VERSION = sprintf "%d.%02d", q$Revision: 1.5 $ =~ /: (\d+)\.(\d+)/;
@@ -45,7 +47,8 @@ Mark Wilkinson (markw at illuminae dot com)
 	my $ns = RDF::NS->new();
 	my %_attr_data =    #     				DEFAULT    	ACCESSIBILITY
 	  (
-		concept => [ undef, 'read/write' ],
+		_URI => [ undef, 'read/write' ],
+		label => [undef, 'read/write'],
 		type  => [$ns->skos('Concept'), 'read'],
 		_scheme => [undef, 'read/write'],
 	  );
@@ -78,6 +81,11 @@ sub new {
 	my $class = $caller_is_obj || $caller;
 	my $proxy;
 	my $self = bless {}, $class;
+
+	my $URI = $args{'concept'};  # pass agent as an argument
+	die "must pass concept URI" unless $URI;
+	$args{'_URI'} = $URI;
+
 	foreach my $attrname ( $self->_standard_keys ) {
 		if ( exists $args{$attrname} ) {
 			$self->{$attrname} = $args{$attrname};
@@ -91,11 +99,20 @@ sub new {
 }
 
 
-sub has_inScheme {
+sub add_inScheme {
 	my ($self, $scheme) = @_;
 	die "not a skos:ConceptScheme" unless $scheme->type eq RDF::NS->new->skos('ConceptScheme');
 	$self->_scheme($scheme);
 	return $self->_scheme;
+}
+
+sub inScheme {
+	my ($self) = shift;
+	if (@_) {
+		print STDERR "YOU CANNOT ADD CONCEDPT SCHEMES USING THE ->inScheme method@  use add_inScheme method instead!\n";
+		return 0;
+	}
+	return $self->_scheme;	
 }
 
 sub AUTOLOAD {

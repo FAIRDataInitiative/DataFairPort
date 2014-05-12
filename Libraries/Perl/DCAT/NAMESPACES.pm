@@ -2,7 +2,6 @@ package DCAT::NAMESPACES;
 use strict;
 use vars qw( $VERSION @ISA @EXPORT @NodeNames);
 require Exporter;
-use RDF::Trine;
 
 $VERSION = sprintf "%d.%02d", q$Revision: 1.2 $ =~ /: (\d+)\.(\d+)/;
 

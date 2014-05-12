@@ -1,9 +1,9 @@
 package DCAT::Agent;
 use strict;
 use Carp;
-use RDF::NS '20131205';
 use lib "..";
-use DCAT::NAMESPACES;
+use DCAT::Base;
+use base 'DCAT::Base';
 
 use vars qw($AUTOLOAD @ISA);
 
@@ -46,7 +46,8 @@ Mark Wilkinson (markw at illuminae dot com)
 	my $ns = RDF::NS->new();
 	my %_attr_data =    #     				DEFAULT    	ACCESSIBILITY
 	  (
-		agent => [ undef, 'read/write' ],
+		_URI => [ undef, 'read/write' ],
+		label => [undef, 'read/write'],
 		type  => [$ns->foaf('Agent'), 'read']
 	  );
 
@@ -78,6 +79,9 @@ sub new {
 	my $class = $caller_is_obj || $caller;
 	my $proxy;
 	my $self = bless {}, $class;
+	my $URI = $args{'agent'};  # pass agent as an argument
+	die "must pass agent URI" unless $URI;
+	$args{'_URI'} = $URI;
 	foreach my $attrname ( $self->_standard_keys ) {
 		if ( exists $args{$attrname} ) {
 			$self->{$attrname} = $args{$attrname};
@@ -89,6 +93,7 @@ sub new {
 	}
 	return $self;
 }
+
 
 sub AUTOLOAD {
 	no strict "refs";
