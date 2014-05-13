@@ -55,10 +55,11 @@ Mark Wilkinson (markw at illuminae dot com)
 		description => [ undef, 'read/write' ],
 		issued => [ undef, 'read/write' ],
 		modified => [ undef, 'read/write' ],
-		type => [DCAT."CatalogRecord", 'read'],
+		type => [[DCAT."CatalogRecord"], 'read'],
+		
 		_primarytopic  => [undef, 'read/write'],
 		_URI => ["http://datafairport.org/sampledata/catalogrecord/$ug1", 'read'],
-
+		'-primaryTopic' => [undef, 'read'],   # DO NOT USE!  These are only to trigger execution of the identically named subroutine when serializing to RDF
 	  );
 
 	#_____________________________________________________________
@@ -103,9 +104,9 @@ sub new {
 
 sub add_primaryTopic {
 	my ($self, $topic) = @_;
-	die "not a dc:Dataset (foaf:primarytopic)" unless $topic->type eq RDF::NS->new->dc('Dataset');
+	die "not a dc:Dataset (foaf:primarytopic)" unless (RDF::NS->new->dc('Dataset') ~~ @{$topic->type});
 	$self->_primarytopic($topic);
-	return $self->_primarytopic;
+	return [$self->_primarytopic];
 
 	
 }
@@ -117,7 +118,7 @@ sub primaryTopic {
 		print STDERR "YOU CANNOT ADD PRIMARY TOPICS USING THE ->primaryTopic method;  use add_primaryTopic method instead!\n";
 		return 0;
 	}
-	return $self->_primarytopic;
+	return [$self->_primarytopic];
 }
 
 

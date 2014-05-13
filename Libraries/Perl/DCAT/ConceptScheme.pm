@@ -48,9 +48,10 @@ Mark Wilkinson (markw at illuminae dot com)
 	my $ns = RDF::NS->new();
 	my %_attr_data =    #     				DEFAULT    	ACCESSIBILITY
 	  (
-		_URI => [ undef, 'read/write' ],
 		label => [undef, 'read/write'],
-		type  => [$ns->skos('ConceptScheme'), 'read']
+		type  => [[$ns->skos('ConceptScheme')], 'read'],
+
+		_URI => [ undef, 'read/write' ],
 	  );
 
 	#_____________________________________________________________

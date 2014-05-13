@@ -48,7 +48,7 @@ Mark Wilkinson (markw at illuminae dot com)
 	  (
 		_URI => [ undef, 'read/write' ],
 		label => [undef, 'read/write'],
-		type  => [$ns->foaf('Agent'), 'read']
+		type  => [[$ns->foaf('Agent')], 'read']
 	  );
 
 	#_____________________________________________________________

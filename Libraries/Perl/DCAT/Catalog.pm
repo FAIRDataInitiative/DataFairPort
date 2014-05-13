@@ -59,12 +59,17 @@ Mark Wilkinson (markw at illuminae dot com)
 		rights => [ undef, 'read/write' ],
 		spatial => [ undef, 'read/write' ],
 		homepage => [ undef, 'read/write' ],
+		type => [[DCAT."Catalog"], 'read'],
+
 		_themeTaxonomy => [undef, 'read/write'],
 		_publisher => [undef, 'read/write'],
 		_datasets => [[], 'read/write'],
 		_catalogrecords => [[], 'read/write'],
 		_URI => ["http://datafairport.org/sampledata/catalog/$ug1", 'read'],
-
+		'-publisher' => [undef, 'read'],   # DO NOT USE!  These are only to trigger execution of the identically named subroutine when serializing to RDF
+		'-themeTaxonomy' => [undef, 'read'],    # DO NOT USE!  These are only to trigger execution of the identically named subroutine when serializing to RDF
+		'-dataset' => [undef, 'read'],    # DO NOT USE!  These are only to trigger execution of the identically named subroutine when serializing to RDF
+		'-record' => [undef, 'read'],    # DO NOT USE!  These are only to trigger execution of the identically named subroutine when serializing to RDF
 	  );
 
 	#_____________________________________________________________
@@ -109,9 +114,9 @@ sub new {
 
 sub add_themeTaxonomy {
 	my ($self, $tax) = @_;
-	die "not a Skos concept scheme" unless $tax->type eq RDF::NS->new->skos('ConceptScheme');
+	die "not a Skos concept scheme" unless (RDF::NS->new->skos('ConceptScheme') ~~ @{$tax->type});
 	$self->_themeTaxonomy($tax);
-	return $self->_themeTaxonomy;
+	return [$self->_themeTaxonomy];
 	
 }
 
@@ -121,14 +126,14 @@ sub themeTaxonomy {
 		print STDERR "YOU CANNOT ADD THEME TAXONOMIES USING THE ->themeTaxonomn method@  use add_themeTaxonomy method instead!\n";
 		return 0;
 	}
-	return $self->_themeTaxonomy;	
+	return [$self->_themeTaxonomy];	
 }
 
 sub add_Publisher {
 	my ($self, $agent) = @_;
-	die "not a foaf:Agent" unless $agent->type eq RDF::NS->new->foaf('Agent');
+	die "not a foaf:Agent" unless (RDF::NS->new->foaf('Agent') ~~ @{$agent->type});
 	$self->_publisher($agent);
-	return $self->_publisher;
+	return [$self->_publisher];
 }
 
 sub publisher {
@@ -137,14 +142,14 @@ sub publisher {
 		print STDERR "YOU CANNOT ADD Publishers USING THE ->publisher method@  use add_Publisher method instead!\n";
 		return 0;
 	}
-	return $self->_publisher;	
+	return [$self->_publisher];	
 }
 
 sub add_Dataset {
 	my ($self, @datasets) = @_;
 	foreach my $set(@datasets)
 	{
-		die "not a Dataset" unless $set->type eq RDF::NS->new->dc('Dataset');
+		die "not a Dataset" unless (RDF::NS->new->dc('Dataset') ~~ @{$set->type});
 		my $sets = $self->_datasets;
 		push @$sets, $set;
 	}
@@ -165,7 +170,7 @@ sub add_Record {
 	my ($self, @records) = @_;
 	foreach my $set(@records)
 	{
-		die "not a CatalogRecord" unless $set->type eq DCAT."CatalogRecord";
+		die "not a CatalogRecord" unless (DCAT."CatalogRecord" ~~ @{$set->type});
 		my $sets = $self->_catalogrecords;
 		push @$sets, $set;
 	}

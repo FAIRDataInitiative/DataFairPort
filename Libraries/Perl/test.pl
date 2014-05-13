@@ -3,6 +3,8 @@ use warnings;
 
 use DCAT;
 
+my $Descriptor = DCAT::Descriptor->new();
+
 my $publisher1 = DCAT::Agent->new(agent => "http://people.com/Markwilkinson", label => 'Mark Wilkinson');
 my $publisher2 = DCAT::Agent->new(agent => "http://people.com/MarkwilkinsonII", label => 'Mark Wilkinson II');
 my $concept1 = DCAT::Concept->new(concept => "http://people/com/People/Professor", label => "Professor");
@@ -11,7 +13,6 @@ my $conceptscheme1 = DCAT::ConceptScheme->new(conceptscheme => "http://people/co
 
 print "\n\nadding inConceptScheme to a scheme\n\n";
 $concept1->add_inScheme($conceptscheme1);
-print $concept1->inScheme, "\n";
 
 
 print "\n\n\nDISTRIBUTION\n\n\n";
@@ -30,6 +31,7 @@ my $dist = DCAT::Distribution->new(
 );
 foreach my $key($dist->_standard_keys){
 	next if $key =~ /^_/;
+	next if $key =~ /^-/;
 	print "$key = ".($dist->$key)."\n";
 }
 
@@ -52,21 +54,19 @@ my $ds = DCAT::Dataset->new(
 );
 foreach my $key($ds->_standard_keys){
 	next if $key =~ /^_/;
+	next if $key =~ /^-/;
 	print "$key = ".($ds->$key)."\n";
 
 }
 
 print "\n\nadding Distribution\n\n";
 $ds->add_Distribution($dist, $dist);
-print $ds->distribution, "\n";
 
 print "\n\nadding Theme\n\n";
 $ds->add_Theme($concept1);
-print $ds->theme, "\n";
 
 print "\n\nadding Publisher\n\n";
 $ds->add_Publisher($publisher1);
-print $ds->publisher, "\n";
 
 
 print "\n\n\nCATALOGRECORD\n\n\n";
@@ -78,13 +78,12 @@ my $catrec = DCAT::CatalogRecord->new(title => "My Catalog",
 
 foreach my $key($catrec->_standard_keys){
 	next if $key =~ /^_/;
+	next if $key =~ /^-/;
 	print "$key = ".($catrec->$key)."\n";
 }
 
 print "\n\nadding Dataset\n\n";
-
 $catrec->add_primaryTopic($ds);
-print $catrec->primaryTopic;
 
 
 print "\n\n\nCATALOG\n\n\n";
@@ -100,26 +99,27 @@ my $cat = DCAT::Catalog->new(title => "My Catalog",
 
 foreach my $key($cat->_standard_keys){
 	next if $key =~ /^_/;
+	next if $key =~ /^-/;
 	print "$key = ".($cat->$key)."\n";
 }
 
 print "\n\nadding record\n\n";
 $cat->add_Record($catrec);
-print $cat->record;
-$cat->add_Record($catrec);
-print $cat->record;
 
 
 print "\n\nadding dataset\n\n";
 $cat->add_Dataset($ds);
-print $cat->dataset;
 
 
 print "\n\nadding themeTaxonomy\n\n";
 $cat->add_themeTaxonomy($conceptscheme1);
-print $cat->themeTaxonomy;
 
 print "\n\nadding publisher\n\n";
 $cat->add_Publisher($publisher2);
-print $cat->publisher;
+print "\n\n\n\n\n\n\n\n";
 
+
+$Descriptor->add_Catalog($cat);
+print $Descriptor->serialize('rdfxml');
+
+print "\n\n\nDONE\n\n\n";
