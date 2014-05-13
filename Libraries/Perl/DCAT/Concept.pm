@@ -47,10 +47,12 @@ Mark Wilkinson (markw at illuminae dot com)
 	my $ns = RDF::NS->new();
 	my %_attr_data =    #     				DEFAULT    	ACCESSIBILITY
 	  (
-		_URI => [ undef, 'read/write' ],
 		label => [undef, 'read/write'],
-		type  => [$ns->skos('Concept'), 'read'],
+		type  => [[$ns->skos('Concept')], 'read'],
+
 		_scheme => [undef, 'read/write'],
+		_URI => [ undef, 'read/write' ],
+		'-inScheme' => [undef, 'read'],   # DO NOT USE!  These are only to trigger execution of the identically named subroutine when serializing to RDF
 	  );
 
 	#_____________________________________________________________
@@ -101,9 +103,9 @@ sub new {
 
 sub add_inScheme {
 	my ($self, $scheme) = @_;
-	die "not a skos:ConceptScheme" unless $scheme->type eq RDF::NS->new->skos('ConceptScheme');
+	die "not a skos:ConceptScheme" unless (RDF::NS->new->skos('ConceptScheme') ~~ @{$scheme->type});
 	$self->_scheme($scheme);
-	return $self->_scheme;
+	return [$self->_scheme];
 }
 
 sub inScheme {
@@ -112,7 +114,7 @@ sub inScheme {
 		print STDERR "YOU CANNOT ADD CONCEDPT SCHEMES USING THE ->inScheme method@  use add_inScheme method instead!\n";
 		return 0;
 	}
-	return $self->_scheme;	
+	return [$self->_scheme];	
 }
 
 sub AUTOLOAD {

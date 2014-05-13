@@ -64,12 +64,15 @@ Mark Wilkinson (markw at illuminae dot com)
     		spatial => [ undef, 'read/write' ],
 		landingPage => [ undef, 'read/write' ],
                 accrualPeriodicity => [ undef, 'read/write' ],
-		type => [ $ns->dc('Dataset'), 'read/write' ],   #TODO - this needs to have multiple RDF types...  
+		type => [ [$ns->dc('Dataset'), DCAT."Dataset"], 'read/write' ],   # multiple RDF types...
+		
 		_themes  => [[], 'read/write'],
 		_publisher => ['undef', 'read/write'],
 		_distributions => [[], 'read/write'],
 		_URI => ["http://datafairport.org/sampledata/dataset/$ug1", 'read'],
-		
+		'-distribution' => [undef, 'read'],   # DO NOT USE!  These are only to trigger execution of the identically named subroutine when serializing to RDF
+		'-theme' => [undef, 'read'],    # DO NOT USE!  These are only to trigger execution of the identically named subroutine when serializing to RDF
+		'-publisher' => [undef, 'read'],    # DO NOT USE!  These are only to trigger execution of the identically named subroutine when serializing to RDF
 	  );
 
 	#_____________________________________________________________
@@ -117,11 +120,11 @@ sub add_Distribution {
 	my ($self, @themes) = @_;
 	foreach my $set(@themes)
 	{
-		die "not a dcat:Distribution" unless $set->type eq DCAT."Distribution";
+		die "not a dcat:Distribution" unless (DCAT."Distribution" ~~ @{$set->type});
 		my $sets = $self->_distributions;
 		push @$sets, $set;
 	}
-	return $self->_distributions;
+	return [$self->_distributions];
 }
 
 
@@ -139,11 +142,11 @@ sub add_Theme {
 	my ($self, @dists) = @_;
 	foreach my $set(@dists)
 	{
-		die "not a skos:Concept" unless $set->type eq RDF::NS->new->skos("Concept");
+		die "not a skos:Concept" unless (RDF::NS->new->skos("Concept") ~~ @{$set->type});
 		my $sets = $self->_themes;
 		push @$sets, $set;
 	}
-	return $self->_themes;
+	return [$self->_themes];
 }
 
 sub theme {
@@ -158,9 +161,9 @@ sub theme {
 
 sub add_Publisher {
 	my ($self, $publisher) = @_;
-	die "not a foaf:Agent" unless $publisher->type eq RDF::NS->new->foaf("Agent");
+	die "not a foaf:Agent" unless (RDF::NS->new->foaf("Agent") ~~ @{$publisher->type});
 	$self->_publisher($publisher);
-	return $self->_publisher;
+	return [$self->_publisher];
 }
 
 sub publisher {
@@ -169,7 +172,7 @@ sub publisher {
 		print STDERR "YOU CANNOT ADD PUBLISHERS USING THE ->publisher method@  use add_Publisher instead!\n";
 		return 0;
 	}
-	return $self->_publisher;	
+	return [$self->_publisher];	
 }
 
 

@@ -5,6 +5,7 @@ use vars qw /$VERSION/;
 $VERSION = sprintf "%d.%02d", q$Revision: 0.1 $ =~ /: (\d+)\.(\d+)/;
 
 our %predicate_namespaces = qw{
+    type RDF
     title DCT
     description DCT
     issued DCT
@@ -46,7 +47,7 @@ sub toTriples {
 	my $store = RDF::Trine::Store::Memory->new();
 	my $model = RDF::Trine::Model->new($store);
         my %namespaces;
-	my $dct = RDF::Trine::Namespace->new( DCT);
+	my $dct = RDF::Trine::Namespace->new( DCT);  # from shared exported constants in NAMESPACES.pm
         $namespaces{DCT} = $dct;
         
 	my $dcat = RDF::Trine::Namespace->new( DCAT);
@@ -58,33 +59,39 @@ sub toTriples {
 	my $foaf = RDF::Trine::Namespace->new( FOAF);
         $namespaces{FOAF} = $foaf;
 
+	my $rdf = RDF::Trine::Namespace->new( RDF);
+        $namespaces{RDF} = $rdf;
+
 	my $sub = $self->_URI;
 
         foreach my $key($self->_standard_keys){
 
-            next if $key =~ /^_/;
-#            print "$key = ".($self->$key)."\n";
-            my $namespace = $namespaces{$predicate_namespaces{$key}};
-            my $value = $self->$key;
-            my $stm = statement($sub, $namespace.$key, $value);
-            $model->add_statement($stm);
+            next if $key =~ /^_/;   # not a method representing a predicate
+            
+            if ($key =~ /^\-(\S+)/) {  # a method representing a predicate that can have multiple values
+                my $method = $1;
+                my $objects = $self->$method;  # call the subroutine.  All return a list-ref
+                foreach my $object(@$objects){
+                    my @statements = $object->toTriples;
+                    foreach my $stm(@statements) {
+                        $model->add_statement($stm);
+                    }
+                }
+                next;
+            } elsif ($key =~ /^type/) {   # rdf:type
+                my $types = $self->type;  # call the subroutine.  All return a list-ref
+                foreach my $type(@$types){
+                    my $stm = statement($sub, RDF."type", $type);
+                    $model->add_statement($stm);                    
+                }
+                next;
+            } else {
+                my $namespace = $namespaces{$predicate_namespaces{$key}};
+                my $value = $self->$key;
+                my $stm = statement($sub, $namespace.$key, $value);
+                $model->add_statement($stm);
+            }
         }
-
-	#
-	#$model->add_statement(statement($sub, RDF."type", $self->type));
-	#if (@{$self->_distributions}[0]) {
-	#	foreach my $dist(@{$self->_distributions}){
-	#		my $stm = statement($sub, DCAT."distribution", $dist->_URI);
-	#		$model->add_statement($stm);
-	#	}
-	#}
-	#$model->add_statement(statement($sub, DCT."publisher", $self->publisher->agent));
-	#if (@{$self->_themes}[0]) {
-	#	foreach my $theme(@{$self->_themes}){
-	#		my $stm = statement($sub, DCAT."theme", $theme->concept);
-	#		$model->add_statement($stm);
-	#	}
-	#}
 	
 	my $iter = $model->get_statements();
 	my @statements;

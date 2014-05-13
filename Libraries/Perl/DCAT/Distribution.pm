@@ -62,7 +62,8 @@ Mark Wilkinson (markw at illuminae dot com)
     		mediaType => [ undef, 'read/write' ],
 		format => [ undef, 'read/write' ],
                 byteSize => [ undef, 'read/write' ],
-		type => [DCAT."Distribution", 'read'],
+		type => [[DCAT."Distribution"], 'read'],
+		
 		_URI => ["http://datafairport.org/sampledata/distribution/$ug1", 'read'],
 
 	  );
