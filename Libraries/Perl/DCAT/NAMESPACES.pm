@@ -19,6 +19,7 @@ BEGIN {
         SKOS
         VCARD
         XSD
+	DCTS
 	);
 }
 
@@ -33,5 +34,8 @@ sub RDFS ()  {return 'http://www.w3.org/2000/01/rdf-schema#' }
 sub SKOS ()  {return 'http://www.w3.org/2004/02/skos/core#' }
 sub VCARD () {return 'http://www.w3.org/2006/vcard/ns#' }
 sub XSD ()   {return 'http://www.w3.org/2001/XMLSchema#' }
+
+# for our DCAT Profile Schema
+sub DCTS() {return 'https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#'}
 
 1;

@@ -34,6 +34,18 @@ our %predicate_namespaces = qw{
     record DCAT
     distribution DCAT
     primaryTopic FOAF
+    
+    label RDFS
+    organization DCTS
+    has_class DCTS
+    has_property DCTS
+    class_type DCTS
+    allowed_values DCTS
+    requirement_status DCTS
+    property_type DCTS
+    schemardfs_URL DCTS
+    allow_multiple DCTS
+    
 };
 
 sub URI {
@@ -42,10 +54,12 @@ sub URI {
 }
 
 
-sub toTriples {
-	my ($self) = @_;
-	my $store = RDF::Trine::Store::Memory->new();
-	my $model = RDF::Trine::Model->new($store);
+sub _toTriples {
+	my ($self, $model) = @_;
+        unless ($model){  # this is a recursive sub, so sometimes the preexisting model is passed in to be filled
+            my $store = RDF::Trine::Store::Memory->new();
+            $model = RDF::Trine::Model->new($store);
+        }
         my %namespaces;
 	my $dct = RDF::Trine::Namespace->new( DCT);  # from shared exported constants in NAMESPACES.pm
         $namespaces{DCT} = $dct;
@@ -59,22 +73,37 @@ sub toTriples {
 	my $foaf = RDF::Trine::Namespace->new( FOAF);
         $namespaces{FOAF} = $foaf;
 
+	my $rdfs = RDF::Trine::Namespace->new( RDFS);
+        $namespaces{RDFS} = $rdfs;
+
 	my $rdf = RDF::Trine::Namespace->new( RDF);
         $namespaces{RDF} = $rdf;
 
+	my $dcts = RDF::Trine::Namespace->new( DCTS);
+        $namespaces{DCTS} = $dcts;
+
 	my $sub = $self->_URI;
 
-        foreach my $key($self->_standard_keys){
+        foreach my $key($self->_standard_keys){   # GOOD LORD!  This subroutine just keeps getting uglier and uglier!
 
             next if $key =~ /^_/;   # not a method representing a predicate
             
-            if ($key =~ /^\-(\S+)/) {  # a method representing a predicate that can have multiple values
+            if ($key =~ /^\-(\S+)/) {  # a method representing a predicate that can have multiple values, so it is modeled as a subroutine
                 my $method = $1;
-                my $objects = $self->$method;  # call the subroutine.  All return a list-ref
+                my $objects = $self->$method;  # call the subroutine.  All return a list-ref; sometimes its a list of DCAT objects, sometimes a listref of strings
+                my @subjects = ();
                 foreach my $object(@$objects){
-                    my @statements = $object->toTriples;
-                    foreach my $stm(@statements) {
-                        $model->add_statement($stm);
+                    #print STDERR $object, "\n";
+                    if (ref($object) && $object->can('_toTriples')) {  # is it a DCAT object?  if so, unpack it  
+                        $object->_toTriples($model);  # recursive call... unpack that DCAT object to triples
+                        my $toConnect = $object->_URI;
+                        my $namespace = $namespaces{$predicate_namespaces{$method}};
+                        my $stm = statement($sub, $namespace.$method, $toConnect);
+                        $model->add_statement($stm);                                        
+                    } else {  # if it isn't a DCAT object, then it's just a listref of strings
+                        my $namespace = $namespaces{$predicate_namespaces{$method}};
+                        my $stm = statement($sub, $namespace.$method, $object);
+                        $model->add_statement($stm);                    
                     }
                 }
                 next;
@@ -86,21 +115,27 @@ sub toTriples {
                 }
                 next;
             } else {
+                #print STDERR $key, "\n";
                 my $namespace = $namespaces{$predicate_namespaces{$key}};
                 my $value = $self->$key;
+                next unless defined $value;
                 my $stm = statement($sub, $namespace.$key, $value);
                 $model->add_statement($stm);
             }
         }
-	
-	my $iter = $model->get_statements();
-	my @statements;
-	while (my $st = $iter->next) {
-		push @statements, $st;    
-	}
-	return @statements;
+	return $model;
 }
-	
+
+sub toTriples {
+    my ($self) = @_;
+    my $model = $self->_toTriples;
+    my $iter = $model->get_statements();
+    my @statements;
+    while (my $st = $iter->next) {
+            push @statements, $st;    
+    }
+    return @statements;
+}
 
 
 sub statement {

@@ -46,9 +46,6 @@ Mark Wilkinson (markw at illuminae dot com)
 	#___________________________________________________________
 	#ATTRIBUTES
 	my $ns = RDF::NS->new();
-	use Data::UUID::MT;  
-	my $ug1 = Data::UUID::MT->new( version => 4 );
-	$ug1 = $ug1->create_string;
 
 	my %_attr_data =    #     				DEFAULT    	ACCESSIBILITY
 	  (
@@ -66,10 +63,10 @@ Mark Wilkinson (markw at illuminae dot com)
                 accrualPeriodicity => [ undef, 'read/write' ],
 		type => [ [$ns->dc('Dataset'), DCAT."Dataset"], 'read/write' ],   # multiple RDF types...
 		
-		_themes  => [[], 'read/write'],
+		_themes  => [undef, 'read/write'],
 		_publisher => ['undef', 'read/write'],
-		_distributions => [[], 'read/write'],
-		_URI => ["http://datafairport.org/sampledata/dataset/$ug1", 'read'],
+		_distributions => [undef, 'read/write'],
+		_URI => [undef, 'read'],
 		'-distribution' => [undef, 'read'],   # DO NOT USE!  These are only to trigger execution of the identically named subroutine when serializing to RDF
 		'-theme' => [undef, 'read'],    # DO NOT USE!  These are only to trigger execution of the identically named subroutine when serializing to RDF
 		'-publisher' => [undef, 'read'],    # DO NOT USE!  These are only to trigger execution of the identically named subroutine when serializing to RDF
@@ -112,6 +109,11 @@ sub new {
 			$self->{$attrname} = $self->_default_for( $attrname );
 		}
 	}
+	$self->_themes([]);
+	$self->_distributions([]);
+	my $ug1 = Data::UUID::MT->new( version => 4 );
+	$ug1 = $ug1->create_string;
+	$self->{_URI} = ("http://datafairport.org/sampledata/dataset/$ug1");
 	return $self;
 }
 
@@ -124,7 +126,7 @@ sub add_Distribution {
 		my $sets = $self->_distributions;
 		push @$sets, $set;
 	}
-	return [$self->_distributions];
+	return $self->_distributions;
 }
 
 
@@ -146,7 +148,7 @@ sub add_Theme {
 		my $sets = $self->_themes;
 		push @$sets, $set;
 	}
-	return [$self->_themes];
+	return $self->_themes;
 }
 
 sub theme {

@@ -44,9 +44,6 @@ Mark Wilkinson (markw at illuminae dot com)
 	# DATA
 	#___________________________________________________________
 	#ATTRIBUTES
-	use Data::UUID::MT;
-	my $ug1 = Data::UUID::MT->new( version => 4 );
-	$ug1 = $ug1->create_string;
 
 	my %_attr_data =    #     				DEFAULT    	ACCESSIBILITY
 	  (
@@ -63,9 +60,9 @@ Mark Wilkinson (markw at illuminae dot com)
 
 		_themeTaxonomy => [undef, 'read/write'],
 		_publisher => [undef, 'read/write'],
-		_datasets => [[], 'read/write'],
-		_catalogrecords => [[], 'read/write'],
-		_URI => ["http://datafairport.org/sampledata/catalog/$ug1", 'read'],
+		_datasets => [undef, 'read/write'],
+		_catalogrecords => [undef, 'read/write'],
+		_URI => [undef, 'read'],
 		'-publisher' => [undef, 'read'],   # DO NOT USE!  These are only to trigger execution of the identically named subroutine when serializing to RDF
 		'-themeTaxonomy' => [undef, 'read'],    # DO NOT USE!  These are only to trigger execution of the identically named subroutine when serializing to RDF
 		'-dataset' => [undef, 'read'],    # DO NOT USE!  These are only to trigger execution of the identically named subroutine when serializing to RDF
@@ -109,6 +106,12 @@ sub new {
 			$self->{$attrname} = $self->_default_for( $attrname );
 		}
 	}
+	$self->_datasets([]);
+	$self->_catalogrecords([]);
+
+	my $ug1 = Data::UUID::MT->new( version => 4 );
+	$ug1 = $ug1->create_string;
+	$self->{_URI} = ("http://datafairport.org/sampledata/catalog/$ug1");
 	return $self;
 }
 

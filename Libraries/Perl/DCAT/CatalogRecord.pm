@@ -45,9 +45,6 @@ Mark Wilkinson (markw at illuminae dot com)
 	# DATA
 	#___________________________________________________________
 	#ATTRIBUTES
-	use Data::UUID::MT; 
-	my $ug1 = Data::UUID::MT->new( version => 4 );
-	$ug1 = $ug1->create_string;
 	
 	my %_attr_data =    #     				DEFAULT    	ACCESSIBILITY
 	  (
@@ -58,7 +55,7 @@ Mark Wilkinson (markw at illuminae dot com)
 		type => [[DCAT."CatalogRecord"], 'read'],
 		
 		_primarytopic  => [undef, 'read/write'],
-		_URI => ["http://datafairport.org/sampledata/catalogrecord/$ug1", 'read'],
+		_URI => [undef, 'read'],
 		'-primaryTopic' => [undef, 'read'],   # DO NOT USE!  These are only to trigger execution of the identically named subroutine when serializing to RDF
 	  );
 
@@ -99,6 +96,9 @@ sub new {
 			$self->{$attrname} = $self->_default_for( $attrname );
 		}
 	}
+	my $ug1 = Data::UUID::MT->new( version => 4 );
+	$ug1 = $ug1->create_string;
+	$self->{_URI} = ("http://datafairport.org/sampledata/catalogrecord/$ug1");
 	return $self;
 }
 

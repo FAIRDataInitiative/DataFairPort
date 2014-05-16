@@ -45,9 +45,6 @@ Mark Wilkinson (markw at illuminae dot com)
 	# DATA
 	#___________________________________________________________
 	#ATTRIBUTES
-	use Data::UUID::MT;
-	my $ug1 = Data::UUID::MT->new( version => 4 );
-	$ug1 = $ug1->create_string;
 
 	my %_attr_data =    #     				DEFAULT    	ACCESSIBILITY
 	  (
@@ -64,7 +61,7 @@ Mark Wilkinson (markw at illuminae dot com)
                 byteSize => [ undef, 'read/write' ],
 		type => [[DCAT."Distribution"], 'read'],
 		
-		_URI => ["http://datafairport.org/sampledata/distribution/$ug1", 'read'],
+		_URI => [undef, 'read'],
 
 	  );
 
@@ -105,6 +102,9 @@ sub new {
 			$self->{$attrname} = $self->_default_for( $attrname );
 		}
 	}
+	my $ug1 = Data::UUID::MT->new( version => 4 );
+	$ug1 = $ug1->create_string;
+	$self->{_URI} = ("http://datafairport.org/sampledata/distribution/$ug1");
 	return $self;
 }
 
