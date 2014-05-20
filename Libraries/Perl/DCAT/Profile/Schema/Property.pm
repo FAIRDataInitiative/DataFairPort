@@ -102,7 +102,7 @@ sub new {
 	}
 	my $ug1 = Data::UUID::MT->new( version => 4 );
 	$ug1 = $ug1->create_string;
-	$self->{_URI} = ("http://datafairport.org/sampledata/profileschemaproperty/$ug1");
+	$self->{_URI} = ("http://datafairport.org/sampledata/profileschemaproperty/$ug1")  unless $self->{_URI};
 
 	return $self;
 }

@@ -1,20 +1,19 @@
-package DCAT::Profile::Schema;
+package DCAT::Descriptor;
 use strict;
 use Carp;
-use lib "../../";
+use lib "..";
 use DCAT::Base;
 use DCAT::NAMESPACES;
-use RDF::Trine::Store::Memory;
 use vars qw($AUTOLOAD @ISA);
-
 use base 'DCAT::Base';
+
 
 use vars qw /$VERSION/;
 $VERSION = sprintf "%d.%02d", q$Revision: 1.5 $ =~ /: (\d+)\.(\d+)/;
 
 =head1 NAME
 
-DCAT::Distribution - a module for working with DCAT Distributions
+DCAT::Descriptor - The container for all other DCAT objects
 
 =head1 SYNOPSIS
 
@@ -39,7 +38,6 @@ Mark Wilkinson (markw at illuminae dot com)
 
 =cut
 
-
 {
 
 	# Encapsulated:
@@ -49,22 +47,10 @@ Mark Wilkinson (markw at illuminae dot com)
 
 	my %_attr_data =    #     				DEFAULT    	ACCESSIBILITY
 	  (
-		label => ['Descriptor Profile Schema', 'read'],
-		title => [ undef, 'read/write' ],
-		description => [ undef, 'read/write' ],
-		modified => [ undef, 'read/write' ],
-                license => [ undef, 'read/write' ],
-                issued => [ undef, 'read/write' ],
-    		organization => [ undef, 'read/write' ],
-		identifier => [ undef, 'read/write' ],
-		schemardfs_URL => ["http://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs", 'read/write'],
-		_has_class => [undef, 'read/write'],
-		type => [['http://dcat.profile.schema/Schema'], 'read'],
-		
-		_URI => [undef, 'read/write'],
-		
-		'-has_class' => [undef, 'read/write']
-
+		Catalog => [ undef, 'read/write' ],
+		Datasets => [ undef, 'read/write' ],
+		Distributions => [ undef, 'read/write' ],
+		CatalogRecords => [ undef, 'read/write' ],
 	  );
 
 	#_____________________________________________________________
@@ -104,31 +90,42 @@ sub new {
 			$self->{$attrname} = $self->_default_for( $attrname );
 		}
 	}
-	my $ug1 = Data::UUID::MT->new( version => 4 );
-	$ug1 = $ug1->create_string;
-	$self->{_URI} = ("http://datafairport.org/sampledata/profileschema/$ug1")  unless $self->{_URI};
-
 	return $self;
 }
 
-sub add_Class {   
-	my ($self, $class) = @_;
-	die "not a DCAT Profile Schema Class" unless ('http://dcat.profile.schema/Class' ~~ $class->type);
-	my $classes = $self->_has_class;
-	push @$classes, $class;
-	$self->_has_class($classes);
+sub add_Catalog {
+	my ($self, $cat) = @_;
+	die "not a DCAT Catalog" unless (DCAT."Catalog" ~~ $cat->type);
+	$self->Catalog($cat);
 	return 1;
 }
 
-sub has_class {   
-	my ($self) = shift;
-	if (@_) {
-		print STDERR "YOU CANNOT ADD CLASSES USING THE ->has_class method;  use add_Class instead!\n";
-		return 0;
-	}
-	return $self->_has_class;
+sub add_Dataset {   # it isn't clear to me if DCAT descriptors are allowed to have Datasets independent of Catalogs
+	my ($self, $dat) = @_;
+	die "not a DCAT Catalog" unless (DCAT."Dataset" ~~ $dat->type);
+	my $datasets = $self->Datasets;
+	push @$datasets, $dat;
+	$self->Datasets($datasets);
+	return 1;
 }
 
+sub add_CatalogRecord {   # it isn't clear to me if DCAT descriptors are allowed to have Datasets independent of Catalogs
+	my ($self, $cr) = @_;
+	die "not a DCAT CatalogRecord" unless (DCAT."CatalogRecord" ~~ $cr->type);
+	my $crs = $self->CatalogRecords;
+	push @$crs, $cr;
+	$self->CatalogRecords($crs);
+	return 1;
+}
+
+sub add_Distribution {   # it isn't clear to me if DCAT descriptors are allowed to have Datasets independent of Catalogs
+	my ($self, $dist) = @_;
+	die "not a DCAT Distribution" unless (DCAT."Distribution" ~~ $dist->type);
+	my $dists = $self->Distributions;
+	push @$dists, $dist;
+	$self->Distributions($dists);
+	return 1;
+}
 
 sub serialize {
 #ntriples
@@ -141,9 +138,13 @@ sub serialize {
 	$format ||='rdfxml';
 	my $store = RDF::Trine::Store::Memory->new();
 	my $model = RDF::Trine::Model->new($store);
-	my @triples = $self->toTriples;
-	foreach my $statement(@triples){
-		$model->add_statement($statement);
+
+	foreach my $object($self->Catalog, $self->Distributions, $self->Datasets, $self->CatalogRecords){
+		next unless $object;	
+		my @triples = $object->toTriples;
+		foreach my $statement(@triples){
+			$model->add_statement($statement);
+		}
 	}
 	my $serializer = RDF::Trine::Serializer->new($format);
 	return $serializer->serialize_model_to_string($model);
