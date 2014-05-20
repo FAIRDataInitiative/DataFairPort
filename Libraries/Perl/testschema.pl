@@ -61,4 +61,10 @@ $DCATDatasetClass->add_Property($DistributionProperty);
 
 $DatasetSchema->add_Class($DCATDatasetClass);
 
-print $DatasetSchema->serialize;
+my $schema =  $DatasetSchema->serialize;
+open(OUT, ">ProfileSchema.rdf") or die "Can't open the output file to write the profile schema$!\n";
+print OUT $schema;
+close OUT;
+
+
+
