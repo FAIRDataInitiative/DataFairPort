@@ -13,6 +13,9 @@ use DCAT::Distribution;
 use DCAT::Agent;
 use RDF::Trine;
 use Data::UUID::MT;
+use DCAT::Profile::Schema;
+use DCAT::Profile::Schema::Class;
+use DCAT::Profile::Schema::Property;
 
 use vars qw /$VERSION/;
 $VERSION = sprintf "%d.%02d", q$Revision: 0.1 $ =~ /: (\d+)\.(\d+)/;
