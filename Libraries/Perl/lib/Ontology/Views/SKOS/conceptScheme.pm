@@ -1,5 +1,5 @@
 package Ontology::Views::SKOS::conceptScheme;
-use lib "../../";
+use lib "../../../";
 use Ontology::Views::SKOS::NAMESPACES;
 use strict;
 use Carp;

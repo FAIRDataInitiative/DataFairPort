@@ -20,6 +20,7 @@ BEGIN {
         VCARD
         XSD
 	DCTS
+	SKOS
 	);
 }
 
