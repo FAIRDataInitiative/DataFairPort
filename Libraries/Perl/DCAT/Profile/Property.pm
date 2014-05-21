@@ -1,7 +1,7 @@
-package DCAT::Profile::Schema::Property;
+package DCAT::Profile::Property;
 use strict;
 use Carp;
-use lib "../../../";
+use lib "../../";
 use DCAT::Base;
 use DCAT::NAMESPACES;
 use Data::UUID::MT;
@@ -12,17 +12,40 @@ use base 'DCAT::Base';
 use vars qw /$VERSION/;
 $VERSION = sprintf "%d.%02d", q$Revision: 1.5 $ =~ /: (\d+)\.(\d+)/;
 
+
 =head1 NAME
 
-DCAT::Distribution - a module for working with DCAT Distributions
+DCAT::Profile::Property - a module representing a DCAT Profile Property
 
 =head1 SYNOPSIS
 
+ use DCAT::Profile::Class;
+ use DCAT::Profile::Property;
+ 
+ my $ProfileClass = DCAT::Profile::Class->new(
+    class_type => DCAT."dataset",  # DCAT is an exported constant
+    URI => "http://example.org//ProfileClasses/ThisClass.rdf",
+    label => "core metadata for the thesis submission"
+   );
+
+ my $TitleProperty = DCAT::Profile::Property->new(
+    property_type => DCT.'title', # DCT is an exported constant
+    allow_multiple => "false",
+ );
+ $TitleProperty->set_RequirementStatus('required');
+ $TitleProperty->add_ValueRange(XSD."string");
+ $ProfileClass->add_Property($TitleProperty);
+
+ 
 =cut
 
 =head1 DESCRIPTION
 
+DCAT Property describes a single metadata element, and its possible values.
+It IS NOT a containers for this metadata,
+it only describes what that metadata should look like (meta-meta-data :-) )
 
+Effectively, in RDF terms, this is the predicate associated with the metadata, and it's ranges
 
 =cut
 
@@ -37,7 +60,111 @@ Mark Wilkinson (markw at illuminae dot com)
 
 =head2 new
 
+ Title : new
+ Usage : my $Property = DCAT::Profile::Property->new();
+ Function: Builds a new DCAT::Profile::Property
+ Returns : DCAT::Profile::Property
+ Args : label => $string
+	property_type => $URI (possibly an OWL predicate URI)
+	allow_multiple => $boolean ('true'/'false')
+	URI => $URI (optional - a unique URI will be auto-generated)
+
+
 =cut
+
+=head2 label
+
+ Title : label
+ Usage : $label = $Property->label($label);
+ Function: get/set the RDF label for this object when serialized
+ Returns : string
+ Args : string
+
+=cut
+
+=head2 property_type
+
+ Title : property_type
+ Usage : $property_type = $Property->property_type($property_type);
+ Function: get/set the property type (should be a URI, e.g. of an ontology predicate)
+ Returns : string (URI)
+ Args : string (URI)
+
+=cut
+
+
+=head2 allow_multiple
+
+ Title : allow_multiple
+ Usage : $allow_multiple = $Property->allow_multiple('true');
+ Function: get/set the "allow multiple" attribute - is this property allowed multiple times in a class?
+ Returns : string ('true'/'false')
+ Args : string ('true'/'false')
+
+=cut
+
+
+=head2 URI
+
+ Title : URI
+ Usage : $uri = $Property->URI($uri);
+ Function: get/set the URI for this Property - the URI in the RDF
+ Returns : string  (should be a URI)
+ Args : string   (should be a URI)
+ notes:  if this is not supplied, a unique URI will be automatically generated
+
+=cut
+
+=head2 requirement_status
+
+ Title : requirement_status
+ Usage : $req = $Property->requirement_status();
+ Function: retrieve the 'required' or 'optional' status of this property
+ Returns : string
+ Args : none
+ Note:  the capitalization of the method name
+        matches the capitalization of the RDF predicate...
+
+=cut
+
+
+=head2 set_RequirementStatus
+
+ Title : set_RequirementStatus
+ Usage : $Property->set_RequirementStatus('optional');
+ Function: set the 'required' or 'optional' status of this property
+ Returns : none
+ Args : string ('optional' or 'required')
+
+=cut
+
+=head2  add_ValueRange
+
+ Title : add_ValueRange
+ Usage : $Property->add_ValueRange($URI);
+ Function: add a range restriction for this predicate
+ Returns : none
+ Args : string - the string should be a URI...
+ Notes:  This is the "critical bit" of the DCAT Profile.  The ranges
+         can be defined by one of:  the URI of an XSD datatype, the URI
+	 to a SKOS view of a set of ontology terms (according to Jupp et al, 2013)
+	 or the URI to another DCAT::Profile (in this way, profiles can be hierarchical)
+
+=cut
+
+
+=head2 allowed_values
+
+ Title : allowed_values
+ Usage : $req = $Property->allowed_values();
+ Function: retrieve the value ranges for the property
+ Returns : listref of URIs (see add_ValueRange for details)
+ Args : none
+ Note:  the capitalization of the method name
+        matches the capitalization of the RDF predicate...
+
+=cut
+
 
 
 {
@@ -57,7 +184,7 @@ Mark Wilkinson (markw at illuminae dot com)
 
 		type => [['http://dcat.profile.schema/Property'], 'read'],
 	
-		_URI => [undef, 'read'],
+		URI => [undef, 'read'],
 
 		'-allowed_values'  => [undef, 'read/write' ],
 		'-requirement_status' => [undef, 'read/write'],
@@ -102,7 +229,7 @@ sub new {
 	}
 	my $ug1 = Data::UUID::MT->new( version => 4 );
 	$ug1 = $ug1->create_string;
-	$self->{_URI} = ("http://datafairport.org/sampledata/profileschemaproperty/$ug1")  unless $self->{_URI};
+	$self->{URI} = ("http://datafairport.org/sampledata/profileschemaproperty/$ug1")  unless $self->{URI};
 
 	return $self;
 }

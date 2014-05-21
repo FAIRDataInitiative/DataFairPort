@@ -1,7 +1,7 @@
-package DCAT::Profile::Schema::Parser;
+package DCAT::Profile::Parser;
 use strict;
 use Carp;
-use lib "../../../";
+use lib "../../";
 use DCAT::Base;
 use DCAT::NAMESPACES;
 use DCAT;
@@ -19,15 +19,33 @@ $VERSION = sprintf "%d.%02d", q$Revision: 1.5 $ =~ /: (\d+)\.(\d+)/;
 
 =head1 NAME
 
-DCAT::Distribution - a module for working with DCAT Distributions
+DCAT::Profile::Parser - a module for reading DCAT Profile RDF files
 
 =head1 SYNOPSIS
 
+ use DCAT::Profile::Parser;
+
+ my $parser = DCAT::Profile::Parser->new(filename => "./ProfileSchema.rdf");
+ my $DatasetSchema = $parser->parse;
+
+ my $schema =  $DatasetSchema->serialize;
+ open(OUT, ">ProfileSchema2.rdf")
+ print OUT $schema;
+ close OUT;
+
+ 
 =cut
 
 =head1 DESCRIPTION
 
+DCAT Profiles describe the metadata elements, and constrained values, that should be
+associated with a given information entity.  They ARE NOT containers for this metadata,
+they only describe what that metadata should look like (meta-meta-data :-) )
 
+This module will parse an RDF file containing a DCAT Profile into
+objects that can be used to construct a metadata capture interface.
+The objects will tell you what fields are required/optional, and what possible
+values they are allowed to contain.
 
 =cut
 
@@ -42,7 +60,60 @@ Mark Wilkinson (markw at illuminae dot com)
 
 =head2 new
 
+ Title : new
+ Usage : my $ProfileParser = DCAT::Profile::Parser->new();
+ Function: Builds a new DCAT::Profile::Parser
+ Returns : DCAT::Profile::Parser
+ Args : filename => $filename
+        model => $model (an existing RDF::Trine::Model -
+	        if you don't supply this it will be created for you)
+
+
 =cut
+
+=head2 parse
+
+ Title : parse
+ Usage : my $ProfileObject = $ProfileParser->parse();
+ Function: parse the file associated with the Parser
+ Returns : DCAT::Profile
+ Args : none
+
+=cut
+
+=head2 filename
+
+ Title : filename
+ Usage : $ProfileParser->filename($filename);
+ Function: associate a file with the parser
+ Returns : null
+ Args : full or relative path to the file to be parsed
+
+=cut
+
+
+=head2 model
+
+ Title : model
+ Usage : $ProfileParser->model($RDFTrineModel);
+ Function: associate an RDF::Trine::Model with the parser
+ Returns : null
+ Args : RDF::Trine::Model (this will be created for you, if not supplied)
+
+=cut
+
+
+=head2 profile
+
+ Title : profile
+ Usage : $Profile = $ProfileParser->profile;
+ Function: retrieve the profile after a parse.  Must parse first!
+ Returns : DCAT::Profile
+ Args : none
+
+=cut
+
+
 
 
 {
@@ -131,6 +202,7 @@ sub getProfile {
 		my $URI = $row->{ 's' };
 		$profile = $self->_fillProfile($URI);
 	}
+	$self->profile($profile);
 	return $profile;
 
 }
@@ -151,7 +223,7 @@ sub _fillProfile {
 #		_has_class => [undef, 'read/write'],
 #		type => [['http://dcat.profile.schema/Schema'], 'read'],
 #		
-#		_URI => [undef, 'read/write'],
+#		URI => [undef, 'read/write'],
 	my %ns = %DCAT::Base::predicate_namespaces;
 	my $prefixes = _generatePrefixHeader();
 	my $query = "SELECT ?label ?title ?description ?modified ?license ?issued ?organization ?identifier ?schemardfs_URL ?type
@@ -177,8 +249,8 @@ sub _fillProfile {
 	my $identifier = $row->{identifier}->value if $row->{identifier};
 	my $schemardfs_URL = $row->{schemardfs_URL}->value if $row->{schemardfs_URL};
 	my $type = $row->{type}->value if $row->{type};
-	my $ProfileObject = DCAT::Profile::Schema->new(
-		_URI => $URI,
+	my $ProfileObject = DCAT::Profile->new(
+		URI => $URI,
 		label => $label,
 		title => $title,
 		description => $description,
@@ -204,7 +276,7 @@ sub _fillClasses {
 	my $ProfileObject = $self->profile;
 	my $model = $self->model;
 	
-	my $ProfileURI = $ProfileObject->_URI;
+	my $ProfileURI = $ProfileObject->URI;
 
 	my $has_class = $DCAT::Base::predicate_namespaces{has_class};	
 	no strict "refs";
@@ -251,8 +323,8 @@ sub _fillClass {
 	
 	my $label = $row->{label}->value if $row->{label};
 	my $class_type = $row->{class_type}->value if $row->{class_type};
-	my $ClassObject = DCAT::Profile::Schema::Class->new(
-		_URI => $ClassURI,
+	my $ClassObject = DCAT::Profile::Class->new(
+		URI => $ClassURI,
 		label => $label,
 		class_type => $class_type,
 	);
@@ -265,7 +337,7 @@ sub _fillClass {
 sub _fillProperties {
 	my ($self, $ClassObject) = @_;
 	my $model = $self->model;
-	my $ClassURI = $ClassObject->_URI;
+	my $ClassURI = $ClassObject->URI;
 	
 	my $has_property = $DCAT::Base::predicate_namespaces{has_property};	
 	no strict "refs";
@@ -314,8 +386,8 @@ sub _fillProperty {
 	my $property_type = $row->{property_type}->value if $row->{property_type};
 	my $allow_multiple = $row->{allow_multiple}->value if $row->{allow_multiple};
 	my $required = $row->{requirement_status}->value if $row->{requirement_status};
-	my $PropertyObject = DCAT::Profile::Schema::Property->new(
-		_URI => $PropertyURI,
+	my $PropertyObject = DCAT::Profile::Property->new(
+		URI => $PropertyURI,
 		label => $label,
 		property_type => $property_type,
 		allow_multiple => $allow_multiple,

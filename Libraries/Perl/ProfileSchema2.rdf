@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/examples/ProfileSchemas/DCATDatasetExample.rdf">
+	<rdf:type rdf:resource="http://dcat.profile.schema/Class"/>
+	<ns1:label>Descriptor Profile Schema Class</ns1:label>
+	<ns2:class_type rdf:resource="http://www.w3.org/ns/dcat#dataset"/>
+	<ns2:has_property rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/8a1460d1-403c-486b-b981-fbb97258c0a7"/>
+	<ns2:has_property rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/c6bcf3fc-4c8d-414c-9064-494d1811f6e1"/>
+	<ns2:has_property rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/cc73903c-ece1-4531-b98a-f55cb8b24575"/>
+	<ns2:has_property rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/cdd014a6-dd02-445f-aa62-5513f3f7c091"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://purl.org/dc/terms/" xmlns:ns2="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns3="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/examples/ProfileSchemas/FAIRportSimpleProfileExample.rdf">
+	<ns1:description>This Descriptor Profile schema template defines a schema that will have a DCAT Dataset with title, description, issued, and distribution properties</ns1:description>
+	<ns1:identifier>doi:2222222222</ns1:identifier>
+	<ns1:issued>May 16, 2014</ns1:issued>
+	<ns1:license>Anyone may use this freely</ns1:license>
+	<ns1:title>A very simple DCAT Dataset plus Distribution example</ns1:title>
+	<rdf:type rdf:resource="http://dcat.profile.schema/Schema"/>
+	<ns2:label>Descriptor Profile Schema for FAIRPORT demo</ns2:label>
+	<ns3:has_class rdf:resource="http://datafairport.org/examples/ProfileSchemas/DCATDatasetExample.rdf"/>
+	<ns3:organization>wilkinsonlab.info</ns3:organization>
+	<ns3:schemardfs_URL rdf:resource="http://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/8a1460d1-403c-486b-b981-fbb97258c0a7">
+	<rdf:type rdf:resource="http://dcat.profile.schema/Property"/>
+	<ns1:label>Descriptor Profile Schema Property</ns1:label>
+	<ns2:allow_multiple>false</ns2:allow_multiple>
+	<ns2:allowed_values rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+	<ns2:property_type rdf:resource="http://purl.org/dc/terms/description"/>
+	<ns2:requirement_status>required</ns2:requirement_status>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/c6bcf3fc-4c8d-414c-9064-494d1811f6e1">
+	<rdf:type rdf:resource="http://dcat.profile.schema/Property"/>
+	<ns1:label>Descriptor Profile Schema Property</ns1:label>
+	<ns2:allow_multiple>false</ns2:allow_multiple>
+	<ns2:allowed_values rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+	<ns2:property_type rdf:resource="http://purl.org/dc/terms/issued"/>
+	<ns2:requirement_status>optional</ns2:requirement_status>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/cc73903c-ece1-4531-b98a-f55cb8b24575">
+	<rdf:type rdf:resource="http://dcat.profile.schema/Property"/>
+	<ns1:label>Descriptor Profile Schema Property</ns1:label>
+	<ns2:allow_multiple>false</ns2:allow_multiple>
+	<ns2:allowed_values rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+	<ns2:property_type rdf:resource="http://purl.org/dc/terms/title"/>
+	<ns2:requirement_status>required</ns2:requirement_status>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/cdd014a6-dd02-445f-aa62-5513f3f7c091">
+	<rdf:type rdf:resource="http://dcat.profile.schema/Property"/>
+	<ns1:label>Descriptor Profile Schema Property</ns1:label>
+	<ns2:allow_multiple>true</ns2:allow_multiple>
+	<ns2:allowed_values rdf:resource="http://www.w3.org/ns/dcat#Distribution"/>
+	<ns2:property_type rdf:resource="http://www.w3.org/ns/dcat#distribution"/>
+	<ns2:requirement_status>optional</ns2:requirement_status>
+</rdf:Description>
+</rdf:RDF>
