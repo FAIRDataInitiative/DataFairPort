@@ -1,4 +1,4 @@
-package DCAT::Concept;
+package DCAT::Distribution;
 use strict;
 use Carp;
 use lib "..";
@@ -7,13 +7,13 @@ use DCAT::NAMESPACES;
 use vars qw($AUTOLOAD @ISA);
 
 use base 'DCAT::Base';
-
-use vars qw /$VERSION/;
-$VERSION = sprintf "%d.%02d", q$Revision: 1.5 $ =~ /: (\d+)\.(\d+)/;
+#
+#use vars qw /$VERSION/;
+#$VERSION = sprintf "%d.%02d", q$Revision: 1.5 $ =~ /: (\d+)\.(\d+)/;
 
 =head1 NAME
 
-DCAT::Concept - a module for working with the DCAT skos:Concept
+DCAT::Distribution - a module for working with DCAT Distributions
 
 =head1 SYNOPSIS
 
@@ -38,21 +38,31 @@ Mark Wilkinson (markw at illuminae dot com)
 
 =cut
 
+
 {
 
 	# Encapsulated:
 	# DATA
 	#___________________________________________________________
 	#ATTRIBUTES
-	my $ns = RDF::NS->new();
+
 	my %_attr_data =    #     				DEFAULT    	ACCESSIBILITY
 	  (
-		label => [undef, 'read/write'],
-		type  => [[$ns->skos('Concept')], 'read'],
+		title => [ undef, 'read/write' ],
+		description => [ undef, 'read/write' ],
+		issued => [ undef, 'read/write' ],
+		modified => [ undef, 'read/write' ],
+                license => [ undef, 'read/write' ],
+                rights => [ undef, 'read/write' ],
+                accessURL => [ undef, 'read/write' ],
+                downloadURL => [ undef, 'read/write' ],
+    		mediaType => [ undef, 'read/write' ],
+		format => [ undef, 'read/write' ],
+                byteSize => [ undef, 'read/write' ],
+		type => [[DCAT."Distribution"], 'read'],
+		
+		URI => [undef, 'read'],
 
-		_scheme => [undef, 'read/write'],
-		URI => [ undef, 'read/write' ],
-		'-inScheme' => [undef, 'read'],   # DO NOT USE!  These are only to trigger execution of the identically named subroutine when serializing to RDF
 	  );
 
 	#_____________________________________________________________
@@ -83,11 +93,6 @@ sub new {
 	my $class = $caller_is_obj || $caller;
 	my $proxy;
 	my $self = bless {}, $class;
-
-	my $URI = $args{'concept'};  # pass agent as an argument
-	die "must pass concept URI" unless $URI;
-	$args{'URI'} = $URI;
-
 	foreach my $attrname ( $self->_standard_keys ) {
 		if ( exists $args{$attrname} ) {
 			$self->{$attrname} = $args{$attrname};
@@ -97,24 +102,10 @@ sub new {
 			$self->{$attrname} = $self->_default_for( $attrname );
 		}
 	}
+	my $ug1 = Data::UUID::MT->new( version => 4 );
+	$ug1 = $ug1->create_string;
+	$self->{URI} = ("http://datafairport.org/sampledata/distribution/$ug1");
 	return $self;
-}
-
-
-sub add_inScheme {
-	my ($self, $scheme) = @_;
-	die "not a skos:ConceptScheme" unless (RDF::NS->new->skos('ConceptScheme') ~~ @{$scheme->type});
-	$self->_scheme($scheme);
-	return [$self->_scheme];
-}
-
-sub inScheme {
-	my ($self) = shift;
-	if (@_) {
-		print STDERR "YOU CANNOT ADD CONCEDPT SCHEMES USING THE ->inScheme method@  use add_inScheme method instead!\n";
-		return 0;
-	}
-	return [$self->_scheme];	
 }
 
 sub AUTOLOAD {

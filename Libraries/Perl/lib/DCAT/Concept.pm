@@ -1,19 +1,19 @@
-package DCAT::Descriptor;
+package DCAT::Concept;
 use strict;
 use Carp;
 use lib "..";
 use DCAT::Base;
 use DCAT::NAMESPACES;
 use vars qw($AUTOLOAD @ISA);
+
 use base 'DCAT::Base';
 
-
-use vars qw /$VERSION/;
-$VERSION = sprintf "%d.%02d", q$Revision: 1.5 $ =~ /: (\d+)\.(\d+)/;
+#use vars qw /$VERSION/;
+#$VERSION = sprintf "%d.%02d", q$Revision: 1.5 $ =~ /: (\d+)\.(\d+)/;
 
 =head1 NAME
 
-DCAT::Descriptor - The container for all other DCAT objects
+DCAT::Concept - a module for working with the DCAT skos:Concept
 
 =head1 SYNOPSIS
 
@@ -44,13 +44,15 @@ Mark Wilkinson (markw at illuminae dot com)
 	# DATA
 	#___________________________________________________________
 	#ATTRIBUTES
-
+	my $ns = RDF::NS->new();
 	my %_attr_data =    #     				DEFAULT    	ACCESSIBILITY
 	  (
-		Catalog => [ undef, 'read/write' ],
-		Datasets => [ undef, 'read/write' ],
-		Distributions => [ undef, 'read/write' ],
-		CatalogRecords => [ undef, 'read/write' ],
+		label => [undef, 'read/write'],
+		type  => [[$ns->skos('Concept')], 'read'],
+
+		_scheme => [undef, 'read/write'],
+		URI => [ undef, 'read/write' ],
+		'-inScheme' => [undef, 'read'],   # DO NOT USE!  These are only to trigger execution of the identically named subroutine when serializing to RDF
 	  );
 
 	#_____________________________________________________________
@@ -81,6 +83,11 @@ sub new {
 	my $class = $caller_is_obj || $caller;
 	my $proxy;
 	my $self = bless {}, $class;
+
+	my $URI = $args{'concept'};  # pass agent as an argument
+	die "must pass concept URI" unless $URI;
+	$args{'URI'} = $URI;
+
 	foreach my $attrname ( $self->_standard_keys ) {
 		if ( exists $args{$attrname} ) {
 			$self->{$attrname} = $args{$attrname};
@@ -93,63 +100,22 @@ sub new {
 	return $self;
 }
 
-sub add_Catalog {
-	my ($self, $cat) = @_;
-	die "not a DCAT Catalog" unless (DCAT."Catalog" ~~ $cat->type);
-	$self->Catalog($cat);
-	return 1;
+
+sub add_inScheme {
+	my ($self, $scheme) = @_;
+	die "not a skos:ConceptScheme" unless (RDF::NS->new->skos('ConceptScheme') ~~ @{$scheme->type});
+	$self->_scheme($scheme);
+	return [$self->_scheme];
 }
 
-sub add_Dataset {   # it isn't clear to me if DCAT descriptors are allowed to have Datasets independent of Catalogs
-	my ($self, $dat) = @_;
-	die "not a DCAT Catalog" unless (DCAT."Dataset" ~~ $dat->type);
-	my $datasets = $self->Datasets;
-	push @$datasets, $dat;
-	$self->Datasets($datasets);
-	return 1;
-}
-
-sub add_CatalogRecord {   # it isn't clear to me if DCAT descriptors are allowed to have Datasets independent of Catalogs
-	my ($self, $cr) = @_;
-	die "not a DCAT CatalogRecord" unless (DCAT."CatalogRecord" ~~ $cr->type);
-	my $crs = $self->CatalogRecords;
-	push @$crs, $cr;
-	$self->CatalogRecords($crs);
-	return 1;
-}
-
-sub add_Distribution {   # it isn't clear to me if DCAT descriptors are allowed to have Datasets independent of Catalogs
-	my ($self, $dist) = @_;
-	die "not a DCAT Distribution" unless (DCAT."Distribution" ~~ $dist->type);
-	my $dists = $self->Distributions;
-	push @$dists, $dist;
-	$self->Distributions($dists);
-	return 1;
-}
-
-sub serialize {
-#ntriples
-#nquads
-#rdfxml
-#rdfjson
-#ntriples-canonical
-#turtle
-	my ($self, $format) = @_;
-	$format ||='rdfxml';
-	my $store = RDF::Trine::Store::Memory->new();
-	my $model = RDF::Trine::Model->new($store);
-
-	foreach my $object($self->Catalog, $self->Distributions, $self->Datasets, $self->CatalogRecords){
-		next unless $object;	
-		my @triples = $object->toTriples;
-		foreach my $statement(@triples){
-			$model->add_statement($statement);
-		}
+sub inScheme {
+	my ($self) = shift;
+	if (@_) {
+		print STDERR "YOU CANNOT ADD CONCEDPT SCHEMES USING THE ->inScheme method@  use add_inScheme method instead!\n";
+		return 0;
 	}
-	my $serializer = RDF::Trine::Serializer->new($format);
-	return $serializer->serialize_model_to_string($model);
+	return [$self->_scheme];	
 }
-
 
 sub AUTOLOAD {
 	no strict "refs";

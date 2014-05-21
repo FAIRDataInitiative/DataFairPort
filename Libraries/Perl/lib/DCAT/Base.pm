@@ -1,8 +1,27 @@
 package DCAT::Base;
-use lib "..";
+
+# ABSTRACT: Libraries for creating and parsing DCAT Descriptors and DCAT Profiles
+
+use RDF::NS '20131205';
+use strict;
+use lib "../";
+use DCAT::Descriptor;
+use DCAT::Catalog; 
+use DCAT::CatalogRecord; 
+use DCAT::Concept;
+use DCAT::ConceptScheme;
+use DCAT::Dataset; 
+use DCAT::Distribution;
+use DCAT::Agent;
+use RDF::Trine;
+use Data::UUID::MT;
+use DCAT::Profile;
+use DCAT::Profile::Class;
+use DCAT::Profile::Property;
+
 use DCAT::NAMESPACES;
-use vars qw /$VERSION/;
-$VERSION = sprintf "%d.%02d", q$Revision: 0.1 $ =~ /: (\d+)\.(\d+)/;
+#use vars qw /$VERSION/;
+#$VERSION = sprintf "%d.%02d", q$Revision: 0.1 $ =~ /: (\d+)\.(\d+)/;
 
 our %predicate_namespaces = qw{
     type RDF

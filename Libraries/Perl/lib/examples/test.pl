@@ -1,7 +1,6 @@
 use strict;
 use warnings;
-
-use DCAT;
+use DCAT::Base;
 
 my $Descriptor = DCAT::Descriptor->new();
 

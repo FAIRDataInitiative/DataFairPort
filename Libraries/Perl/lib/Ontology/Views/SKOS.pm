@@ -1,27 +1,24 @@
-package DCAT::Distribution;
+package Ontology::Views::SKOS::conceptScheme;
+use lib "../../";
+use Ontology::Views::SKOS::NAMESPACES;
 use strict;
 use Carp;
-use lib "..";
-use DCAT::Base;
-use DCAT::NAMESPACES;
 use vars qw($AUTOLOAD @ISA);
 
-use base 'DCAT::Base';
-
-use vars qw /$VERSION/;
-$VERSION = sprintf "%d.%02d", q$Revision: 1.5 $ =~ /: (\d+)\.(\d+)/;
 
 =head1 NAME
 
-DCAT::Distribution - a module for working with DCAT Distributions
+Ontology::Views::SKOS
 
 =head1 SYNOPSIS
 
+
+ 
 =cut
 
 =head1 DESCRIPTION
 
-
+A SKOS view of an ontology
 
 =cut
 
@@ -36,7 +33,10 @@ Mark Wilkinson (markw at illuminae dot com)
 
 =head2 new
 
+
 =cut
+
+
 
 
 {
@@ -48,20 +48,13 @@ Mark Wilkinson (markw at illuminae dot com)
 
 	my %_attr_data =    #     				DEFAULT    	ACCESSIBILITY
 	  (
-		title => [ undef, 'read/write' ],
-		description => [ undef, 'read/write' ],
-		issued => [ undef, 'read/write' ],
-		modified => [ undef, 'read/write' ],
-                license => [ undef, 'read/write' ],
-                rights => [ undef, 'read/write' ],
-                accessURL => [ undef, 'read/write' ],
-                downloadURL => [ undef, 'read/write' ],
-    		mediaType => [ undef, 'read/write' ],
-		format => [ undef, 'read/write' ],
-                byteSize => [ undef, 'read/write' ],
-		type => [[DCAT."Distribution"], 'read'],
+		imports => [ undef, 'read/write' ],  # a list
+		label => ['Descriptor Profile Schema Class', 'read'],
+		type => [['http://dcat.profile.schema/Class'], 'read'],
+		class_type => [undef, 'read/write'],  # this is a URI to an OWL class or RDFS class
+		-has_property => [ undef, 'read/write' ],  # a list
 		
-		URI => [undef, 'read'],
+		URI => [undef, 'read/write'],
 
 	  );
 
@@ -104,9 +97,29 @@ sub new {
 	}
 	my $ug1 = Data::UUID::MT->new( version => 4 );
 	$ug1 = $ug1->create_string;
-	$self->{URI} = ("http://datafairport.org/sampledata/distribution/$ug1");
+	$self->{URI} =("http://datafairport.org/sampledata/profileschemaclass/$ug1") unless $self->{URI};
 	return $self;
 }
+
+
+sub add_Property {   
+	my ($self, $p) = @_;
+	die "not a DCAT Profile Schema Property" unless ('http://dcat.profile.schema/Property' ~~ $p->type);
+	my $ps = $self->_has_property;
+	push @$ps, $p;
+	$self->_has_property($ps);
+	return 1;
+}
+
+sub has_property {
+	my ($self) = shift;
+	if (@_) {
+		print STDERR "YOU CANNOT ADD PROPERTIES USING THE ->has_property method;  use add_Property instead!\n";
+		return 0;
+	}
+	return $self->_has_property;
+}
+
 
 sub AUTOLOAD {
 	no strict "refs";

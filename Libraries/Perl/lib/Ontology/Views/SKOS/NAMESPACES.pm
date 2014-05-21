@@ -1,9 +1,9 @@
-package DCAT::NAMESPACES;
+package Ontology::Views::SKOS::NAMESPACES;
 use strict;
 use vars qw( $VERSION @ISA @EXPORT @NodeNames);
 require Exporter;
 
-$VERSION = sprintf "%d.%02d", q$Revision: 1.2 $ =~ /: (\d+)\.(\d+)/;
+#$VERSION = sprintf "%d.%02d", q$Revision: 0.1 $ =~ /: (\d+)\.(\d+)/;
 
 BEGIN {
 	@ISA = qw( Exporter );
