@@ -4,7 +4,6 @@ use Carp;
 use lib "../../";
 use DCAT::Base;
 use DCAT::NAMESPACES;
-use DCAT;
 use RDF::Trine::Parser;
 use RDF::Trine::Model;
 use RDF::Query;
@@ -14,8 +13,8 @@ use vars qw($AUTOLOAD @ISA);
 
 use base 'DCAT::Base';
 
-use vars qw /$VERSION/;
-$VERSION = sprintf "%d.%02d", q$Revision: 1.5 $ =~ /: (\d+)\.(\d+)/;
+#use vars qw /$VERSION/;
+#$VERSION = sprintf "%d.%02d", q$Revision: 1.5 $ =~ /: (\d+)\.(\d+)/;
 
 =head1 NAME
 

@@ -1,4 +1,4 @@
-package DCAT::ConceptScheme;
+package DCAT::CatalogRecord;
 use strict;
 use Carp;
 use lib "..";
@@ -8,12 +8,12 @@ use vars qw($AUTOLOAD @ISA);
 
 use base 'DCAT::Base';
 
-use vars qw /$VERSION/;
-$VERSION = sprintf "%d.%02d", q$Revision: 1.5 $ =~ /: (\d+)\.(\d+)/;
+#use vars qw /$VERSION/;
+#$VERSION = sprintf "%d.%02d", q$Revision: 1.5 $ =~ /: (\d+)\.(\d+)/;
 
 =head1 NAME
 
-DCAT::ConceptScheme - a module for working with the DCAT skos:ConceptScheme
+DCAT::Distribution - a module for working with DCAT CatalogRecord
 
 =head1 SYNOPSIS
 
@@ -45,13 +45,18 @@ Mark Wilkinson (markw at illuminae dot com)
 	# DATA
 	#___________________________________________________________
 	#ATTRIBUTES
-	my $ns = RDF::NS->new();
+	
 	my %_attr_data =    #     				DEFAULT    	ACCESSIBILITY
 	  (
-		label => [undef, 'read/write'],
-		type  => [[$ns->skos('ConceptScheme')], 'read'],
-
-		URI => [ undef, 'read/write' ],
+		title => [ undef, 'read/write' ],
+		description => [ undef, 'read/write' ],
+		issued => [ undef, 'read/write' ],
+		modified => [ undef, 'read/write' ],
+		type => [[DCAT."CatalogRecord"], 'read'],
+		
+		_primarytopic  => [undef, 'read/write'],
+		URI => [undef, 'read'],
+		'-primaryTopic' => [undef, 'read'],   # DO NOT USE!  These are only to trigger execution of the identically named subroutine when serializing to RDF
 	  );
 
 	#_____________________________________________________________
@@ -82,11 +87,6 @@ sub new {
 	my $class = $caller_is_obj || $caller;
 	my $proxy;
 	my $self = bless {}, $class;
-	
-	my $URI = $args{'conceptscheme'};  # pass agent as an argument
-	die "must pass conceptscheme URI" unless $URI;
-	$args{'URI'} = $URI;
-
 	foreach my $attrname ( $self->_standard_keys ) {
 		if ( exists $args{$attrname} ) {
 			$self->{$attrname} = $args{$attrname};
@@ -96,8 +96,31 @@ sub new {
 			$self->{$attrname} = $self->_default_for( $attrname );
 		}
 	}
+	my $ug1 = Data::UUID::MT->new( version => 4 );
+	$ug1 = $ug1->create_string;
+	$self->{URI} = ("http://datafairport.org/sampledata/catalogrecord/$ug1");
 	return $self;
 }
+
+sub add_primaryTopic {
+	my ($self, $topic) = @_;
+	die "not a dc:Dataset (foaf:primarytopic)" unless (RDF::NS->new->dc('Dataset') ~~ @{$topic->type});
+	$self->_primarytopic($topic);
+	return [$self->_primarytopic];
+
+	
+}
+
+
+sub primaryTopic {
+	my ($self) = shift;
+	if (@_) {
+		print STDERR "YOU CANNOT ADD PRIMARY TOPICS USING THE ->primaryTopic method;  use add_primaryTopic method instead!\n";
+		return 0;
+	}
+	return [$self->_primarytopic];
+}
+
 
 sub AUTOLOAD {
 	no strict "refs";

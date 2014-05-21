@@ -1,18 +1,19 @@
-package DCAT::Agent;
+package DCAT::ConceptScheme;
 use strict;
 use Carp;
 use lib "..";
 use DCAT::Base;
-use base 'DCAT::Base';
-
+use DCAT::NAMESPACES;
 use vars qw($AUTOLOAD @ISA);
 
-use vars qw /$VERSION/;
-$VERSION = sprintf "%d.%02d", q$Revision: 1.5 $ =~ /: (\d+)\.(\d+)/;
+use base 'DCAT::Base';
+
+#use vars qw /$VERSION/;
+#$VERSION = sprintf "%d.%02d", q$Revision: 1.5 $ =~ /: (\d+)\.(\d+)/;
 
 =head1 NAME
 
-DCAT::Agent - a module for working with the DCAT foaf:Agent
+DCAT::ConceptScheme - a module for working with the DCAT skos:ConceptScheme
 
 =head1 SYNOPSIS
 
@@ -37,6 +38,7 @@ Mark Wilkinson (markw at illuminae dot com)
 
 =cut
 
+
 {
 
 	# Encapsulated:
@@ -46,9 +48,10 @@ Mark Wilkinson (markw at illuminae dot com)
 	my $ns = RDF::NS->new();
 	my %_attr_data =    #     				DEFAULT    	ACCESSIBILITY
 	  (
-		URI => [ undef, 'read/write' ],
 		label => [undef, 'read/write'],
-		type  => [[$ns->foaf('Agent')], 'read']
+		type  => [[$ns->skos('ConceptScheme')], 'read'],
+
+		URI => [ undef, 'read/write' ],
 	  );
 
 	#_____________________________________________________________
@@ -79,9 +82,11 @@ sub new {
 	my $class = $caller_is_obj || $caller;
 	my $proxy;
 	my $self = bless {}, $class;
-	my $URI = $args{'agent'};  # pass agent as an argument
-	die "must pass agent URI" unless $URI;
+	
+	my $URI = $args{'conceptscheme'};  # pass agent as an argument
+	die "must pass conceptscheme URI" unless $URI;
 	$args{'URI'} = $URI;
+
 	foreach my $attrname ( $self->_standard_keys ) {
 		if ( exists $args{$attrname} ) {
 			$self->{$attrname} = $args{$attrname};
@@ -93,7 +98,6 @@ sub new {
 	}
 	return $self;
 }
-
 
 sub AUTOLOAD {
 	no strict "refs";
