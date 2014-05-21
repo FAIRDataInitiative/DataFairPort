@@ -61,7 +61,7 @@ Mark Wilkinson (markw at illuminae dot com)
                 byteSize => [ undef, 'read/write' ],
 		type => [[DCAT."Distribution"], 'read'],
 		
-		_URI => [undef, 'read'],
+		URI => [undef, 'read'],
 
 	  );
 
@@ -104,7 +104,7 @@ sub new {
 	}
 	my $ug1 = Data::UUID::MT->new( version => 4 );
 	$ug1 = $ug1->create_string;
-	$self->{_URI} = ("http://datafairport.org/sampledata/distribution/$ug1");
+	$self->{URI} = ("http://datafairport.org/sampledata/distribution/$ug1");
 	return $self;
 }
 

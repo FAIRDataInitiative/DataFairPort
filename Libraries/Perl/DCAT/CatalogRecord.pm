@@ -55,7 +55,7 @@ Mark Wilkinson (markw at illuminae dot com)
 		type => [[DCAT."CatalogRecord"], 'read'],
 		
 		_primarytopic  => [undef, 'read/write'],
-		_URI => [undef, 'read'],
+		URI => [undef, 'read'],
 		'-primaryTopic' => [undef, 'read'],   # DO NOT USE!  These are only to trigger execution of the identically named subroutine when serializing to RDF
 	  );
 
@@ -98,7 +98,7 @@ sub new {
 	}
 	my $ug1 = Data::UUID::MT->new( version => 4 );
 	$ug1 = $ug1->create_string;
-	$self->{_URI} = ("http://datafairport.org/sampledata/catalogrecord/$ug1");
+	$self->{URI} = ("http://datafairport.org/sampledata/catalogrecord/$ug1");
 	return $self;
 }
 

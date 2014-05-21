@@ -51,7 +51,7 @@ Mark Wilkinson (markw at illuminae dot com)
 		type  => [[$ns->skos('Concept')], 'read'],
 
 		_scheme => [undef, 'read/write'],
-		_URI => [ undef, 'read/write' ],
+		URI => [ undef, 'read/write' ],
 		'-inScheme' => [undef, 'read'],   # DO NOT USE!  These are only to trigger execution of the identically named subroutine when serializing to RDF
 	  );
 
@@ -86,7 +86,7 @@ sub new {
 
 	my $URI = $args{'concept'};  # pass agent as an argument
 	die "must pass concept URI" unless $URI;
-	$args{'_URI'} = $URI;
+	$args{'URI'} = $URI;
 
 	foreach my $attrname ( $self->_standard_keys ) {
 		if ( exists $args{$attrname} ) {

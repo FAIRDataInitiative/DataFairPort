@@ -1,6 +1,6 @@
-use DCAT::Profile::Schema::Parser;
+use DCAT::Profile::Parser;
 
-my $parser = DCAT::Profile::Schema::Parser->new(filename => "./ProfileSchema.rdf");
+my $parser = DCAT::Profile::Parser->new(filename => "./ProfileSchema.rdf");
 my $DatasetSchema = $parser->parse;
 
 

@@ -46,7 +46,7 @@ Mark Wilkinson (markw at illuminae dot com)
 	my $ns = RDF::NS->new();
 	my %_attr_data =    #     				DEFAULT    	ACCESSIBILITY
 	  (
-		_URI => [ undef, 'read/write' ],
+		URI => [ undef, 'read/write' ],
 		label => [undef, 'read/write'],
 		type  => [[$ns->foaf('Agent')], 'read']
 	  );
@@ -81,7 +81,7 @@ sub new {
 	my $self = bless {}, $class;
 	my $URI = $args{'agent'};  # pass agent as an argument
 	die "must pass agent URI" unless $URI;
-	$args{'_URI'} = $URI;
+	$args{'URI'} = $URI;
 	foreach my $attrname ( $self->_standard_keys ) {
 		if ( exists $args{$attrname} ) {
 			$self->{$attrname} = $args{$attrname};

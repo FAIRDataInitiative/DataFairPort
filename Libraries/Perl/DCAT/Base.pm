@@ -48,11 +48,6 @@ our %predicate_namespaces = qw{
     
 };
 
-sub URI {
-    my ($self) = @_;
-    return $self->_URI;
-}
-
 
 sub _toTriples {
 	my ($self, $model) = @_;
@@ -82,11 +77,12 @@ sub _toTriples {
 	my $dcts = RDF::Trine::Namespace->new( DCTS);
         $namespaces{DCTS} = $dcts;
 
-	my $sub = $self->_URI;
+	my $sub = $self->URI;
 
         foreach my $key($self->_standard_keys){   # GOOD LORD!  This subroutine just keeps getting uglier and uglier!
 
             next if $key =~ /^_/;   # not a method representing a predicate
+            next if $key eq "URI";
             
             if ($key =~ /^\-(\S+)/) {  # a method representing a predicate that can have multiple values, so it is modeled as a subroutine
                 my $method = $1;
@@ -96,7 +92,7 @@ sub _toTriples {
                     #print STDERR $object, "\n";
                     if (ref($object) && $object->can('_toTriples')) {  # is it a DCAT object?  if so, unpack it  
                         $object->_toTriples($model);  # recursive call... unpack that DCAT object to triples
-                        my $toConnect = $object->_URI;
+                        my $toConnect = $object->URI;
                         my $namespace = $namespaces{$predicate_namespaces{$method}};
                         my $stm = statement($sub, $namespace.$method, $toConnect);
                         $model->add_statement($stm);                                        

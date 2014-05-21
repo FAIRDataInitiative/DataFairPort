@@ -66,7 +66,7 @@ Mark Wilkinson (markw at illuminae dot com)
 		_themes  => [undef, 'read/write'],
 		_publisher => ['undef', 'read/write'],
 		_distributions => [undef, 'read/write'],
-		_URI => [undef, 'read'],
+		URI => [undef, 'read'],
 		'-distribution' => [undef, 'read'],   # DO NOT USE!  These are only to trigger execution of the identically named subroutine when serializing to RDF
 		'-theme' => [undef, 'read'],    # DO NOT USE!  These are only to trigger execution of the identically named subroutine when serializing to RDF
 		'-publisher' => [undef, 'read'],    # DO NOT USE!  These are only to trigger execution of the identically named subroutine when serializing to RDF
@@ -113,7 +113,7 @@ sub new {
 	$self->_distributions([]);
 	my $ug1 = Data::UUID::MT->new( version => 4 );
 	$ug1 = $ug1->create_string;
-	$self->{_URI} = ("http://datafairport.org/sampledata/dataset/$ug1");
+	$self->{URI} = ("http://datafairport.org/sampledata/dataset/$ug1");
 	return $self;
 }
 

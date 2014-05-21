@@ -1,13 +1,13 @@
 #!perl -w
 use lib "./";
-use DCAT::Profile::Schema;
-use DCAT::Profile::Schema::Class;
-use DCAT::Profile::Schema::Property;
+use DCAT::Profile;
+use DCAT::Profile::Class;
+use DCAT::Profile::Property;
 use DCAT::Base;
 use DCAT::NAMESPACES;
 
 
-my $DatasetSchema = DCAT::Profile::Schema->new(
+my $DatasetSchema = DCAT::Profile->new(
                 label => 'Descriptor Profile Schema for FAIRPORT demo',
 		title => "A very simple DCAT Dataset plus Distribution example", 
 		description => "This Descriptor Profile schema template defines a schema that will have a DCAT Dataset with title, description, issued, and distribution properties",
@@ -15,15 +15,15 @@ my $DatasetSchema = DCAT::Profile::Schema->new(
                 issued => "May 16, 2014",
     		organization => "wilkinsonlab.info",
 		identifier => "doi:2222222222",
-                _URI => "http://datafairport.org/examples/ProfileSchemas/FAIRportSimpleProfileExample.rdf",
+                URI => "http://datafairport.org/examples/ProfileSchemas/FAIRportSimpleProfileExample.rdf",
                 );
 
-my $DCATDatasetClass = DCAT::Profile::Schema::Class->new(
+my $DCATDatasetClass = DCAT::Profile::Class->new(
     class_type => DCAT."dataset",
-    _URI => "http://datafairport.org/examples/ProfileSchemas/DCATDatasetExample.rdf",
+    URI => "http://datafairport.org/examples/ProfileSchemas/DCATDatasetExample.rdf",
    );
 
-my $TitleProperty = DCAT::Profile::Schema::Property->new(
+my $TitleProperty = DCAT::Profile::Property->new(
     property_type => DCT.'title',
     allow_multiple => "false",
 );
@@ -32,7 +32,7 @@ $TitleProperty->add_ValueRange(XSD."string");
 $DCATDatasetClass->add_Property($TitleProperty);
 
 
-my $DescrProperty = DCAT::Profile::Schema::Property->new(
+my $DescrProperty = DCAT::Profile::Property->new(
     property_type => DCT.'description',
     allow_multiple => "false",
 
@@ -42,7 +42,7 @@ $DescrProperty->add_ValueRange(XSD."string");
 $DCATDatasetClass->add_Property($DescrProperty);
 
 
-my $IssuedProperty = DCAT::Profile::Schema::Property->new(
+my $IssuedProperty = DCAT::Profile::Property->new(
     property_type => DCT.'issued',
     allow_multiple => "false",
 );
@@ -51,7 +51,7 @@ $IssuedProperty->add_ValueRange(XSD."date");
 $DCATDatasetClass->add_Property($IssuedProperty);
 
 
-my $DistributionProperty = DCAT::Profile::Schema::Property->new(
+my $DistributionProperty = DCAT::Profile::Property->new(
     property_type => DCAT.'distribution',
     allow_multiple => "true",
 );

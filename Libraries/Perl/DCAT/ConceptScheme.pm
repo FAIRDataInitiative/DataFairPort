@@ -51,7 +51,7 @@ Mark Wilkinson (markw at illuminae dot com)
 		label => [undef, 'read/write'],
 		type  => [[$ns->skos('ConceptScheme')], 'read'],
 
-		_URI => [ undef, 'read/write' ],
+		URI => [ undef, 'read/write' ],
 	  );
 
 	#_____________________________________________________________
@@ -85,7 +85,7 @@ sub new {
 	
 	my $URI = $args{'conceptscheme'};  # pass agent as an argument
 	die "must pass conceptscheme URI" unless $URI;
-	$args{'_URI'} = $URI;
+	$args{'URI'} = $URI;
 
 	foreach my $attrname ( $self->_standard_keys ) {
 		if ( exists $args{$attrname} ) {
