@@ -20,8 +20,6 @@ use DCAT::Profile::Class;
 use DCAT::Profile::Property;
 
 use DCAT::NAMESPACES;
-#use vars qw /$VERSION/;
-#$VERSION = sprintf "%d.%02d", q$Revision: 0.1 $ =~ /: (\d+)\.(\d+)/;
 
 our %predicate_namespaces = qw{
     type RDF

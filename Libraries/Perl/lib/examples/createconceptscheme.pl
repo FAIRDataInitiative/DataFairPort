@@ -5,11 +5,22 @@ use lib "../";
 use Ontology::Views::SKOS::conceptSchemeBuilder;
 
 my $b = Ontology::Views::SKOS::conceptSchemeBuilder->new(
-	server => 'http://localhost',
-	port => '9031',
 	schemeURI => "http://datafairport.org/conceptSchemes/EDAM_Data_Format",
+        schemeName => "SKOS view of the EDAM Data Format ontology branch",
 	);
+my $scheme = $b->growConceptScheme('edam', 'http://edamontology.org/format_2056'); # edam:MicroarrayDataFormat
 
-$b->topConcept('http://edamontology.org/format_1915');
+# my $scheme = $b->growConceptScheme('edam', 'http://edamontology.org/format_1915');  # edam:Format
 
-$b->createConceptScheme();
+open(OUT, ">conceptscheme.rdf") || die "can't open conceptscheme rdf $!";
+print $scheme->serialize;
+print OUT $scheme->serialize;
+close OUT;
+
+my $b2 = Ontology::Views::SKOS::conceptSchemeBuilder->new();
+my $scheme2 = $b2->parseFile('conceptscheme.rdf');
+open(OUT, ">conceptscheme2.rdf") || die "can't open conceptscheme rdf $!";
+print $scheme2->serialize;
+print OUT $scheme2->serialize;
+close OUT;
+
