@@ -7,8 +7,9 @@ use Ontology::Views::SKOS::conceptSchemeBuilder;
 my $b = Ontology::Views::SKOS::conceptSchemeBuilder->new(
 	schemeURI => "http://datafairport.org/conceptSchemes/EDAM_Data_Format",
         schemeName => "SKOS view of the EDAM Data Format ontology branch",
+apikey => '24e04058-54e0-11e0-9d7b-005056aa3316',
 	);
-my $scheme = $b->growConceptScheme('edam', 'http://edamontology.org/format_2056'); # edam:MicroarrayDataFormat
+my $scheme = $b->growConceptScheme('EDAM', 'http://edamontology.org/format_2056'); # edam:MicroarrayDataFormat
 
 # my $scheme = $b->growConceptScheme('edam', 'http://edamontology.org/format_1915');  # edam:Format
 

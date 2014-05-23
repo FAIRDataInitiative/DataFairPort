@@ -1,10 +1,11 @@
 package Ontology::Views::SKOS::conceptSchemeBuilder;
 use lib "../../../";
 use Ontology::Views::SKOS::NAMESPACES;
-use Ontology::Views::SKOS::conceptScheme;
+use Ontology::Views::SKOS::conceptScheme; 
 use RDF::Trine::Parser;
 use RDF::Trine::Store::Memory;
 use RDF::Trine::Model;
+use URI::Escape;
 
 use JSON qw( decode_json );
 use strict;
@@ -52,7 +53,7 @@ Mark Wilkinson (markw at illuminae dot com)
 	# DATA
 	#___________________________________________________________
 	#ATTRIBUTES
-	my $known_servers = {'edam' => ['http://biordf.org', '3100', 'http://edam.org/ontology/edo.owl'],};  # structure is {shortname => "host, port, ontologyuri"} and this should point to a webserver instance of OBO owltools
+	my $known_servers = {'edam' => ['http://biordf.org:3100', 'EDAM Ontology', 'http://edam.org/ontology/edo.owl'],};  # structure is {shortname => "host, port, ontologyuri"} and this should point to a webserver instance of OBO owltools
 
 	my %_attr_data =    #     				DEFAULT    	ACCESSIBILITY
 	  (
@@ -61,6 +62,7 @@ Mark Wilkinson (markw at illuminae dot com)
 		schemeURI => [undef, 'read/write'],
 		ConceptScheme => [undef, 'read/write'],
 		model => [undef, 'read/write'],
+		apikey => [undef, 'read/write']
 		
 	  );
 
@@ -113,7 +115,28 @@ sub new {
 		);
 		$self->ConceptScheme($s);
 	}
+	if ($self->apikey) {
+		my $json = get('http://data.bioontology.org/ontologies/?apikey='.($self->apikey));
+		my $ontologies = decode_json($json);
+		my %known_ontologies;
+		foreach my $ontology(@$ontologies){
+			my $ontologyurl = $ontology->{'@id'};
+			my $interface = $ontology->{'links'}->{'classes'};
+			$ontologyurl =~ s'data.bioontology.org/ontologies/'purl.bioontology.org/ontology/';
+			my ($acronym, $name) = ($ontology->{acronym}, $ontology->{name});
+			$known_ontologies{$acronym} = [$name, $interface, $ontologyurl]
+		}
+		$self->servers(\%known_ontologies);
+	}
 	return $self;
+}
+
+sub _knownOntologies {
+	my ($self) = @_;
+	my $known = $self->servers;
+	foreach my $key(keys %$known){
+		print "$key\t$known->{$key}->[0]\t$known->{$key}->[2]\n";
+	}
 }
 
 sub growConceptScheme {
@@ -127,7 +150,7 @@ sub growConceptScheme {
 		print STDERR "I have no knowledge of the $ontologyname ontology...\n";
 		return undef;
 	}
-	my ($host, $port, $ontologyURI) = @{$self->servers->{$ontologyname}};
+	my ($name, $interface, $ontologyURI) = @{$self->servers->{$ontologyname}};
 	
 	my $label = $self->getLabel($ontologyname, $class);	
 	my $concept = Ontology::Views::SKOS::Concept->new(
@@ -138,20 +161,37 @@ sub growConceptScheme {
 		);
 	$self->addConceptToScheme($concept);
 
-	my $subclasses = $self->getSubClasses($ontologyname, $class);
+	my $subclasses = $self->getSubClasses($ontologyname, $class);  # returns a hashref of URI => label
 
-	foreach my $sub(@$subclasses){
-		next if $sub =~ /owl#Nothing/;
-		next if $sub =~ /$class/;  # no dups; owlapi returns a class as a subclass of itself
-		my $label = $self->getLabel($ontologyname, $sub);
-		my $concept = Ontology::Views::SKOS::Concept->new(
-			label => $label||$sub, 
-			_broader => [$class],  # I know, I should use the accessor method!  LOL!
-			ontologyTermURI => $sub,
-			inSchemeURI => $self->schemeURI,
-		);
-		$self->addConceptToScheme($concept);
-		$self->addImportsToScheme($ontologyURI);
+	if ($interface =~ /bioontology\.org/) {
+		foreach my $sub(keys %{$subclasses}){
+			next if $sub =~ /owl#Nothing/;
+			next if $sub =~ /$class/;  # no dups; owlapi returns a class as a subclass of itself
+			my $label = $subclasses->{$sub};
+			my $concept = Ontology::Views::SKOS::Concept->new(
+				label => $label||$sub, 
+				_broader => [$class],  # I know, I should use the accessor method!  LOL!
+				ontologyTermURI => $sub,
+				inSchemeURI => $self->schemeURI,
+			);
+			$self->addConceptToScheme($concept);
+			$self->addImportsToScheme($ontologyURI);
+		}
+	} else {
+		#owltools
+		foreach my $sub(@$subclasses){
+			next if $sub =~ /owl#Nothing/;
+			next if $sub =~ /$class/;  # no dups; owlapi returns a class as a subclass of itself
+			my $label = $self->getLabel($ontologyname, $sub);
+			my $concept = Ontology::Views::SKOS::Concept->new(
+				label => $label||$sub, 
+				_broader => [$class],  # I know, I should use the accessor method!  LOL!
+				ontologyTermURI => $sub,
+				inSchemeURI => $self->schemeURI,
+			);
+			$self->addConceptToScheme($concept);
+			$self->addImportsToScheme($ontologyURI);
+		}
 	}
 	return $self->ConceptScheme;
 }
@@ -173,34 +213,56 @@ sub addImportsToScheme {
 
 sub getSubClasses {
 	my ($self, $ontologyname, $class) = @_;
-	my ($host, $port, $ontologyURI) = @{$self->servers->{$ontologyname}};
-
-	unless ($class){
-		print STDERR "[getSubClasses] I have nothing to work with here...\n";
-		return undef;
-	}
-	
-	my $URL = $host.":".$port."/getSubClasses.json?id=".$class;
-	my $result = get($URL);
-	my $decoded_json = decode_json( $result );
-	return $decoded_json;
-}
-
-sub getLabel{
-	my ($self, $ontologyname, $class) = @_;
-	my ($host, $port, $ontologyURI) = @{$self->servers->{$ontologyname}};
+	my ($name, $interface, $ontologyURI) = @{$self->servers->{$ontologyname}};
 
 	unless ($class){
 		print STDERR "[getLabel] I have nothing to work with here...\n";
 		return undef;
 	}
+	if ($interface =~ /bioontology\.org/) {
+		$class = uri_escape($class);
+		my $URL = $interface."/".$class."/descendants?apikey=".($self->apikey);
+		my $result = get($URL);
+		my $decoded_json = decode_json($result);
+		my $desc = $decoded_json->{collection};
+		my %children;
+		foreach my $child(@$desc){
+			$children{$child->{'@id'}} = $child->{prefLabel};
+		}
+		return \%children;
+#  do something useful here!		
+	} else {
+		# owltools
+		my $URL = $interface."/getSubClasses.json?id=".$class;
+		my $result = get($URL);
+		my $decoded_json = decode_json( $result );
+		return $decoded_json;
+	}
+}
 
-	my $URL = $host.":".$port."/class.json?id=".$class;
-	my $result = get($URL);
-	$result =~ s/\[\]$//s; # a bug in owltools json output
-	#print "RESULT $result*$URL*\n";
-	my $decoded_json = decode_json( $result );
-	return $decoded_json->{label};
+sub getLabel{
+	my ($self, $ontologyname, $class) = @_;
+	my ($name, $interface, $ontologyURI) = @{$self->servers->{$ontologyname}};
+
+	unless ($class){
+		print STDERR "[getLabel] I have nothing to work with here...\n";
+		return undef;
+	}
+	if ($interface =~ /bioontology\.org/) {
+		$class = uri_escape($class);
+		my $URL = $interface."/".$class."?apikey=".($self->apikey);
+		my $result = get($URL);
+		my $decoded_json = decode_json($result);
+		return $decoded_json->{prefLabel};
+	} else {
+		# owltools
+		my $URL = $interface."/class.json?id=".$class;
+		my $result = get($URL);
+		$result =~ s/\[\]$//s; # a bug in owltools json output
+		#print "RESULT $result*$URL*\n";
+		my $decoded_json = decode_json( $result );
+		return $decoded_json->{label};
+	}
 }
 
 sub parseFile {
