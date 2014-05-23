@@ -2,7 +2,7 @@
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <rdf:Description xmlns:ns1="http://www.w3.org/2002/07/owl#" rdf:about="http://datafairport.org/conceptSchemes/EDAM_Data_Format">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
-	<ns1:imports rdf:resource="http://edam.org/ontology/edo.owl"/>
+	<ns1:imports rdf:resource="http://purl.bioontology.org/ontology/EDAM"/>
 </rdf:Description>
 <rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://edamontology.org/format_1641">
 	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
