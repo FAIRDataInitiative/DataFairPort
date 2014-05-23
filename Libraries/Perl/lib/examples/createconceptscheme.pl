@@ -3,11 +3,14 @@ use warnings;
 use lib "../";
 
 use Ontology::Views::SKOS::conceptSchemeBuilder;
+open(IN, "/tmp/apikey");
+my $apikey = <IN>;
+close IN;
 
 my $b = Ontology::Views::SKOS::conceptSchemeBuilder->new(
 	schemeURI => "http://datafairport.org/conceptSchemes/EDAM_Data_Format",
         schemeName => "SKOS view of the EDAM Data Format ontology branch",
-apikey => '24e04058-54e0-11e0-9d7b-005056aa3316',
+apikey => $apikey,
 	);
 my $scheme = $b->growConceptScheme('EDAM', 'http://edamontology.org/format_2056'); # edam:MicroarrayDataFormat
 
