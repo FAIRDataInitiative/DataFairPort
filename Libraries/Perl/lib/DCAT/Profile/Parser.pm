@@ -1,7 +1,6 @@
 package DCAT::Profile::Parser;
 use strict;
 use Carp;
-use lib "../../";
 use DCAT::Base;
 use DCAT::NAMESPACES;
 use RDF::Trine::Parser;

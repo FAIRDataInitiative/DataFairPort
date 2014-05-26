@@ -1,8 +1,8 @@
 package DCAT::Agent;
 use strict;
 use Carp;
-use lib "..";
 use DCAT::Base;
+
 use base 'DCAT::Base';
 
 use vars qw($AUTOLOAD @ISA);

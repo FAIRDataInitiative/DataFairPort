@@ -1,7 +1,6 @@
 package DCAT::Distribution;
 use strict;
 use Carp;
-use lib "..";
 use DCAT::Base;
 use DCAT::NAMESPACES;
 use vars qw($AUTOLOAD @ISA);
