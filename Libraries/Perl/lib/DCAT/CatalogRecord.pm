@@ -1,15 +1,11 @@
 package DCAT::CatalogRecord;
 use strict;
 use Carp;
-use lib "..";
 use DCAT::Base;
+use base 'DCAT::Base';
 use DCAT::NAMESPACES;
 use vars qw($AUTOLOAD @ISA);
 
-use base 'DCAT::Base';
-
-#use vars qw /$VERSION/;
-#$VERSION = sprintf "%d.%02d", q$Revision: 1.5 $ =~ /: (\d+)\.(\d+)/;
 
 =head1 NAME
 

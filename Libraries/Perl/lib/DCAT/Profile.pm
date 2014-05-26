@@ -1,7 +1,6 @@
 package DCAT::Profile;
 use strict;
 use Carp;
-use lib "../";
 use DCAT::Base;
 use DCAT::NAMESPACES;
 use RDF::Trine::Store::Memory;
@@ -241,7 +240,7 @@ Mark Wilkinson (markw at illuminae dot com)
 		identifier => [ undef, 'read/write' ],
 		schemardfs_URL => ["http://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs", 'read/write'],
 		_has_class => [undef, 'read/write'],
-		type => [['http://dcat.profile.schema/Schema'], 'read'],
+		type => [[DCTS.'Schema'], 'read'],
 		
 		URI => [undef, 'read/write'],
 		
@@ -295,7 +294,7 @@ sub new {
 
 sub add_Class {   
 	my ($self, $class) = @_;
-	die "not a DCAT Profile Schema Class" unless ('http://dcat.profile.schema/Class' ~~ $class->type);
+	die "not a DCAT Profile Schema Class *$class->type*" unless (DCTS.'Class' ~~ $class->type);
 	my $classes = $self->_has_class;
 	push @$classes, $class;
 	$self->_has_class($classes);

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description xmlns:ns1="http://www.w3.org/2002/07/owl#" rdf:about="http://biordf.org/DataFairPort/ConceptSchemes/EFO_Gene_Expression_Protocol">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+	<ns1:imports rdf:resource="http://purl.bioontology.org/ontology/EFO"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://www.ebi.ac.uk/efo/EFO_0002944">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>nucleic acid extraction protocol</ns1:label>
+	<ns2:broader rdf:resource="http://www.ebi.ac.uk/efo/EFO_0003788"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EFO_Gene_Expression_Protocol"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://www.ebi.ac.uk/efo/EFO_0003788">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>gene expression protocol</ns1:label>
+	<ns2:broader rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EFO_Gene_Expression_Protocol"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EFO_Gene_Expression_Protocol"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://www.ebi.ac.uk/efo/EFO_0003813">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>nucleic acid labeling protocol</ns1:label>
+	<ns2:broader rdf:resource="http://www.ebi.ac.uk/efo/EFO_0003788"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EFO_Gene_Expression_Protocol"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://www.ebi.ac.uk/efo/EFO_0003814">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>array scanning and feature extraction protocol</ns1:label>
+	<ns2:broader rdf:resource="http://www.ebi.ac.uk/efo/EFO_0003788"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EFO_Gene_Expression_Protocol"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://www.ebi.ac.uk/efo/EFO_0003815">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>nucleic acid hybridization to array protocol</ns1:label>
+	<ns2:broader rdf:resource="http://www.ebi.ac.uk/efo/EFO_0003788"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EFO_Gene_Expression_Protocol"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://www.ebi.ac.uk/efo/EFO_0003816">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>normalization data transformation protocol</ns1:label>
+	<ns2:broader rdf:resource="http://www.ebi.ac.uk/efo/EFO_0003788"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EFO_Gene_Expression_Protocol"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://www.ebi.ac.uk/efo/EFO_0004917">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>high throughput sequence alignment protocol</ns1:label>
+	<ns2:broader rdf:resource="http://www.ebi.ac.uk/efo/EFO_0003788"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EFO_Gene_Expression_Protocol"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#Concept">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#ConceptScheme">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#broader">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#hasTopConcept">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#inScheme">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#narrower">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#topConceptOf">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+</rdf:Description>
+</rdf:RDF>

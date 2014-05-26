@@ -4,7 +4,6 @@ package DCAT::Base;
 
 use RDF::NS '20131205';
 use strict;
-use lib "../";
 use DCAT::Descriptor;
 use DCAT::Catalog; 
 use DCAT::CatalogRecord; 

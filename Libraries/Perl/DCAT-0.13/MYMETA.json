@@ -1,0 +1,46 @@
+{
+   "abstract" : "Libraries for creating and parsing DCAT Descriptors and DCAT Profiles",
+   "author" : [
+      "Mark Wilkinson (markw [at] illuiminae [dot] com)"
+   ],
+   "dynamic_config" : 0,
+   "generated_by" : "Dist::Zilla version 4.300037, CPAN::Meta::Converter version 2.132140",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "DCAT",
+   "prereqs" : {
+      "build" : {
+         "requires" : {}
+      },
+      "configure" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "6.30"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "Data::UUID::MT" : "0",
+            "JSON" : "0",
+            "LWP::Simple" : "0",
+            "RDF::Query" : "0",
+            "RDF::Trine::Model" : "0",
+            "RDF::Trine::Parser" : "0",
+            "RDF::Trine::Serializer" : "0",
+            "URI::Escape" : "0"
+         }
+      },
+      "test" : {
+         "requires" : {
+            "File::Slurp" : "0",
+            "IO::String" : "0"
+         }
+      }
+   },
+   "release_status" : "stable",
+   "version" : "0.13"
+}

@@ -1,7 +1,6 @@
 package DCAT::Profile::Property;
 use strict;
 use Carp;
-use lib "../../";
 use DCAT::Base;
 use DCAT::NAMESPACES;
 use Data::UUID::MT;
@@ -179,7 +178,7 @@ Mark Wilkinson (markw at illuminae dot com)
 		label => ['Descriptor Profile Schema Property', 'read'],
 		allow_multiple => ['true', 'read/write'],   # can this property appear multiple times?
 
-		type => [['http://dcat.profile.schema/Property'], 'read'],
+		type => [[DCTS.'Property'], 'read'],
 	
 		URI => [undef, 'read'],
 

@@ -1,7 +1,6 @@
 package DCAT::Profile::Class;
 use strict;
 use Carp;
-use lib "../../";
 use DCAT::Base;
 use DCAT::NAMESPACES;
 use vars qw($AUTOLOAD @ISA);
@@ -139,7 +138,7 @@ Mark Wilkinson (markw at illuminae dot com)
 	  (
 		_has_property => [ undef, 'read/write' ],  # a list
 		label => ['Descriptor Profile Schema Class', 'read'],
-		type => [['http://dcat.profile.schema/Class'], 'read'],
+		type => [[DCTS.'Class'], 'read'],
 		class_type => [undef, 'read/write'],  # this is a URI to an OWL class or RDFS class
 		-has_property => [ undef, 'read/write' ],  # a list
 		
@@ -193,7 +192,7 @@ sub new {
 
 sub add_Property {   
 	my ($self, $p) = @_;
-	die "not a DCAT Profile Schema Property" unless ('http://dcat.profile.schema/Property' ~~ $p->type);
+	die "not a DCAT Profile Schema Property $p->type" unless (DCTS.'Property' ~~ $p->type);
 	my $ps = $self->_has_property;
 	push @$ps, $p;
 	$self->_has_property($ps);
