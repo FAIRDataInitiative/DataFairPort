@@ -178,7 +178,7 @@ Mark Wilkinson (markw at illuminae dot com)
 		label => ['Descriptor Profile Schema Property', 'read'],
 		allow_multiple => ['true', 'read/write'],   # can this property appear multiple times?
 
-		type => [[DCTS.'Property'], 'read'],
+		type => [[DCTS.'DPSProperty'], 'read'],
 	
 		URI => [undef, 'read'],
 
@@ -233,7 +233,7 @@ sub new {
 
 sub add_ValueRange {   
 	my ($self, $p) = @_;
-	die "not a valid profile property-value range $p" unless ($p =~ /^http:/);
+	die "not a valid profile property-value range $p" unless ($p =~ /^https?:/);
 	my $ps = $self->_allowed_values;
 	push @$ps, $p;
 	$self->_allowed_values($ps);

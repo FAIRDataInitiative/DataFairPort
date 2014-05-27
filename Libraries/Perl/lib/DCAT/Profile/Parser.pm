@@ -204,7 +204,7 @@ sub getProfile {
 	my ($self) = @_;
 	my $model = $self->model;
 
-	my $query = RDF::Query->new( "SELECT ?s WHERE {?s a <".DCTS."Schema>}" );
+	my $query = RDF::Query->new( "SELECT ?s WHERE {?s a <".DCTS."DPSProfile>}" );
 	my $iterator = $query->execute( $model );
 	my $profile;
 	while (my $row = $iterator->next) {

@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-
+use lib "../";
 use Ontology::Views::SKOS::conceptSchemeBuilder;
 open(IN, "/tmp/apikey");
 my $apikey = <IN>;
@@ -24,7 +24,7 @@ close OUT;
 my $efo = Ontology::Views::SKOS::conceptSchemeBuilder->new(
 	schemeURI => "http://biordf.org/DataFairPort/ConceptSchemes/EFO_Gene_Expression_Protocol",
         schemeName => "SKOS view of the Experimental Factor Ontology Gene Expression Protocols",
-apikey => $apikey,
+        apikey => $apikey,
 	);
 my $scheme2 = $efo->growConceptScheme('EFO', 'http://www.ebi.ac.uk/efo/EFO_0003788'); # edam:MicroarrayDataFormat
 

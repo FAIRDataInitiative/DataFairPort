@@ -1,0 +1,147 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>DCAT::Profile::Class - a module representing a DCAT Profile Class</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+
+<!-- INDEX BEGIN -->
+<div name="index">
+<p><a name="__index__"></a></p>
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#authors">AUTHORS</a></li>
+	<li><a href="#methods">METHODS</a></li>
+	<ul>
+
+		<li><a href="#new">new</a></li>
+		<li><a href="#label">label</a></li>
+		<li><a href="#class_type">class_type</a></li>
+		<li><a href="#uri">URI</a></li>
+		<li><a href="#add_property">add_Property</a></li>
+		<li><a href="#has_property">has_property</a></li>
+	</ul>
+
+</ul>
+
+<hr name="index" />
+</div>
+<!-- INDEX END -->
+
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p>DCAT::Profile::Class - a module representing a DCAT Profile Class</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<pre>
+ use DCAT::Profile::Class;
+ use DCAT::Profile::Property;
+ 
+ my $ProfileClass = DCAT::Profile::Class-&gt;new(
+    class_type =&gt; DCAT.&quot;dataset&quot;,  # DCAT is an exported constant
+    URI =&gt; &quot;<a href="http://example.org//ProfileClasses/ThisClass.rdf&quot">http://example.org//ProfileClasses/ThisClass.rdf&quot</a>;,
+    label =&gt; &quot;core metadata for the thesis submission&quot;
+   );</pre>
+<pre>
+ my $TitleProperty = DCAT::Profile::Property-&gt;new(
+    property_type =&gt; DCT.'title', # DCT is an exported constant
+    allow_multiple =&gt; &quot;false&quot;,
+ );
+ $TitleProperty-&gt;set_RequirementStatus('required');
+ $TitleProperty-&gt;add_ValueRange(XSD.&quot;string&quot;);
+ $ProfileClass-&gt;add_Property($TitleProperty);</pre>
+<pre>
+ 
+=cut</pre>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>DCAT Class describes a group of metadata elements that should be
+associated with a given information entity.  They ARE NOT containers for this metadata,
+they only describe what that metadata should look like (meta-meta-data :-) )</p>
+<p>Effectively, this module groups-together a set of properties and their value-constraints.</p>
+<p>
+</p>
+<hr />
+<h1><a name="authors">AUTHORS</a></h1>
+<p>Mark Wilkinson (markw at illuminae dot com)</p>
+<p>
+</p>
+<hr />
+<h1><a name="methods">METHODS</a></h1>
+<p>
+</p>
+<h2><a name="new">new</a></h2>
+<pre>
+ Title : new
+ Usage : my $Class = DCAT::Profile::Class-&gt;new();
+ Function: Builds a new DCAT::Profile::Class
+ Returns : DCAT::Profile::Class
+ Args : label =&gt; $string
+        class_type =&gt; $URI (possibly an OWL class URI)
+        URI =&gt; $URI (optional - a unique URI will be auto-generated)</pre>
+<p>
+</p>
+<h2><a name="label">label</a></h2>
+<pre>
+ Title : label
+ Usage : $label = $Class-&gt;label($label);
+ Function: get/set the RDF label for this object when serialized
+ Returns : string
+ Args : string</pre>
+<p>
+</p>
+<h2><a name="class_type">class_type</a></h2>
+<pre>
+ Title : class_type
+ Usage : $class_type = $Class-&gt;class_type($class_type);
+ Function: get/set the class type (should be a URI, e.g. of an ontology class)
+ Returns : string
+ Args : string</pre>
+<p>
+</p>
+<h2><a name="uri">URI</a></h2>
+<pre>
+ Title : URI
+ Usage : $uri = $Class-&gt;URI($uri);
+ Function: get/set the URI for this Class - the URI in the RDF
+ Returns : string  (should be a URI)
+ Args : string   (should be a URI)
+ notes:  if this is not supplied, a unique URI will be automatically generated</pre>
+<p>
+</p>
+<h2><a name="add_property">add_Property</a></h2>
+<pre>
+ Title : add_Property
+ Usage : $Class-&gt;add_Property($Property);
+ Function: add a new DCAT::Profile::Property to the Profile Class
+ Returns : boolean (1 for success)
+ Args : DCAT::Profile::Property</pre>
+<p>
+</p>
+<h2><a name="has_property">has_property</a></h2>
+<pre>
+ Title : has_property
+ Usage : $Class-&gt;has_property();
+ Function: Retrieve all properties of the Class
+ Returns : listref of DCAT::Profile::Property objects
+ Args : none
+ Note:  the capitalization of the method name
+        matches the capitalization of the RDF predicate...</pre>
+
+</body>
+
+</html>

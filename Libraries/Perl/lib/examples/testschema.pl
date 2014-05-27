@@ -33,7 +33,7 @@ my $ORCIDSchema = DCAT::Profile->new(
 # ==  ORCID Class
 
 my $ORCIDClass = DCAT::Profile::Class->new(
-    class_type => "http://biordf.org/DataFairPort/ProfileSchemas/DemoORCIDProfileScheme.rdf#ORCID",
+    #class_type => "http://biordf.org/DataFairPort/ProfileSchemas/DemoORCIDProfileScheme.rdf",
     URI => "http://biordf.org/DataFairPort/ProfileSchemas/DemoORCIDProfileScheme.rdf#ORCID",
     label => "ORCID Records",
    );
@@ -119,7 +119,7 @@ my $ExtendedAuthorshipClass = DCAT::Profile::Class->new(
         label => "Author ORCID",
     );
     $ExtendedAuthorProperty->set_RequirementStatus('required');
-    $ExtendedAuthorProperty->add_ValueRange("http://datafairport.org/examples/ProfileSchemas/Examples/ORCID_Class");
+    $ExtendedAuthorProperty->add_ValueRange("http://biordf.org/DataFairPort/ProfileSchemas/DemoORCIDProfileScheme.rdf");
     $ExtendedAuthorshipClass->add_Property($ExtendedAuthorProperty);
 #----------------------------
 

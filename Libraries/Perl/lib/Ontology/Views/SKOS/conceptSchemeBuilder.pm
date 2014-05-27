@@ -269,8 +269,8 @@ sub parseFile {
 	my $content;
 	if ($filename =~ m'http://') {
 		$content = get($filename);
-		die "no content at $filename\n";
-		return undef unless $content
+		die "no content at $filename\n" unless $content;
+		#$return undef unless $content
 	} else {	
 		die "file $filename does not exist" unless (-e $filename);
 		open(IN, "$filename") || die "can't open input file $!\n";

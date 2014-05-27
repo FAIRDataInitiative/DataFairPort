@@ -240,7 +240,7 @@ Mark Wilkinson (markw at illuminae dot com)
 		identifier => [ undef, 'read/write' ],
 		schemardfs_URL => ["http://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs", 'read/write'],
 		_has_class => [undef, 'read/write'],
-		type => [[DCTS.'Schema'], 'read'],
+		type => [[DCTS.'DPSProfile'], 'read'],
 		
 		URI => [undef, 'read/write'],
 		
@@ -294,7 +294,7 @@ sub new {
 
 sub add_Class {   
 	my ($self, $class) = @_;
-	die "not a DCAT Profile Schema Class *$class->type*" unless (DCTS.'Class' ~~ $class->type);
+	die "not a DCAT Profile Schema Class *$class->type*" unless (DCTS.'DPSClass' ~~ $class->type);
 	my $classes = $self->_has_class;
 	push @$classes, $class;
 	$self->_has_class($classes);
