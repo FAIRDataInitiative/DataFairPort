@@ -6,6 +6,7 @@ use DCAT::NAMESPACES;
 use RDF::Trine::Parser;
 use RDF::Trine::Model;
 use RDF::Query;
+use LWP::Simple;
 
 
 use vars qw($AUTOLOAD @ISA);
@@ -179,10 +180,20 @@ sub parse {
 	
 	my ($self) = @_;
 	my $filename = $self->filename;
-	die "file $filename does not exist" unless (-e $filename);
-#	open(IN, "$filename") || die "can't open input file $!\n";
 	my $model = $self->model;
-	RDF::Trine::Parser->parse_file_into_model( "", $filename, $model );
+	if ($filename =~ m'^http://') {
+		my $result = get($filename);
+		die "Nothing could be retrieved from $filename\n" unless $result;		
+		RDF::Trine::Parser->parse_url_into_model($filename, $model );
+		
+	} else {
+			
+		die "file $filename does not exist" unless (-e $filename);
+	#	open(IN, "$filename") || die "can't open input file $!\n";
+		RDF::Trine::Parser->parse_file_into_model( "", $filename, $model );
+	
+	}
+	
 	$self->model($model);  # I think this is unnecessary... its a reference anyway... but just in case!
 	
 	my $profile = $self->getProfile();
@@ -193,7 +204,7 @@ sub getProfile {
 	my ($self) = @_;
 	my $model = $self->model;
 
-	my $query = RDF::Query->new( 'SELECT ?s WHERE {?s a <http://dcat.profile.schema/Schema>}' );
+	my $query = RDF::Query->new( "SELECT ?s WHERE {?s a <".DCTS."Schema>}" );
 	my $iterator = $query->execute( $model );
 	my $profile;
 	while (my $row = $iterator->next) {

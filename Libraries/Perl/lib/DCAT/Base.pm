@@ -161,7 +161,7 @@ sub statement {
 		$p = RDF::Trine::Node::Resource->new($p);
 	}
 	unless (ref($o) =~ /Trine/){
-		if ($o =~ /http\:\/\//){
+		if (($o =~ m'^http://') || ($o =~ m'^https://')){
 			$o =~ s/[\<\>]//g;
 			$o = RDF::Trine::Node::Resource->new($o);
 		} elsif ($o =~ /\D/) {

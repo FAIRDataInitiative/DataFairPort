@@ -1,4 +1,5 @@
 #!perl -w
+use lib "../";
 use DCAT::Profile;
 use DCAT::Profile::Class;
 use DCAT::Profile::Property;
