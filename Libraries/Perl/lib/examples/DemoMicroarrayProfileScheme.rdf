@@ -6,7 +6,7 @@
 	<ns1:issued>May 26, 2014</ns1:issued>
 	<ns1:license>Anyone may use this freely</ns1:license>
 	<ns1:title>A very very simple data deposition descriptor</ns1:title>
-	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#Schema"/>
+	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#DPSProfile"/>
 	<ns2:label>Microarray Deposition for Fairport Demo</ns2:label>
 	<ns3:has_class rdf:resource="http://biordf.org/DataFairPort/ProfileSchemas/DemoMicroarrayProfileScheme.rdf#CoreMicroarrayDistributionMetadata"/>
 	<ns3:has_class rdf:resource="http://biordf.org/DataFairPort/ProfileSchemas/DemoMicroarrayProfileScheme.rdf#ExtendedAuthorship"/>
@@ -15,81 +15,81 @@
 	<ns3:schemardfs_URL rdf:resource="http://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs"/>
 </rdf:Description>
 <rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://biordf.org/DataFairPort/ProfileSchemas/DemoMicroarrayProfileScheme.rdf#CoreMicroarrayDistributionMetadata">
-	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#Class"/>
+	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#DPSClass"/>
 	<ns1:label>Core Microarray Data Distribution Metadata</ns1:label>
 	<ns2:class_type rdf:resource="http://www.w3.org/ns/dcat#Distribution"/>
-	<ns2:has_property rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/125c9734-f1be-4421-a3d4-c1bb50c77e22"/>
-	<ns2:has_property rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/cf05b132-2baa-4b9e-9105-a4551dafac77"/>
-	<ns2:has_property rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/f4e1921c-c91a-4b10-a0be-a3e6b0103746"/>
+	<ns2:has_property rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/64901c89-9749-46ea-964f-8b581327ec1f"/>
+	<ns2:has_property rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/6f341b2a-dcc0-42f4-97e5-b01deb464127"/>
+	<ns2:has_property rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/fd30772a-53ff-4b5f-9c1a-c4c5930f6bb0"/>
 </rdf:Description>
 <rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://biordf.org/DataFairPort/ProfileSchemas/DemoMicroarrayProfileScheme.rdf#ExtendedAuthorship">
-	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#Class"/>
+	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#DPSClass"/>
 	<ns1:label>Extended Authorship Information</ns1:label>
 	<ns2:class_type rdf:resource="http://biordf.org/DataFairPort/ProfileSchemas/DemoMicroarrayProfileScheme.rdf#ExtendedAuthorship"/>
-	<ns2:has_property rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/39e3e98a-ce37-4ef0-9d7a-8e2377e83a04"/>
-	<ns2:has_property rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/888ec3b6-949d-492b-a3de-c168e21f4357"/>
+	<ns2:has_property rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/21574b9a-9c84-4924-a4cc-d9aed7a5f13e"/>
+	<ns2:has_property rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/c414e00d-6b7c-4526-a129-66cb1aefd305"/>
 </rdf:Description>
 <rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://biordf.org/DataFairPort/ProfileSchemas/DemoMicroarrayProfileScheme.rdf#MicroarrayMetadata">
-	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#Class"/>
+	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#DPSClass"/>
 	<ns1:label>Microarray Generation Protocol Metadata</ns1:label>
 	<ns2:class_type rdf:resource="http://biordf.org/DataFairPort/ProfileSchemas/DemoMicroarrayProfileScheme.rdf#MicroarrayMetadata"/>
-	<ns2:has_property rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/0f1deeb3-d3be-41db-a1b9-fe5fd5744b61"/>
-	<ns2:has_property rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/442ae4d7-fa18-4491-81f6-27044a05e283"/>
+	<ns2:has_property rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/195bb393-968a-44c9-a876-4c47fb995c0c"/>
+	<ns2:has_property rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/61807d45-13d5-4bdd-b24b-faafa41c364a"/>
 </rdf:Description>
-<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/0f1deeb3-d3be-41db-a1b9-fe5fd5744b61">
-	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#Property"/>
-	<ns1:label>generated by prootocol type (limited by EFO ontology)</ns1:label>
-	<ns2:allow_multiple>true</ns2:allow_multiple>
-	<ns2:allowed_values rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EFO_Gene_Expression_Protocol"/>
-	<ns2:property_type rdf:resource="http://datafairport.org/examples/ProfileSchemas/MicroarrayMetadata.rdf#protocol_type"/>
-	<ns2:requirement_status>required</ns2:requirement_status>
-</rdf:Description>
-<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/125c9734-f1be-4421-a3d4-c1bb50c77e22">
-	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#Property"/>
-	<ns1:label>Description</ns1:label>
-	<ns2:allow_multiple>false</ns2:allow_multiple>
-	<ns2:allowed_values rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-	<ns2:property_type rdf:resource="http://purl.org/dc/terms/description"/>
-	<ns2:requirement_status>required</ns2:requirement_status>
-</rdf:Description>
-<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/39e3e98a-ce37-4ef0-9d7a-8e2377e83a04">
-	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#Property"/>
-	<ns1:label>Author ORCID</ns1:label>
-	<ns2:allow_multiple>false</ns2:allow_multiple>
-	<ns2:allowed_values rdf:resource="http://datafairport.org/examples/ProfileSchemas/Examples/ORCID_Class"/>
-	<ns2:property_type rdf:resource="http://datafairport.org/examples/ProfileSchemas/ExtendedAuthorshipMetadata.rdf#author_details"/>
-	<ns2:requirement_status>required</ns2:requirement_status>
-</rdf:Description>
-<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/442ae4d7-fa18-4491-81f6-27044a05e283">
-	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#Property"/>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/195bb393-968a-44c9-a876-4c47fb995c0c">
+	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#DPSProperty"/>
 	<ns1:label>generated by protocol (free text)</ns1:label>
 	<ns2:allow_multiple>false</ns2:allow_multiple>
 	<ns2:allowed_values rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
 	<ns2:property_type rdf:resource="http://datafairport.org/examples/ProfileSchemas/MicroarrayMetadata.rdf#generated_by_protocol"/>
 	<ns2:requirement_status>optional</ns2:requirement_status>
 </rdf:Description>
-<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/888ec3b6-949d-492b-a3de-c168e21f4357">
-	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#Property"/>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/21574b9a-9c84-4924-a4cc-d9aed7a5f13e">
+	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#DPSProperty"/>
 	<ns1:label>Creator (free)</ns1:label>
 	<ns2:allow_multiple>false</ns2:allow_multiple>
 	<ns2:allowed_values rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
 	<ns2:property_type>DCCreator</ns2:property_type>
 	<ns2:requirement_status>required</ns2:requirement_status>
 </rdf:Description>
-<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/cf05b132-2baa-4b9e-9105-a4551dafac77">
-	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#Property"/>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/61807d45-13d5-4bdd-b24b-faafa41c364a">
+	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#DPSProperty"/>
+	<ns1:label>generated by prootocol type (limited by EFO ontology)</ns1:label>
+	<ns2:allow_multiple>true</ns2:allow_multiple>
+	<ns2:allowed_values rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EFO_Gene_Expression_Protocol"/>
+	<ns2:property_type rdf:resource="http://datafairport.org/examples/ProfileSchemas/MicroarrayMetadata.rdf#protocol_type"/>
+	<ns2:requirement_status>required</ns2:requirement_status>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/64901c89-9749-46ea-964f-8b581327ec1f">
+	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#DPSProperty"/>
+	<ns1:label>Title</ns1:label>
+	<ns2:allow_multiple>false</ns2:allow_multiple>
+	<ns2:allowed_values rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+	<ns2:property_type rdf:resource="http://purl.org/dc/terms/title"/>
+	<ns2:requirement_status>required</ns2:requirement_status>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/6f341b2a-dcc0-42f4-97e5-b01deb464127">
+	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#DPSProperty"/>
 	<ns1:label>mediaType (controlled vocabulary)</ns1:label>
 	<ns2:allow_multiple>false</ns2:allow_multiple>
 	<ns2:allowed_values rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EDAM_Microarray_Data_Format"/>
 	<ns2:property_type rdf:resource="http://purl.org/dc/terms/mediaType"/>
 	<ns2:requirement_status>required</ns2:requirement_status>
 </rdf:Description>
-<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/f4e1921c-c91a-4b10-a0be-a3e6b0103746">
-	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#Property"/>
-	<ns1:label>Title</ns1:label>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/c414e00d-6b7c-4526-a129-66cb1aefd305">
+	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#DPSProperty"/>
+	<ns1:label>Author ORCID</ns1:label>
+	<ns2:allow_multiple>false</ns2:allow_multiple>
+	<ns2:allowed_values rdf:resource="http://biordf.org/DataFairPort/ProfileSchemas/DemoORCIDProfileScheme.rdf"/>
+	<ns2:property_type rdf:resource="http://datafairport.org/examples/ProfileSchemas/ExtendedAuthorshipMetadata.rdf#author_details"/>
+	<ns2:requirement_status>required</ns2:requirement_status>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/fd30772a-53ff-4b5f-9c1a-c4c5930f6bb0">
+	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#DPSProperty"/>
+	<ns1:label>Description</ns1:label>
 	<ns2:allow_multiple>false</ns2:allow_multiple>
 	<ns2:allowed_values rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-	<ns2:property_type rdf:resource="http://purl.org/dc/terms/title"/>
+	<ns2:property_type rdf:resource="http://purl.org/dc/terms/description"/>
 	<ns2:requirement_status>required</ns2:requirement_status>
 </rdf:Description>
 </rdf:RDF>

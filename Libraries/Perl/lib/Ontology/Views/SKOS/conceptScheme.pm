@@ -83,6 +83,11 @@ Mark Wilkinson (markw at illuminae dot com)
 
 }
 
+sub Concepts {
+	my ($self) = @_;
+	return $self->_concepts;
+}
+
 sub new {
 	my ( $caller, %args ) = @_;
 	my $caller_is_obj = ref( $caller );
@@ -181,6 +186,8 @@ sub _addOntologyHeaders {
 		
 	my $stm = statement($self->schemeURI, $RDF->type, $OWL->Ontology);
 	$model->add_statement($stm);                                        
+	$stm = statement($self->schemeURI, $RDF->type, $SKOS->ConceptScheme);
+	$model->add_statement($stm);                                        
 
 	foreach my $imp(@{$self->_imports}){
 		my $stm = statement($self->schemeURI, $OWL->imports, $imp);		
@@ -236,7 +243,7 @@ sub statement {
 		$p = RDF::Trine::Node::Resource->new($p);
 	}
 	unless (ref($o) =~ /Trine/){
-		if ($o =~ /http\:\/\//){
+		if (($o =~ m'^http://') || ($o =~ m'^https://')){
 			$o =~ s/[\<\>]//g;
 			$o = RDF::Trine::Node::Resource->new($o);
 		} elsif ($o =~ /\D/) {
