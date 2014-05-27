@@ -6,29 +6,29 @@
 	<ns1:issued>May 26, 2014</ns1:issued>
 	<ns1:license>Anyone may use this freely</ns1:license>
 	<ns1:title>Simple ORCID record descriptor</ns1:title>
-	<rdf:type>https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#Schema</rdf:type>
+	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#Schema"/>
 	<ns2:label>Metadata around an ORCID record</ns2:label>
 	<ns3:has_class rdf:resource="http://biordf.org/DataFairPort/ProfileSchemas/DemoORCIDProfileScheme.rdf#ORCID"/>
 	<ns3:organization>wilkinsonlab.info</ns3:organization>
 	<ns3:schemardfs_URL rdf:resource="http://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs"/>
 </rdf:Description>
 <rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://biordf.org/DataFairPort/ProfileSchemas/DemoORCIDProfileScheme.rdf#ORCID">
-	<rdf:type>https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#Class</rdf:type>
+	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#Class"/>
 	<ns1:label>ORCID Records</ns1:label>
 	<ns2:class_type rdf:resource="http://biordf.org/DataFairPort/ProfileSchemas/DemoORCIDProfileScheme.rdf#ORCID"/>
-	<ns2:has_property rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/1884790f-5ae7-4a97-aebf-403c4b725c4f"/>
-	<ns2:has_property rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/adbdd29f-f2e8-4566-a4a7-e342756a3d82"/>
+	<ns2:has_property rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/349edcc4-d686-4795-83e8-c313a33ef3aa"/>
+	<ns2:has_property rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/6e40e7c7-fcd8-4882-89d6-7ea38a424c37"/>
 </rdf:Description>
-<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/1884790f-5ae7-4a97-aebf-403c4b725c4f">
-	<rdf:type>https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#Property</rdf:type>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/349edcc4-d686-4795-83e8-c313a33ef3aa">
+	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#Property"/>
 	<ns1:label>ORCID ID</ns1:label>
 	<ns2:allow_multiple>false</ns2:allow_multiple>
 	<ns2:allowed_values rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
 	<ns2:property_type rdf:resource="http://datafairport.org/examples/ProfileSchemas/Examples/ORCID_Class#orcid_id"/>
 	<ns2:requirement_status>required</ns2:requirement_status>
 </rdf:Description>
-<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/adbdd29f-f2e8-4566-a4a7-e342756a3d82">
-	<rdf:type>https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#Property</rdf:type>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/6e40e7c7-fcd8-4882-89d6-7ea38a424c37">
+	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#Property"/>
 	<ns1:label>ORCID URL</ns1:label>
 	<ns2:allow_multiple>false</ns2:allow_multiple>
 	<ns2:allowed_values rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
