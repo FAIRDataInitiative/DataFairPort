@@ -1,0 +1,13 @@
+
+
+This archive contains the distribution Ontology-Views-SKOS-ConceptScheme,
+version 0.15:
+
+  modules for creating SKOS ConceptSchemes representing slices of ontologies
+
+This software is copyright (c) 2014 by Mark Wilkinson.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+

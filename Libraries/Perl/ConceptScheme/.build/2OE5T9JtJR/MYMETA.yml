@@ -1,0 +1,27 @@
+---
+abstract: 'modules for creating SKOS ConceptSchemes representing slices of ontologies'
+author:
+  - 'Mark Wilkinson (markw [at] illuiminae [dot] com)'
+build_requires:
+  File::Slurp: 0
+  IO::String: 0
+configure_requires:
+  ExtUtils::MakeMaker: 6.30
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.300037, CPAN::Meta::Converter version 2.132140'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Ontology-Views-SKOS-ConceptScheme
+requires:
+  Data::UUID::MT: 0
+  JSON: 0
+  LWP::Simple: 0
+  RDF::NS: 0
+  RDF::Query: 0
+  RDF::Trine::Model: 0
+  RDF::Trine::Parser: 0
+  RDF::Trine::Serializer: 0
+  URI::Escape: 0
+version: 0.15
