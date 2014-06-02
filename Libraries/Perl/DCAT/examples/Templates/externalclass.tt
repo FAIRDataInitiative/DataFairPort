@@ -1,0 +1,4 @@
+
+
+[% IF property.requirement_status %]* [% END %] 
+<b>[% property.label %]:</b> 

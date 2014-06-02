@@ -15,10 +15,10 @@
 <rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://biordf.org/DataFairPort/ProfileSchemas/DemoORCIDProfileScheme.rdf#ORCID">
 	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#DPSClass"/>
 	<ns1:label>ORCID Records</ns1:label>
-	<ns2:has_property rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/81d2408b-86dc-4f22-bc2e-b814f3dbc03e"/>
-	<ns2:has_property rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/b67b50d9-9698-46b2-9429-0972ffe13fc0"/>
+	<ns2:has_property rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/51a477e7-679e-4d28-bf40-ddcd8bd230b6"/>
+	<ns2:has_property rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/5d7a18e8-0ebc-421c-8756-1204b26d52eb"/>
 </rdf:Description>
-<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/81d2408b-86dc-4f22-bc2e-b814f3dbc03e">
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/51a477e7-679e-4d28-bf40-ddcd8bd230b6">
 	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#DPSProperty"/>
 	<ns1:label>ORCID ID</ns1:label>
 	<ns2:allow_multiple>false</ns2:allow_multiple>
@@ -26,7 +26,7 @@
 	<ns2:property_type rdf:resource="http://datafairport.org/examples/ProfileSchemas/Examples/ORCID_Class#orcid_id"/>
 	<ns2:requirement_status>required</ns2:requirement_status>
 </rdf:Description>
-<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/b67b50d9-9698-46b2-9429-0972ffe13fc0">
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/5d7a18e8-0ebc-421c-8756-1204b26d52eb">
 	<rdf:type rdf:resource="https://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs#DPSProperty"/>
 	<ns1:label>ORCID URL</ns1:label>
 	<ns2:allow_multiple>false</ns2:allow_multiple>

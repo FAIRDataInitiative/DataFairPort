@@ -34,6 +34,7 @@ my $ORCIDClass = DCAT::Profile::Class->new(
     #class_type => "http://biordf.org/DataFairPort/ProfileSchemas/DemoORCIDProfileScheme.rdf",
     URI => "http://biordf.org/DataFairPort/ProfileSchemas/DemoORCIDProfileScheme.rdf#ORCID",
     label => "ORCID Records",
+    _template => 'http://biordf.org/DataFairPort/ProfileSchemas/Templates/ORCID.tt',
    );
 
     
@@ -62,6 +63,7 @@ my $DCATDistributionClass = DCAT::Profile::Class->new(
     class_type => DCAT."Distribution",
     URI => "http://biordf.org/DataFairPort/ProfileSchemas/DemoMicroarrayProfileScheme.rdf#CoreMicroarrayDistributionMetadata",
     label => "Core Microarray Data Distribution Metadata",
+    _template => 'http://biordf.org/DataFairPort/ProfileSchemas/Templates/MicroarrayDistribution.tt',
    );
 
     my $TitleProperty = DCAT::Profile::Property->new(
@@ -99,6 +101,7 @@ my $ExtendedAuthorshipClass = DCAT::Profile::Class->new(
     class_type => "http://biordf.org/DataFairPort/ProfileSchemas/DemoMicroarrayProfileScheme.rdf#ExtendedAuthorship",
     URI => "http://biordf.org/DataFairPort/ProfileSchemas/DemoMicroarrayProfileScheme.rdf#ExtendedAuthorship",
     label => "Extended Authorship Information",
+    _template => 'http://biordf.org/DataFairPort/ProfileSchemas/Templates/ExtendedAuthorship.tt',
    );
 
     my $AuthorProperty = DCAT::Profile::Property->new(
@@ -128,6 +131,8 @@ my $MicroarrayMetadataClass = DCAT::Profile::Class->new(
     class_type => "http://biordf.org/DataFairPort/ProfileSchemas/DemoMicroarrayProfileScheme.rdf#MicroarrayMetadata",
     URI => "http://biordf.org/DataFairPort/ProfileSchemas/DemoMicroarrayProfileScheme.rdf#MicroarrayMetadata",
     label => "Microarray Generation Protocol Metadata",
+    _template => 'http://biordf.org/DataFairPort/ProfileSchemas/Templates/MicroarrayMetadata.tt',
+
    );
 
     

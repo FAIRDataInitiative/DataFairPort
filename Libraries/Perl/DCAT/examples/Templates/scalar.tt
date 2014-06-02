@@ -1,0 +1,5 @@
+
+
+[% IF property.requirement_status == 'required' %]* [% END %] 
+<b>[% property.label %]:</b> 
+<input type='text' name='[% property.property_type %]]' value='[% xsd_type %]'/><br/>

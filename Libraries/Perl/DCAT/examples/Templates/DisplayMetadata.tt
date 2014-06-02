@@ -1,0 +1,67 @@
+[% INCLUDE header %]
+
+  <body>
+    <div id='outer-frame'>
+      <div id='inner-frame'>
+        <div id='header'>
+          <h1><a href="http://sadiframework.org/">SADI</a></h1>
+          <p class='tagline'>Find. Integrate. Analyze.</p>
+        </div>
+        <div id='nav'>
+          <ul>
+<!--            <li class="page_item"><a href="../validate">Validate</a></li>
+            <li class="page_item"><a href="../register">Register</a></li>
+            <li class="page_item"><a href="../sparql">SPARQL</a></li>
+-->
+            <li class="page_item current_page_item"><a href="../services">Services</a></li>
+          </ul>
+        </div>
+        <div id='content'>
+          <h2>Registered services</h2>
+<p> [% servicenumber %] services are registered.</p>Showing only the first 200 results...</p><div style="background-color:lightblue; width:1200px; margin:0 auto;">
+                <br/><h2>SEARCH</h2>
+               <center><form>Provider: <select name="providers">
+               [% FOREACH provider IN providers %]
+               <option value='[% provider %]' >[% provider %]</option>
+               [% END %]
+               </select>
+               -- Input Keyword: <input type='text' name='inputstring' value='[% inputstring %]'>
+               -- Output Keyword: <input type='text' name='outputstring' value='[% outputstring %]'>
+               -- Description Keyword: <input type='text' name='descstring'  value='[% descstring %]'><br/>
+               <input type='submit' value='Search SADI'></center></form></div>      	  <div id='services-table-div'>
+            <table id='services-table'>
+              <thead>
+                <tr>
+                  <th>Service:</th>
+                  <th>Provider:</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+              [% FOREACH service IN services %]
+              <tr id='[% service.name %]' class='[% service.evenodd %]'>
+
+                     <td style='width:500px;'>
+                     <a href='[% service.url %]' title='[% service.name %]'>[% service.name %]</a>
+                     </td>
+                     <td style='width:200px;'><i>http://bioinfo.icapture.ubc.ca</i></td>
+              </tr>
+              <tr>
+              <td colspan='2'>
+                <div style='margin-left:40px; width:800px;'>INPUT: <a href='[% service.input %]' title='[% service.inputtype %]'>[% service.inputtype %]</a><br/>
+
+             PROPERTY: <a href='[% service.property %]' title='[% service.propertype %]'>[% service.propertytype %]</a>
+             ATTACHES: <a href='[% service.output %]' title='[% service.outputtype %]'>[% service.outputtype %]</a><br/>
+
+             Description:  [% service.description %]<br/>
+
+                  </div>
+              </td>
+              </tr>
+              [% END %]
+              </tbody>
+            </table>
+          </div> <!-- services-table-div -->
+        </div> <!-- content -->
+
+[% INCLUDE footer %]

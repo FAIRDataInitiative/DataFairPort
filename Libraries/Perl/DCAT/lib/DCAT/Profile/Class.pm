@@ -140,6 +140,7 @@ Mark Wilkinson (markw at illuminae dot com)
 		label => ['Descriptor Profile Schema Class', 'read'],
 		type => [[DCTS.'DPSClass'], 'read'],
 		class_type => [undef, 'read/write'],  # this is a URI to an OWL class or RDFS class
+		_template => [undef, 'read/write'],  # the Template::Toolkit HTML template to render this class
 		-has_property => [ undef, 'read/write' ],  # a list
 		
 		URI => [undef, 'read/write'],
@@ -199,13 +200,26 @@ sub add_Property {
 	return 1;
 }
 
-sub has_property {
+sub has_property {  # capitalization matches the capitalization of the predicate in the RDFS
 	my ($self) = shift;
 	if (@_) {
 		print STDERR "YOU CANNOT ADD PROPERTIES USING THE ->has_property method;  use add_Property instead!\n";
 		return 0;
 	}
 	return $self->_has_property;
+}
+
+
+sub set_Template {   
+	my ($self, $t) = @_;
+	die "not a template URL reference " unless ($t =~ /^http:\/\//);
+	$self->_template($t);
+	return 1;
+}
+
+sub get_Template {   
+	my ($self) = @_;
+	return $self->_template();
 }
 
 
