@@ -1,0 +1,11 @@
+
+[% IF property.requirement_status %]* [% END %] 
+<b>[% property.label %] :</b> 
+
+<select name='[% property.property_type %]'>
+[% FOREACH concept IN concepts %]
+<option value='[% concept.ontologyTermURI %]'>[% concept.label %]</option>
+[% END %]
+</select>
+
+<br/><br/>

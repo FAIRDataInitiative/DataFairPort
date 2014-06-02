@@ -1,0 +1,6 @@
+<br/><br/><br/>The code that generated this page is:<br/><br/>
+<pre>
+[% INSERT "./interface_builder.cgi" FILTER html %]
+</pre>
+</body>
+</html>
