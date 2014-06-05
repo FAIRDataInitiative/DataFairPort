@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use lib "../";
+use lib "/home/biordf/perl5/lib/perl5/";
 use warnings;
 use DCAT::Profile::Parser;
 use LWP::Simple;
@@ -11,9 +12,8 @@ use strict;
 use warnings;
 use Template;
 
-# some useful options (see below for full list)
 my $config = {
-    INCLUDE_PATH => ['./Templates/', './'],  # or list ref
+    INCLUDE_PATH => ['./Templates/', './'],  
     POST_CHOMP   => 1,               # cleanup whitespace 
     RELATIVE  => 1,
 };
@@ -30,54 +30,62 @@ $template->process("header", {title => "FAIRport Metadata Capture Demo"}) || die
 my $parser = DCAT::Profile::Parser->new(filename => "http://biordf.org/DataFairPort/ProfileSchemas/DemoMicroarrayProfileScheme.rdf"); 
 my $Profile = $parser->parse;
 
+# all we are going to do is iterate over each class in the Profile
+# and render the properties of those classes according
+# to their value constraints in the DCAT Profile
 my $classes = $Profile->has_class;
-my $margin = 20;
+
+my $margin = 20; # properties that have classes as their value-range will be indented inside of the parent's DIV element
+
 foreach my $class(@$classes){
     &parseClass($class, $margin);    
 }
 
 $template->process("footer") || die $template->error();
+exit 1;
+
+
 
 
 sub parseClass {
     my ($class, $margin) = @_;
-    my $background = join "" => "#", map { sprintf "%02x", (rand 55)+200 } 1 .. 3;
+    my $background = join "" => "#", map { sprintf "%02x", (rand 55)+200 } 1 .. 3;  # random background color for every DIV
     my $title = $class->label;
 
-    $template->process("newsection.tt", {title => $title, margin => $margin, background => $background}) || die $template->error();
+    $template->process("newsection.tt", {title => $title, margin => $margin, background => $background}) || die $template->error(); # the main title for that section
     
-    my @embeddedclasses; # stack-up external classes for display aesthetics
+    my @embeddedclasses; # stack-up external classes for display aesthetics - they will be rendered last
 
-    foreach my $property(@{$class->has_property}){
-        my $values = $property->allowed_values;
-        foreach my $valueURL(@$values){
+    foreach my $property(@{$class->has_property}){  # iterate over every property declared for that DCAT class
+        my $values = $property->allowed_values; # what are the value restrictions on that property?
+        foreach my $valueURL(@$values){  # what comes back are the URLs to either...
 	    
-            if (isScalar($valueURL)) {
-		$template->process("scalar.tt", {property => $property, xsd_type => isScalar($valueURL)}) || die $template->error();
+            if (isScalar($valueURL)) {  # the URL of an XSD Datatype
+		$template->process("scalar.tt", {property => $property, xsd_type => isScalar($valueURL)}) || die $template->error();  # render it
 
-            } elsif (isConceptScheme($valueURL)) {
-		my $b = Ontology::Views::SKOS::conceptSchemeBuilder->new();
+            } elsif (isConceptScheme($valueURL)) {  # the URL to a SKOS Concept Scheme
+		my $b = Ontology::Views::SKOS::conceptSchemeBuilder->new();  # retrieve it
 		my $scheme = $b->parseFile($valueURL);
-		$template->process("dropdown.tt", {property => $property, concepts => $scheme->Concepts}) || die $template->error();
+		$template->process("dropdown.tt", {property => $property, concepts => $scheme->Concepts}) || die $template->error();  # render it
 		
-	    } elsif (isDCATModel($valueURL)) {
-		push @embeddedclasses, [$property, $valueURL];  # stack them up and deal with them later for layout purposes
+	    } elsif (isDCATModel($valueURL)) { # the URL to another DCAT Profile
+		push @embeddedclasses, [$property, $valueURL];  # stack them up and deal with them later (for layout purposes only)
 		
 	    } else {
                 print "<i>$valueURL</i> is not an XML Schema datatype, a SKOS Concept Scheme or a DCAT Profile<br/>\n";
             }
         }
     }
-    # now we have to deal with the referenced classes
+    # now we have to deal with the embedded DCAT Profiles
     foreach my $pair(@embeddedclasses){
         my ($property, $classurl) = @{$pair};
-        my $parser = DCAT::Profile::Parser->new(filename => $classurl);
+        my $parser = DCAT::Profile::Parser->new(filename => $classurl);  # parse the remote profile
         my $Profile = $parser->parse;
         
-        my $classes = $Profile->has_class;
-	$template->process("externalclass.tt", {property => $property}) || die $template->error();
+        my $classes = $Profile->has_class;  # get it's DCAT Profile Classes
+	$template->process("externalclass.tt", {property => $property}) || die $template->error(); # print the property name that connects these classes to the parent
         $margin = $margin + 60;  # indent
-        foreach my $class(@$classes){
+        foreach my $class(@$classes){  # start rendering the classes in this model, exactly as we rendered the classes in the parent model
             &parseClass($class, $margin);    
         }                    
     }
