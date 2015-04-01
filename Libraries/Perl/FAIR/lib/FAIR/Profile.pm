@@ -1,35 +1,35 @@
-package DCAT::Profile;
+package FAIR::Profile;
 use strict;
-use lib "../";
 use Carp;
-use DCAT::Base;
-use DCAT::NAMESPACES;
-use DCAT::Profile::Class;
-use DCAT::Profile::Property;
-use DCAT::Profile::Parser;
+use lib "../";
+use FAIR::Base;
+use FAIR::NAMESPACES;
+use FAIR::Profile::Class;
+use FAIR::Profile::Property;
+use FAIR::Profile::Parser;
 
 use RDF::Trine::Store::Memory;
 use vars qw($AUTOLOAD @ISA);
 
-use base 'DCAT::Base';
+use base 'FAIR::Base';
 
 
 =head1 NAME
 
 
-DCAT::Profile - a module representing a DCAT Profile.
+FAIR::Profile - a module representing a DCAT Profile.
 
 
 =head1 SYNOPSIS
 
- use DCAT;
- use DCAT::Profile::Parser;
- use DCAT::Profile;
+ use FAIR;
+ use FAIR::Profile::Parser;
+ use FAIR::Profile;
  
- my $parser = DCAT::Profile::Parser->new(filename => "./ProfileSchema.rdf");
+ my $parser = FAIR::Profile::Parser->new(filename => "./ProfileSchema.rdf");
  my $Profile = $parser->parse;  # A DCAT::Profile from a file
 
- my $Profile2 = DCAT::Profile->new(
+ my $Profile2 = FAIR::Profile->new(
 		label => 'UBC Thesis Submission Profile',
 		title => 'UBC Thesis Submission Profile'
 		description => 'the metadata that must be associated with thesis deposition',
@@ -41,12 +41,12 @@ DCAT::Profile - a module representing a DCAT Profile.
 		URI => 'http://ubc.ca/library/thesis/metadataprofile.rdf'
  )
  
- my $ProfileClass = DCAT::Profile::Class->new(
-    class_type => DCAT."dataset",  # DCAT is an exported constant
+ my $ProfileClass = FAIR::Profile::Class->new(
+    class_type => FAIR."dataset",  # DCAT is an exported constant
     URI => "http://datafairport.org/examples/ProfileSchemas/DCATDatasetExample.rdf",
    );
 
- my $TitleProperty = DCAT::Profile::Property->new(
+ my $TitleProperty = FAIR::Profile::Property->new(
     property_type => DCT.'title', # DCT is an exported constant
     allow_multiple => "false",
  );
@@ -55,7 +55,7 @@ DCAT::Profile - a module representing a DCAT Profile.
  $ProfileClass->add_Property($TitleProperty);
 
 
- my $DescrProperty = DCAT::Profile::Property->new(
+ my $DescrProperty = FAIR::Profile::Property->new(
     property_type => DCT.'description',
     allow_multiple => "false",
  );
@@ -245,13 +245,13 @@ Mark Wilkinson (markw at illuminae dot com)
                 issued => [ undef, 'read/write' ],
     		organization => [ undef, 'read/write' ],
 		identifier => [ undef, 'read/write' ],
-		schemardfs_URL => ["http://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs", 'read/write'],
-		_has_class => [undef, 'read/write'],
-		type => [[DCTS.'DPSProfile'], 'read'],
+		schemardfs_URL => [FAIR, 'read/write'],
+		_hasClass => [undef, 'read/write'],
+		type => [[FAIR.'FAIRProfile'], 'read'],
 		
 		URI => [undef, 'read/write'],
 		
-		'-has_class' => [undef, 'read/write']
+		'-hasClass' => [undef, 'read/write']
 
 	  );
 
@@ -301,20 +301,20 @@ sub new {
 
 sub add_Class {   
 	my ($self, $class) = @_;
-	die "not a DCAT Profile Schema Class *$class->type*" unless (DCTS.'DPSClass' ~~ $class->type);
-	my $classes = $self->_has_class;
+	die "not a FAIR Profile Schema Class *$class->type*" unless (FAIR.'FAIRClass' ~~ $class->type);
+	my $classes = $self->_hasClass;
 	push @$classes, $class;
-	$self->_has_class($classes);
+	$self->_hasClass($classes);
 	return 1;
 }
 
-sub has_class {   
+sub hasClass {   
 	my ($self) = shift;
 	if (@_) {
-		print STDERR "YOU CANNOT ADD CLASSES USING THE ->has_class method;  use add_Class instead!\n";
+		print STDERR "YOU CANNOT ADD CLASSES USING THE ->hasClass method;  use add_Class instead!\n";
 		return 0;
 	}
-	return $self->_has_class;
+	return $self->_hasClass;
 }
 
 
