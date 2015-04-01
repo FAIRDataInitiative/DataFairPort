@@ -1,0 +1,3374 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY mdr "http://www.salusproject.eu/iso11179-3/mdr#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.salusproject.eu/iso11179-3/mdr#"
+     xml:base="http://www.salusproject.eu/iso11179-3/mdr"
+     xmlns:mdr="http://www.salusproject.eu/iso11179-3/mdr#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://salusproject.eu/iso11179-3/mdr/salus.mdr.owl">
+        <rdfs:label>SALUS MDR Ontology</rdfs:label>
+        <rdfs:comment rdf:datatype="&xsd;string">SALUS MDR Ontology</rdfs:comment>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#dataElementPrecision -->
+
+    <owl:AnnotationProperty rdf:about="&mdr;dataElementPrecision">
+        <rdfs:domain rdf:resource="&mdr;dataElementPrecision"/>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#propertyQualifier -->
+
+    <owl:AnnotationProperty rdf:about="&mdr;propertyQualifier">
+        <rdfs:domain rdf:resource="&mdr;propertyQualifier"/>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#administer -->
+
+    <owl:ObjectProperty rdf:about="&mdr;administer">
+        <rdfs:range rdf:resource="&mdr;Stewardship"/>
+        <rdfs:domain rdf:resource="&mdr;StewardshipRelationship"/>
+        <owl:inverseOf rdf:resource="&mdr;administers"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#administeredBy -->
+
+    <owl:ObjectProperty rdf:about="&mdr;administeredBy">
+        <rdfs:domain rdf:resource="&mdr;AdministeredItem"/>
+        <rdfs:range rdf:resource="&mdr;StewardshipRelationship"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#administeredItemAdministrationRecord -->
+
+    <owl:ObjectProperty rdf:about="&mdr;administeredItemAdministrationRecord">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;AdministeredItem"/>
+        <rdfs:range rdf:resource="&mdr;AdministrationRecord"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#administeredItemContextContext -->
+
+    <owl:ObjectProperty rdf:about="&mdr;administeredItemContextContext">
+        <rdfs:domain rdf:resource="&mdr;AdministeredItemContext"/>
+        <rdfs:range rdf:resource="&mdr;Context"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#administeredItemContextTerminologicalEntry -->
+
+    <owl:ObjectProperty rdf:about="&mdr;administeredItemContextTerminologicalEntry">
+        <rdfs:domain rdf:resource="&mdr;AdministeredItemContext"/>
+        <rdfs:range rdf:resource="&mdr;TerminologicalEntry"/>
+        <owl:inverseOf rdf:resource="&mdr;terminologicalEntryAdministeredItemContext"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#administeredItemIdentifier -->
+
+    <owl:ObjectProperty rdf:about="&mdr;administeredItemIdentifier">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;AdministrationRecord"/>
+        <rdfs:range rdf:resource="&mdr;ItemIdentifier"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#administeredItems -->
+
+    <owl:ObjectProperty rdf:about="&mdr;administeredItems">
+        <rdfs:range rdf:resource="&mdr;AdministeredItem"/>
+        <rdfs:domain rdf:resource="&mdr;StewardshipRelationship"/>
+        <owl:inverseOf rdf:resource="&mdr;administeredBy"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#administering -->
+
+    <owl:ObjectProperty rdf:about="&mdr;administering">
+        <rdfs:domain rdf:resource="&mdr;Organization"/>
+        <rdfs:range rdf:resource="&mdr;StewardshipRelationship"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#administers -->
+
+    <owl:ObjectProperty rdf:about="&mdr;administers">
+        <rdfs:domain rdf:resource="&mdr;Stewardship"/>
+        <rdfs:range rdf:resource="&mdr;StewardshipRelationship"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#appliedToDerivationRuleApplication -->
+
+    <owl:ObjectProperty rdf:about="&mdr;appliedToDerivationRuleApplication">
+        <rdfs:range rdf:resource="&mdr;DataElementDerivation"/>
+        <rdfs:domain rdf:resource="&mdr;DerivationRule"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#applyingDerivationRuleApplication -->
+
+    <owl:ObjectProperty rdf:about="&mdr;applyingDerivationRuleApplication">
+        <rdfs:domain rdf:resource="&mdr;DataElementDerivation"/>
+        <rdfs:range rdf:resource="&mdr;DerivationRule"/>
+        <owl:inverseOf rdf:resource="&mdr;appliedToDerivationRuleApplication"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#classificationSchemeAdministrationRecord -->
+
+    <owl:ObjectProperty rdf:about="&mdr;classificationSchemeAdministrationRecord">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="&mdr;AdministrationRecord"/>
+        <rdfs:domain rdf:resource="&mdr;ClassificationScheme"/>
+        <rdfs:subPropertyOf rdf:resource="&mdr;administeredItemAdministrationRecord"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#classifiedBy -->
+
+    <owl:ObjectProperty rdf:about="&mdr;classifiedBy">
+        <rdfs:domain rdf:resource="&mdr;AdministeredItem"/>
+        <rdfs:range rdf:resource="&mdr;ClassificationSchemeItem"/>
+        <owl:inverseOf rdf:resource="&mdr;classifying"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#classifying -->
+
+    <owl:ObjectProperty rdf:about="&mdr;classifying">
+        <rdfs:range rdf:resource="&mdr;AdministeredItem"/>
+        <rdfs:domain rdf:resource="&mdr;ClassificationSchemeItem"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#conceptualDomainAdministrationRecord -->
+
+    <owl:ObjectProperty rdf:about="&mdr;conceptualDomainAdministrationRecord">
+        <rdfs:range rdf:resource="&mdr;AdministrationRecord"/>
+        <rdfs:domain rdf:resource="&mdr;ConceptualDomain"/>
+        <rdfs:subPropertyOf rdf:resource="&mdr;administeredItemAdministrationRecord"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#containedIn -->
+
+    <owl:ObjectProperty rdf:about="&mdr;containedIn">
+        <rdfs:range rdf:resource="&mdr;ClassificationScheme"/>
+        <rdfs:domain rdf:resource="&mdr;ClassificationSchemeItem"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#containedInPermissibleValueSet -->
+
+    <owl:ObjectProperty rdf:about="&mdr;containedInPermissibleValueSet">
+        <rdfs:range rdf:resource="&mdr;EnumeratedValueDomain"/>
+        <rdfs:domain rdf:resource="&mdr;PermissibleValue"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#containedInValueMeaningSet -->
+
+    <owl:ObjectProperty rdf:about="&mdr;containedInValueMeaningSet">
+        <rdfs:range rdf:resource="&mdr;EnumeratedConceptualDomain"/>
+        <rdfs:domain rdf:resource="&mdr;ValueMeaning"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#containing -->
+
+    <owl:ObjectProperty rdf:about="&mdr;containing">
+        <rdfs:domain rdf:resource="&mdr;ClassificationScheme"/>
+        <rdfs:range rdf:resource="&mdr;ClassificationSchemeItem"/>
+        <owl:inverseOf rdf:resource="&mdr;containedIn"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#containingDefinitionEntry -->
+
+    <owl:ObjectProperty rdf:about="&mdr;containingDefinitionEntry">
+        <rdfs:range rdf:resource="&mdr;Definition"/>
+        <rdfs:domain rdf:resource="&mdr;LanguageSection"/>
+        <owl:inverseOf rdf:resource="&mdr;definingEntryOf"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#containingNameEntry -->
+
+    <owl:ObjectProperty rdf:about="&mdr;containingNameEntry">
+        <rdfs:range rdf:resource="&mdr;Designation"/>
+        <rdfs:domain rdf:resource="&mdr;LanguageSection"/>
+        <owl:inverseOf rdf:resource="&mdr;namingEmtryOf"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#containingPermissibleValueSet -->
+
+    <owl:ObjectProperty rdf:about="&mdr;containingPermissibleValueSet">
+        <rdfs:domain rdf:resource="&mdr;EnumeratedValueDomain"/>
+        <rdfs:range rdf:resource="&mdr;PermissibleValue"/>
+        <owl:inverseOf rdf:resource="&mdr;containedInPermissibleValueSet"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#containingTerminologicalEntryLanguage -->
+
+    <owl:ObjectProperty rdf:about="&mdr;containingTerminologicalEntryLanguage">
+        <rdfs:range rdf:resource="&mdr;LanguageSection"/>
+        <rdfs:domain rdf:resource="&mdr;TerminologicalEntry"/>
+        <owl:inverseOf rdf:resource="&mdr;partitioning"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#containingValueMeaningSet -->
+
+    <owl:ObjectProperty rdf:about="&mdr;containingValueMeaningSet">
+        <rdfs:domain rdf:resource="&mdr;EnumeratedConceptualDomain"/>
+        <rdfs:range rdf:resource="&mdr;ValueMeaning"/>
+        <owl:inverseOf rdf:resource="&mdr;containedInValueMeaningSet"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#contextAdministeredItemContext -->
+
+    <owl:ObjectProperty rdf:about="&mdr;contextAdministeredItemContext">
+        <rdfs:range rdf:resource="&mdr;AdministeredItemContext"/>
+        <rdfs:domain rdf:resource="&mdr;Context"/>
+        <owl:inverseOf rdf:resource="&mdr;administeredItemContextContext"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#contextAdministrationRecord -->
+
+    <owl:ObjectProperty rdf:about="&mdr;contextAdministrationRecord">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="&mdr;AdministrationRecord"/>
+        <rdfs:domain rdf:resource="&mdr;Context"/>
+        <rdfs:subPropertyOf rdf:resource="&mdr;administeredItemAdministrationRecord"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#contextDescriptionLanguageIdentifier -->
+
+    <owl:ObjectProperty rdf:about="&mdr;contextDescriptionLanguageIdentifier">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;Context"/>
+        <rdfs:range rdf:resource="&mdr;LanguageIdentification"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#csiAssociatedIn -->
+
+    <owl:ObjectProperty rdf:about="&mdr;csiAssociatedIn">
+        <rdfs:domain rdf:resource="&mdr;ClassificationSchemeItem"/>
+        <rdfs:range rdf:resource="&mdr;ClassificationSchemeItemAssociation"/>
+        <owl:inverseOf rdf:resource="&mdr;csiAssociates"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#csiAssociates -->
+
+    <owl:ObjectProperty rdf:about="&mdr;csiAssociates">
+        <rdfs:range rdf:resource="&mdr;ClassificationSchemeItem"/>
+        <rdfs:domain rdf:resource="&mdr;ClassificationSchemeItemAssociation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#csiAssociationRelationship -->
+
+    <owl:ObjectProperty rdf:about="&mdr;csiAssociationRelationship">
+        <rdfs:domain rdf:resource="&mdr;ClassificationSchemeItemAssociation"/>
+        <rdfs:range rdf:resource="&mdr;ClassificationSchemeItemRelationship"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#csiRelationshipAssociation -->
+
+    <owl:ObjectProperty rdf:about="&mdr;csiRelationshipAssociation">
+        <rdfs:range rdf:resource="&mdr;ClassificationSchemeItemAssociation"/>
+        <rdfs:domain rdf:resource="&mdr;ClassificationSchemeItemRelationship"/>
+        <owl:inverseOf rdf:resource="&mdr;csiAssociationRelationship"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#dataElementAdministrationRecord -->
+
+    <owl:ObjectProperty rdf:about="&mdr;dataElementAdministrationRecord">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="&mdr;AdministrationRecord"/>
+        <rdfs:domain rdf:resource="&mdr;DataElement"/>
+        <rdfs:subPropertyOf rdf:resource="&mdr;administeredItemAdministrationRecord"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#dataElementConceptAdministrationRecord -->
+
+    <owl:ObjectProperty rdf:about="&mdr;dataElementConceptAdministrationRecord">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="&mdr;AdministrationRecord"/>
+        <rdfs:domain rdf:resource="&mdr;DataElementConcept"/>
+        <rdfs:subPropertyOf rdf:resource="&mdr;administeredItemAdministrationRecord"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#dataElementConceptObjectClass -->
+
+    <owl:ObjectProperty rdf:about="&mdr;dataElementConceptObjectClass">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;DataElementConcept"/>
+        <rdfs:range rdf:resource="&mdr;ObjectClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#dataElementConceptProperty -->
+
+    <owl:ObjectProperty rdf:about="&mdr;dataElementConceptProperty">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;DataElementConcept"/>
+        <rdfs:range rdf:resource="&mdr;Property"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#definingEntryOf -->
+
+    <owl:ObjectProperty rdf:about="&mdr;definingEntryOf">
+        <rdfs:domain rdf:resource="&mdr;Definition"/>
+        <rdfs:range rdf:resource="&mdr;LanguageSection"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#definitionSourceReference -->
+
+    <owl:ObjectProperty rdf:about="&mdr;definitionSourceReference">
+        <rdfs:domain rdf:resource="&mdr;Definition"/>
+        <rdfs:range rdf:resource="&mdr;ReferenceDocument"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#derivationRuleAdministrationRecord -->
+
+    <owl:ObjectProperty rdf:about="&mdr;derivationRuleAdministrationRecord">
+        <rdfs:domain rdf:resource="&mdr;DerivationRule"/>
+        <rdfs:range rdf:resource="&mdr;PermissibleValue"/>
+        <rdfs:subPropertyOf rdf:resource="&mdr;administeredItemAdministrationRecord"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#derivedFromDerivationOutput -->
+
+    <owl:ObjectProperty rdf:about="&mdr;derivedFromDerivationOutput">
+        <rdfs:domain rdf:resource="&mdr;DataElement"/>
+        <rdfs:range rdf:resource="&mdr;DataElementDerivation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#derivingDerivationOutput -->
+
+    <owl:ObjectProperty rdf:about="&mdr;derivingDerivationOutput">
+        <rdfs:range rdf:resource="&mdr;DataElement"/>
+        <rdfs:domain rdf:resource="&mdr;DataElementDerivation"/>
+        <owl:inverseOf rdf:resource="&mdr;derivedFromDerivationOutput"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#describedBy -->
+
+    <owl:ObjectProperty rdf:about="&mdr;describedBy">
+        <rdfs:domain rdf:resource="&mdr;AdministeredItem"/>
+        <rdfs:range rdf:resource="&mdr;ReferenceDocument"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#describedByConceptualDomainRelationship -->
+
+    <owl:ObjectProperty rdf:about="&mdr;describedByConceptualDomainRelationship">
+        <rdfs:range rdf:resource="&mdr;ConceptualDomainRelationship"/>
+        <rdfs:domain rdf:resource="&mdr;ConceptualDomainRelationshipAssociation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#describedByDataElementConceptRelationship -->
+
+    <owl:ObjectProperty rdf:about="&mdr;describedByDataElementConceptRelationship">
+        <rdfs:range rdf:resource="&mdr;DataElementConceptRelationship"/>
+        <rdfs:domain rdf:resource="&mdr;DataElementConceptRelationshipAssociation"/>
+        <owl:inverseOf rdf:resource="&mdr;describingDataElementConceptRelationship"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#describedByValueDomainRelationship -->
+
+    <owl:ObjectProperty rdf:about="&mdr;describedByValueDomainRelationship">
+        <rdfs:range rdf:resource="&mdr;ValueDomainRelationship"/>
+        <rdfs:domain rdf:resource="&mdr;ValueDomainRelationshipAssociation"/>
+        <owl:inverseOf rdf:resource="&mdr;describingValueDomainRelationship"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#describing -->
+
+    <owl:ObjectProperty rdf:about="&mdr;describing">
+        <rdfs:range rdf:resource="&mdr;AdministeredItem"/>
+        <rdfs:domain rdf:resource="&mdr;ReferenceDocument"/>
+        <owl:inverseOf rdf:resource="&mdr;describedBy"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#describingConceptualDomainRelationship -->
+
+    <owl:ObjectProperty rdf:about="&mdr;describingConceptualDomainRelationship">
+        <rdfs:domain rdf:resource="&mdr;ConceptualDomainRelationship"/>
+        <rdfs:range rdf:resource="&mdr;ConceptualDomainRelationshipAssociation"/>
+        <owl:inverseOf rdf:resource="&mdr;describedByConceptualDomainRelationship"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#describingDataElementConceptRelationship -->
+
+    <owl:ObjectProperty rdf:about="&mdr;describingDataElementConceptRelationship">
+        <rdfs:domain rdf:resource="&mdr;DataElementConceptRelationship"/>
+        <rdfs:range rdf:resource="&mdr;DataElementConceptRelationshipAssociation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#describingValueDomainRelationship -->
+
+    <owl:ObjectProperty rdf:about="&mdr;describingValueDomainRelationship">
+        <rdfs:domain rdf:resource="&mdr;ValueDomainRelationship"/>
+        <rdfs:range rdf:resource="&mdr;ValueDomainRelationshipAssociation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#documentationLanguageIdentifier -->
+
+    <owl:ObjectProperty rdf:about="&mdr;documentationLanguageIdentifier">
+        <rdfs:range rdf:resource="&mdr;LanguageIdentification"/>
+        <rdfs:domain rdf:resource="&mdr;RegistrationAuthority"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#exemplifiedByExemplification -->
+
+    <owl:ObjectProperty rdf:about="&mdr;exemplifiedByExemplification">
+        <rdfs:domain rdf:resource="&mdr;DataElement"/>
+        <rdfs:range rdf:resource="&mdr;DataElementExample"/>
+        <owl:inverseOf rdf:resource="&mdr;exemplifyingExemplification"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#exemplifyingExemplification -->
+
+    <owl:ObjectProperty rdf:about="&mdr;exemplifyingExemplification">
+        <rdfs:range rdf:resource="&mdr;DataElement"/>
+        <rdfs:domain rdf:resource="&mdr;DataElementExample"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#expressedByDataElementConceptExpression -->
+
+    <owl:ObjectProperty rdf:about="&mdr;expressedByDataElementConceptExpression">
+        <rdfs:range rdf:resource="&mdr;DataElement"/>
+        <rdfs:domain rdf:resource="&mdr;DataElementConcept"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#expressingDataElementConceptExpression -->
+
+    <owl:ObjectProperty rdf:about="&mdr;expressingDataElementConceptExpression">
+        <rdfs:domain rdf:resource="&mdr;DataElement"/>
+        <rdfs:range rdf:resource="&mdr;DataElementConcept"/>
+        <owl:inverseOf rdf:resource="&mdr;expressedByDataElementConceptExpression"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#grouping -->
+
+    <owl:ObjectProperty rdf:about="&mdr;grouping">
+        <rdfs:range rdf:resource="&mdr;AdministeredItem"/>
+        <rdfs:domain rdf:resource="&mdr;AdministeredItemContext"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#hasPermissibleValueMeaning -->
+
+    <owl:ObjectProperty rdf:about="&mdr;hasPermissibleValueMeaning">
+        <rdfs:domain rdf:resource="&mdr;PermissibleValue"/>
+        <rdfs:range rdf:resource="&mdr;ValueMeaning"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#hasPermittedValue -->
+
+    <owl:ObjectProperty rdf:about="&mdr;hasPermittedValue">
+        <rdfs:domain rdf:resource="&mdr;PermissibleValue"/>
+        <rdfs:range rdf:resource="&mdr;Value"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#having -->
+
+    <owl:ObjectProperty rdf:about="&mdr;having">
+        <rdfs:domain rdf:resource="&mdr;AdministeredItem"/>
+        <rdfs:range rdf:resource="&mdr;AdministeredItemContext"/>
+        <owl:inverseOf rdf:resource="&mdr;grouping"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#havingDataElementConceptConceptualDomainRelationship -->
+
+    <owl:ObjectProperty rdf:about="&mdr;havingDataElementConceptConceptualDomainRelationship">
+        <rdfs:range rdf:resource="&mdr;ConceptualDomain"/>
+        <rdfs:domain rdf:resource="&mdr;DataElementConcept"/>
+        <owl:inverseOf rdf:resource="&mdr;specifyingDataElementConceptConceptualDomainRelationship"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#inputToDerivationInput -->
+
+    <owl:ObjectProperty rdf:about="&mdr;inputToDerivationInput">
+        <rdfs:domain rdf:resource="&mdr;DataElement"/>
+        <rdfs:range rdf:resource="&mdr;DataElementDerivation"/>
+        <owl:inverseOf rdf:resource="&mdr;inputingDerivationInput"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#inputingDerivationInput -->
+
+    <owl:ObjectProperty rdf:about="&mdr;inputingDerivationInput">
+        <rdfs:range rdf:resource="&mdr;DataElement"/>
+        <rdfs:domain rdf:resource="&mdr;DataElementDerivation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#itemRegistrationAuthorityIdentifier -->
+
+    <owl:ObjectProperty rdf:about="&mdr;itemRegistrationAuthorityIdentifier">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;ItemIdentifier"/>
+        <rdfs:range rdf:resource="&mdr;RegistrationAuthorityIdentifier"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#languageSectionLanguageIdentifier -->
+
+    <owl:ObjectProperty rdf:about="&mdr;languageSectionLanguageIdentifier">
+        <rdfs:range rdf:resource="&mdr;LanguageIdentification"/>
+        <rdfs:domain rdf:resource="&mdr;LanguageSection"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#namingEmtryOf -->
+
+    <owl:ObjectProperty rdf:about="&mdr;namingEmtryOf"/>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#namingEntryOf -->
+
+    <owl:ObjectProperty rdf:about="&mdr;namingEntryOf">
+        <rdfs:domain rdf:resource="&mdr;Designation"/>
+        <rdfs:range rdf:resource="&mdr;LanguageSection"/>
+        <owl:inverseOf rdf:resource="&mdr;containingNameEntry"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#objectClassAdministrationRecord -->
+
+    <owl:ObjectProperty rdf:about="&mdr;objectClassAdministrationRecord">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="&mdr;AdministrationRecord"/>
+        <rdfs:domain rdf:resource="&mdr;ObjectClass"/>
+        <rdfs:subPropertyOf rdf:resource="&mdr;administeredItemAdministrationRecord"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#partitioning -->
+
+    <owl:ObjectProperty rdf:about="&mdr;partitioning">
+        <rdfs:domain rdf:resource="&mdr;LanguageSection"/>
+        <rdfs:range rdf:resource="&mdr;TerminologicalEntry"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#propertyAdministrationRecord -->
+
+    <owl:ObjectProperty rdf:about="&mdr;propertyAdministrationRecord">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="&mdr;AdministrationRecord"/>
+        <rdfs:domain rdf:resource="&mdr;Property"/>
+        <rdfs:subPropertyOf rdf:resource="&mdr;administeredItemAdministrationRecord"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#providedBy -->
+
+    <owl:ObjectProperty rdf:about="&mdr;providedBy">
+        <rdfs:range rdf:resource="&mdr;Organization"/>
+        <rdfs:domain rdf:resource="&mdr;ReferenceDocument"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#providing -->
+
+    <owl:ObjectProperty rdf:about="&mdr;providing">
+        <rdfs:domain rdf:resource="&mdr;Organization"/>
+        <rdfs:range rdf:resource="&mdr;ReferenceDocument"/>
+        <owl:inverseOf rdf:resource="&mdr;providedBy"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#referenceDocumentLanguageIdentifier -->
+
+    <owl:ObjectProperty rdf:about="&mdr;referenceDocumentLanguageIdentifier">
+        <rdfs:range rdf:resource="&mdr;LanguageIdentification"/>
+        <rdfs:domain rdf:resource="&mdr;ReferenceDocument"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#registeredBy -->
+
+    <owl:ObjectProperty rdf:about="&mdr;registeredBy">
+        <rdfs:domain rdf:resource="&mdr;AdministeredItem"/>
+        <rdfs:range rdf:resource="&mdr;RegistrationAuthority"/>
+        <owl:inverseOf rdf:resource="&mdr;registering"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#registering -->
+
+    <owl:ObjectProperty rdf:about="&mdr;registering">
+        <rdfs:range rdf:resource="&mdr;AdministeredItem"/>
+        <rdfs:domain rdf:resource="&mdr;RegistrationAuthority"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#registrarContact -->
+
+    <owl:ObjectProperty rdf:about="&mdr;registrarContact">
+        <rdfs:range rdf:resource="&mdr;Contact"/>
+        <rdfs:domain rdf:resource="&mdr;Registrar"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#registrationAuthorityIdentifier -->
+
+    <owl:ObjectProperty rdf:about="&mdr;registrationAuthorityIdentifier">
+        <rdfs:domain rdf:resource="&mdr;RegistrationAuthority"/>
+        <rdfs:range rdf:resource="&mdr;RegistrationAuthorityIdentifier"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#relatedToConceptualDomainRelationship -->
+
+    <owl:ObjectProperty rdf:about="&mdr;relatedToConceptualDomainRelationship">
+        <rdfs:domain rdf:resource="&mdr;ConceptualDomain"/>
+        <rdfs:range rdf:resource="&mdr;ConceptualDomainRelationshipAssociation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#relatedToDataElementConceptRelationship -->
+
+    <owl:ObjectProperty rdf:about="&mdr;relatedToDataElementConceptRelationship">
+        <rdfs:domain rdf:resource="&mdr;DataElementConcept"/>
+        <rdfs:range rdf:resource="&mdr;DataElementConceptRelationshipAssociation"/>
+        <owl:inverseOf rdf:resource="&mdr;relatingDataElementConceptRelationship"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#relatedToValueDomainRelationship -->
+
+    <owl:ObjectProperty rdf:about="&mdr;relatedToValueDomainRelationship">
+        <rdfs:domain rdf:resource="&mdr;ValueDomain"/>
+        <rdfs:range rdf:resource="&mdr;ValueDomainRelationshipAssociation"/>
+        <owl:inverseOf rdf:resource="&mdr;relatingValueDomainRelationship"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#relatingConceptualDomainRelationship -->
+
+    <owl:ObjectProperty rdf:about="&mdr;relatingConceptualDomainRelationship">
+        <rdfs:range rdf:resource="&mdr;ConceptualDomain"/>
+        <rdfs:domain rdf:resource="&mdr;ConceptualDomainRelationshipAssociation"/>
+        <owl:inverseOf rdf:resource="&mdr;relatedToConceptualDomainRelationship"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#relatingDataElementConceptRelationship -->
+
+    <owl:ObjectProperty rdf:about="&mdr;relatingDataElementConceptRelationship">
+        <rdfs:range rdf:resource="&mdr;DataElementConcept"/>
+        <rdfs:domain rdf:resource="&mdr;DataElementConceptRelationshipAssociation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#relatingValueDomainRelationship -->
+
+    <owl:ObjectProperty rdf:about="&mdr;relatingValueDomainRelationship">
+        <rdfs:range rdf:resource="&mdr;ValueDomain"/>
+        <rdfs:domain rdf:resource="&mdr;ValueDomainRelationshipAssociation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#representationClassAdministrationRecord -->
+
+    <owl:ObjectProperty rdf:about="&mdr;representationClassAdministrationRecord">
+        <rdfs:range rdf:resource="&mdr;AdministrationRecord"/>
+        <rdfs:domain rdf:resource="&mdr;RepresentationClass"/>
+        <rdfs:subPropertyOf rdf:resource="&mdr;administeredItemAdministrationRecord"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#representedBy -->
+
+    <owl:ObjectProperty rdf:about="&mdr;representedBy">
+        <rdfs:range rdf:resource="&mdr;Registrar"/>
+        <rdfs:domain rdf:resource="&mdr;RegistrationAuthority"/>
+        <owl:inverseOf rdf:resource="&mdr;represents"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#representedByConceptualDomainRepresentation -->
+
+    <owl:ObjectProperty rdf:about="&mdr;representedByConceptualDomainRepresentation">
+        <rdfs:domain rdf:resource="&mdr;ConceptualDomain"/>
+        <rdfs:range rdf:resource="&mdr;ValueDomain"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#representedByDataElementRepresentation -->
+
+    <owl:ObjectProperty rdf:about="&mdr;representedByDataElementRepresentation">
+        <rdfs:domain rdf:resource="&mdr;DataElement"/>
+        <rdfs:range rdf:resource="&mdr;ValueDomain"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#representedByNonEnumeratedConceptualDomainRepresentation -->
+
+    <owl:ObjectProperty rdf:about="&mdr;representedByNonEnumeratedConceptualDomainRepresentation">
+        <rdfs:domain rdf:resource="&mdr;NonEnumeratedConceptualDomain"/>
+        <rdfs:range rdf:resource="&mdr;NonEnumeratedValueDomain"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#representingConceptualDomainRepresentation -->
+
+    <owl:ObjectProperty rdf:about="&mdr;representingConceptualDomainRepresentation">
+        <rdfs:range rdf:resource="&mdr;ConceptualDomain"/>
+        <rdfs:domain rdf:resource="&mdr;ValueDomain"/>
+        <owl:inverseOf rdf:resource="&mdr;representedByConceptualDomainRepresentation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#representingDataElementRepresentation -->
+
+    <owl:ObjectProperty rdf:about="&mdr;representingDataElementRepresentation">
+        <rdfs:range rdf:resource="&mdr;DataElement"/>
+        <rdfs:domain rdf:resource="&mdr;ValueDomain"/>
+        <owl:inverseOf rdf:resource="&mdr;representedByDataElementRepresentation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#representingNonEnumeratedConceptualDomainRepresentation -->
+
+    <owl:ObjectProperty rdf:about="&mdr;representingNonEnumeratedConceptualDomainRepresentation">
+        <rdfs:range rdf:resource="&mdr;NonEnumeratedConceptualDomain"/>
+        <rdfs:domain rdf:resource="&mdr;NonEnumeratedValueDomain"/>
+        <owl:inverseOf rdf:resource="&mdr;representedByNonEnumeratedConceptualDomainRepresentation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#represents -->
+
+    <owl:ObjectProperty rdf:about="&mdr;represents">
+        <rdfs:domain rdf:resource="&mdr;Registrar"/>
+        <rdfs:range rdf:resource="&mdr;RegistrationAuthority"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#specificallyReferencing -->
+
+    <owl:ObjectProperty rdf:about="&mdr;specificallyReferencing">
+        <rdfs:range rdf:resource="&mdr;Definition"/>
+        <rdfs:domain rdf:resource="&mdr;Designation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#specificallyUsing -->
+
+    <owl:ObjectProperty rdf:about="&mdr;specificallyUsing">
+        <rdfs:domain rdf:resource="&mdr;Definition"/>
+        <rdfs:range rdf:resource="&mdr;Designation"/>
+        <owl:inverseOf rdf:resource="&mdr;specificallyReferencing"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#specifyingDataElementConceptConceptualDomainRelationship -->
+
+    <owl:ObjectProperty rdf:about="&mdr;specifyingDataElementConceptConceptualDomainRelationship">
+        <rdfs:domain rdf:resource="&mdr;ConceptualDomain"/>
+        <rdfs:range rdf:resource="&mdr;DataElementConcept"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#stewardshipContact -->
+
+    <owl:ObjectProperty rdf:about="&mdr;stewardshipContact">
+        <rdfs:range rdf:resource="&mdr;Contact"/>
+        <rdfs:domain rdf:resource="&mdr;Stewardship"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#stewardshipOrganization -->
+
+    <owl:ObjectProperty rdf:about="&mdr;stewardshipOrganization">
+        <rdfs:range rdf:resource="&mdr;Organization"/>
+        <rdfs:domain rdf:resource="&mdr;StewardshipRelationship"/>
+        <owl:inverseOf rdf:resource="&mdr;administering"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#submissionContact -->
+
+    <owl:ObjectProperty rdf:about="&mdr;submissionContact">
+        <rdfs:range rdf:resource="&mdr;Contact"/>
+        <rdfs:domain rdf:resource="&mdr;Submission"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#submissionOrganization -->
+
+    <owl:ObjectProperty rdf:about="&mdr;submissionOrganization">
+        <rdfs:range rdf:resource="&mdr;Organization"/>
+        <rdfs:domain rdf:resource="&mdr;SubmissionRelationship"/>
+        <owl:inverseOf rdf:resource="&mdr;submitting"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#submits -->
+
+    <owl:ObjectProperty rdf:about="&mdr;submits">
+        <rdfs:domain rdf:resource="&mdr;Submission"/>
+        <rdfs:range rdf:resource="&mdr;SubmissionRelationship"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#submittedBy -->
+
+    <owl:ObjectProperty rdf:about="&mdr;submittedBy">
+        <rdfs:domain rdf:resource="&mdr;AdministeredItem"/>
+        <rdfs:range rdf:resource="&mdr;SubmissionRelationship"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#submittedItems -->
+
+    <owl:ObjectProperty rdf:about="&mdr;submittedItems">
+        <rdfs:range rdf:resource="&mdr;AdministeredItem"/>
+        <rdfs:domain rdf:resource="&mdr;SubmissionRelationship"/>
+        <owl:inverseOf rdf:resource="&mdr;submittedBy"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#submitter -->
+
+    <owl:ObjectProperty rdf:about="&mdr;submitter">
+        <rdfs:range rdf:resource="&mdr;Submission"/>
+        <rdfs:domain rdf:resource="&mdr;SubmissionRelationship"/>
+        <owl:inverseOf rdf:resource="&mdr;submits"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#submitting -->
+
+    <owl:ObjectProperty rdf:about="&mdr;submitting">
+        <rdfs:domain rdf:resource="&mdr;Organization"/>
+        <rdfs:range rdf:resource="&mdr;SubmissionRelationship"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#terminologicalEntryAdministeredItemContext -->
+
+    <owl:ObjectProperty rdf:about="&mdr;terminologicalEntryAdministeredItemContext">
+        <rdfs:range rdf:resource="&mdr;AdministeredItemContext"/>
+        <rdfs:domain rdf:resource="&mdr;TerminologicalEntry"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#typedByDataElementRepresentationClass -->
+
+    <owl:ObjectProperty rdf:about="&mdr;typedByDataElementRepresentationClass">
+        <rdfs:domain rdf:resource="&mdr;DataElement"/>
+        <rdfs:range rdf:resource="&mdr;RepresentationClass"/>
+        <owl:inverseOf rdf:resource="&mdr;typingDataElementRepresentationClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#typedByValueDomainRepresentationClass -->
+
+    <owl:ObjectProperty rdf:about="&mdr;typedByValueDomainRepresentationClass">
+        <rdfs:range rdf:resource="&mdr;RepresentationClass"/>
+        <rdfs:domain rdf:resource="&mdr;ValueDomain"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#typingDataElementRepresentationClass -->
+
+    <owl:ObjectProperty rdf:about="&mdr;typingDataElementRepresentationClass">
+        <rdfs:range rdf:resource="&mdr;DataElement"/>
+        <rdfs:domain rdf:resource="&mdr;RepresentationClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#typingValueDomainRepresentationClass -->
+
+    <owl:ObjectProperty rdf:about="&mdr;typingValueDomainRepresentationClass">
+        <rdfs:domain rdf:resource="&mdr;RepresentationClass"/>
+        <rdfs:range rdf:resource="&mdr;ValueDomain"/>
+        <owl:inverseOf rdf:resource="&mdr;typedByValueDomainRepresentationClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#usedInConceptRelationship -->
+
+    <owl:ObjectProperty rdf:about="&mdr;usedInConceptRelationship">
+        <rdfs:domain rdf:resource="&mdr;Concept"/>
+        <rdfs:range rdf:resource="&mdr;ConceptRelationship"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#usedInPermissibleValueMeaning -->
+
+    <owl:ObjectProperty rdf:about="&mdr;usedInPermissibleValueMeaning">
+        <rdfs:range rdf:resource="&mdr;PermissibleValue"/>
+        <rdfs:domain rdf:resource="&mdr;ValueMeaning"/>
+        <owl:inverseOf rdf:resource="&mdr;hasPermissibleValueMeaning"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#usedInPermittedValue -->
+
+    <owl:ObjectProperty rdf:about="&mdr;usedInPermittedValue">
+        <rdfs:range rdf:resource="&mdr;PermissibleValue"/>
+        <rdfs:domain rdf:resource="&mdr;Value"/>
+        <owl:inverseOf rdf:resource="&mdr;hasPermittedValue"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#usingConceptRelationship -->
+
+    <owl:ObjectProperty rdf:about="&mdr;usingConceptRelationship">
+        <rdfs:range rdf:resource="&mdr;Concept"/>
+        <rdfs:domain rdf:resource="&mdr;ConceptRelationship"/>
+        <owl:inverseOf rdf:resource="&mdr;usedInConceptRelationship"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#valueDomainAdministrationRecord -->
+
+    <owl:ObjectProperty rdf:about="&mdr;valueDomainAdministrationRecord">
+        <rdfs:range rdf:resource="&mdr;AdministrationRecord"/>
+        <rdfs:domain rdf:resource="&mdr;ValueDomain"/>
+        <rdfs:subPropertyOf rdf:resource="&mdr;administeredItemAdministrationRecord"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#valueDomainDatatype -->
+
+    <owl:ObjectProperty rdf:about="&mdr;valueDomainDatatype">
+        <rdfs:range rdf:resource="&mdr;Datatype"/>
+        <rdfs:domain rdf:resource="&mdr;ValueDomain"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#valueDomainUnitOfMeasure -->
+
+    <owl:ObjectProperty rdf:about="&mdr;valueDomainUnitOfMeasure">
+        <rdfs:range rdf:resource="&mdr;UnitOfMeasure"/>
+        <rdfs:domain rdf:resource="&mdr;ValueDomain"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#administrativeNote -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;administrativeNote">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;AdministrationRecord"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#administrativeStatus -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;administrativeStatus">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;AdministrationRecord"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#changeDescription -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;changeDescription">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;AdministrationRecord"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#classificationSchemeItemRelationshipTypeDescription -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;classificationSchemeItemRelationshipTypeDescription">
+        <rdfs:domain rdf:resource="&mdr;ClassificationSchemeItemRelationship"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#classificationSchemeItemTypeName -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;classificationSchemeItemTypeName">
+        <rdfs:domain rdf:resource="&mdr;ClassificationSchemeItem"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#classificationSchemeItemValue -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;classificationSchemeItemValue">
+        <rdfs:domain rdf:resource="&mdr;ClassificationSchemeItem"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#classificationSchemeTypeName -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;classificationSchemeTypeName">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;ClassificationScheme"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#conceptRelationshipTypeDescription -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;conceptRelationshipTypeDescription">
+        <rdfs:domain rdf:resource="&mdr;ConceptRelationship"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#conceptualDomainRelationshipTypeDescription -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;conceptualDomainRelationshipTypeDescription">
+        <rdfs:domain rdf:resource="&mdr;ConceptualDomainRelationship"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#contactInformation -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;contactInformation">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;Contact"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#contactName -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;contactName">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;Contact"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#contactTitle -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;contactTitle">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;Contact"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#contextDescription -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;contextDescription">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;Context"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#countryIdentifier -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;countryIdentifier">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;LanguageIdentification"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#creationDate -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;creationDate">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;AdministrationRecord"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#dataElementConceptRelationshipTypeDescription -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;dataElementConceptRelationshipTypeDescription">
+        <rdfs:domain rdf:resource="&mdr;DataElementConceptRelationship"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#dataElementExampleItem -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;dataElementExampleItem">
+        <rdfs:domain rdf:resource="&mdr;DataElementExample"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#dataElementPrecision -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;dataElementPrecision">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#dataIdentifier -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;dataIdentifier">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;ItemIdentifier"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#datatypeAnnotation -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;datatypeAnnotation">
+        <rdfs:domain rdf:resource="&mdr;Datatype"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#datatypeDescription -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;datatypeDescription">
+        <rdfs:domain rdf:resource="&mdr;Datatype"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#datatypeName -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;datatypeName">
+        <rdfs:domain rdf:resource="&mdr;Datatype"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#datatypeSchemeReference -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;datatypeSchemeReference">
+        <rdfs:domain rdf:resource="&mdr;Datatype"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#definitionText -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;definitionText">
+        <rdfs:domain rdf:resource="&mdr;Definition"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#derivationRuleSpecification -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;derivationRuleSpecification">
+        <rdfs:domain rdf:resource="&mdr;DerivationRule"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#dimensionality -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;dimensionality">
+        <rdfs:domain rdf:resource="&mdr;ConceptualDomain"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#effectiveDate -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;effectiveDate">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;AdministrationRecord"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#explanatoryComment -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;explanatoryComment">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;AdministrationRecord"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#internationalCodeDesignator -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;internationalCodeDesignator">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;RegistrationAuthorityIdentifier"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#languageIdentifier -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;languageIdentifier">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;LanguageIdentification"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#lastChangeDate -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;lastChangeDate">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;AdministrationRecord"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#name -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;name">
+        <rdfs:domain rdf:resource="&mdr;Designation"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#nonEnumeratedConceptualDomainDescription -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;nonEnumeratedConceptualDomainDescription">
+        <rdfs:domain rdf:resource="&mdr;NonEnumeratedConceptualDomain"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#nonEnumeratedDomainDescription -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;nonEnumeratedDomainDescription">
+        <rdfs:domain rdf:resource="&mdr;NonEnumeratedValueDomain"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#objectClassQualifier -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;objectClassQualifier">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;DataElementConcept"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#opiSource -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;opiSource">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;RegistrationAuthorityIdentifier"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#organizationIdentifier -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;organizationIdentifier">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;RegistrationAuthorityIdentifier"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#organizationMailAddress -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;organizationMailAddress">
+        <rdfs:domain rdf:resource="&mdr;Organization"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#organizationName -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;organizationName">
+        <rdfs:domain rdf:resource="&mdr;Organization"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#organizationPartIdentifier -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;organizationPartIdentifier">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;RegistrationAuthorityIdentifier"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#origin -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;origin">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;AdministrationRecord"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#permissibleValueBeginDate -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;permissibleValueBeginDate">
+        <rdfs:domain rdf:resource="&mdr;PermissibleValue"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#permissibleValueEndDate -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;permissibleValueEndDate">
+        <rdfs:domain rdf:resource="&mdr;PermissibleValue"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#preferredDefinition -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;preferredDefinition">
+        <rdfs:domain rdf:resource="&mdr;Definition"/>
+        <rdfs:range rdf:resource="&xsd;boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#preferredDesignation -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;preferredDesignation">
+        <rdfs:domain rdf:resource="&mdr;Designation"/>
+        <rdfs:range rdf:resource="&xsd;boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#propertyQualifier -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;propertyQualifier">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#referenceDocumentIdentifier -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;referenceDocumentIdentifier">
+        <rdfs:domain rdf:resource="&mdr;ReferenceDocument"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#referenceDocumentTitle -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;referenceDocumentTitle">
+        <rdfs:domain rdf:resource="&mdr;ReferenceDocument"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#referenceDocumentTypeDescription -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;referenceDocumentTypeDescription">
+        <rdfs:domain rdf:resource="&mdr;ReferenceDocument"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#registrarIdentifier -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;registrarIdentifier">
+        <rdfs:domain rdf:resource="&mdr;Registrar"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#registrationStatus -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;registrationStatus">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;AdministrationRecord"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#representationClassQualifier -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;representationClassQualifier">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;DataElement"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#unitOfMeasureName -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;unitOfMeasureName">
+        <rdfs:domain rdf:resource="&mdr;UnitOfMeasure"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#unitOfMeasurePrecision -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;unitOfMeasurePrecision">
+        <rdfs:domain rdf:resource="&mdr;UnitOfMeasure"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#unresolvedIssue -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;unresolvedIssue">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;AdministrationRecord"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#untilDate -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;untilDate">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;AdministrationRecord"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#valueDomainFormat -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;valueDomainFormat">
+        <rdfs:domain rdf:resource="&mdr;ValueDomain"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#valueDomainMaximumCharacterQuantity -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;valueDomainMaximumCharacterQuantity">
+        <rdfs:domain rdf:resource="&mdr;ValueDomain"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#valueDomainRelationshipTypeDescription -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;valueDomainRelationshipTypeDescription">
+        <rdfs:domain rdf:resource="&mdr;ValueDomainRelationship"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#valueItem -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;valueItem">
+        <rdfs:domain rdf:resource="&mdr;Value"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#valueMeaningBeginDate -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;valueMeaningBeginDate">
+        <rdfs:domain rdf:resource="&mdr;ValueMeaning"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#valueMeaningDescription -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;valueMeaningDescription">
+        <rdfs:domain rdf:resource="&mdr;ValueMeaning"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#valueMeaningEndDate -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;valueMeaningEndDate">
+        <rdfs:domain rdf:resource="&mdr;ValueMeaning"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#valueMeaningIdentifier -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;valueMeaningIdentifier">
+        <rdfs:domain rdf:resource="&mdr;ValueMeaning"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#version -->
+
+    <owl:DatatypeProperty rdf:about="&mdr;version">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&mdr;ItemIdentifier"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#AdministeredItem -->
+
+    <owl:Class rdf:about="&mdr;AdministeredItem">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;administeredItemAdministrationRecord"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;having"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;administeredBy"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;submittedBy"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;describedBy"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;registeredBy"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#AdministeredItemContext -->
+
+    <owl:Class rdf:about="&mdr;AdministeredItemContext">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;administeredItemContextTerminologicalEntry"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;administeredItemContextContext"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#AdministrationRecord -->
+
+    <owl:Class rdf:about="&mdr;AdministrationRecord">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;creationDate"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;administrativeStatus"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;administeredItemIdentifier"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;registrationStatus"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#ClassificationScheme -->
+
+    <owl:Class rdf:about="&mdr;ClassificationScheme">
+        <rdfs:subClassOf rdf:resource="&mdr;AdministeredItem"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;classificationSchemeTypeName"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;containing"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;classificationSchemeAdministrationRecord"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#ClassificationSchemeItem -->
+
+    <owl:Class rdf:about="&mdr;ClassificationSchemeItem">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;containedIn"/>
+                <owl:allValuesFrom rdf:resource="&mdr;ClassificationScheme"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;containedIn"/>
+                <owl:onClass rdf:resource="&mdr;ClassificationScheme"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;classifying"/>
+                <owl:onClass rdf:resource="&mdr;AdministeredItem"/>
+                <owl:minQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minQualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;csiAssociatedIn"/>
+                <owl:onClass rdf:resource="&mdr;ClassificationSchemeItemAssociation"/>
+                <owl:minQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minQualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#ClassificationSchemeItemAssociation -->
+
+    <owl:Class rdf:about="&mdr;ClassificationSchemeItemAssociation">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;csiAssociationRelationship"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;csiAssociates"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#ClassificationSchemeItemRelationship -->
+
+    <owl:Class rdf:about="&mdr;ClassificationSchemeItemRelationship">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;classificationSchemeItemRelationshipTypeDescription"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;csiRelationshipAssociation"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#Concept -->
+
+    <owl:Class rdf:about="&mdr;Concept">
+        <rdfs:subClassOf rdf:resource="&mdr;ObjectClass"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;usedInConceptRelationship"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#ConceptRelationship -->
+
+    <owl:Class rdf:about="&mdr;ConceptRelationship">
+        <rdfs:subClassOf rdf:resource="&mdr;ObjectClass"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;conceptRelationshipTypeDescription"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;usingConceptRelationship"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#ConceptualDomain -->
+
+    <owl:Class rdf:about="&mdr;ConceptualDomain">
+        <rdfs:subClassOf rdf:resource="&mdr;AdministeredItem"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;representedByConceptualDomainRepresentation"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;specifyingDataElementConceptConceptualDomainRelationship"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;dimensionality"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;conceptualDomainAdministrationRecord"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#ConceptualDomainRelationship -->
+
+    <owl:Class rdf:about="&mdr;ConceptualDomainRelationship">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;conceptualDomainRelationshipTypeDescription"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;describingConceptualDomainRelationship"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#ConceptualDomainRelationshipAssociation -->
+
+    <owl:Class rdf:about="&mdr;ConceptualDomainRelationshipAssociation">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;relatingConceptualDomainRelationship"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;describedByConceptualDomainRelationship"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#Contact -->
+
+    <owl:Class rdf:about="&mdr;Contact">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;contactInformation"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;contactName"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#Context -->
+
+    <owl:Class rdf:about="&mdr;Context">
+        <rdfs:subClassOf rdf:resource="&mdr;AdministeredItem"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;contextAdministrationRecord"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;contextAdministeredItemContext"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;contextDescription"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#DataElement -->
+
+    <owl:Class rdf:about="&mdr;DataElement">
+        <rdfs:subClassOf rdf:resource="&mdr;AdministeredItem"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;typedByDataElementRepresentationClass"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;representationClassQualifier"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;derivedFromDerivationOutput"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;exemplifiedByExemplification"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;dataElementAdministrationRecord"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;dataElementPrecision"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;representedByDataElementRepresentation"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;inputToDerivationInput"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;expressingDataElementConceptExpression"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#DataElementConcept -->
+
+    <owl:Class rdf:about="&mdr;DataElementConcept">
+        <rdfs:subClassOf rdf:resource="&mdr;AdministeredItem"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;havingDataElementConceptConceptualDomainRelationship"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;dataElementConceptAdministrationRecord"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#DataElementConceptRelationship -->
+
+    <owl:Class rdf:about="&mdr;DataElementConceptRelationship">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;describingDataElementConceptRelationship"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;dataElementConceptRelationshipTypeDescription"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#DataElementConceptRelationshipAssociation -->
+
+    <owl:Class rdf:about="&mdr;DataElementConceptRelationshipAssociation">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;describedByDataElementConceptRelationship"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;relatingDataElementConceptRelationship"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#DataElementDerivation -->
+
+    <owl:Class rdf:about="&mdr;DataElementDerivation">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;applyingDerivationRuleApplication"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;inputingDerivationInput"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;derivingDerivationOutput"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#DataElementExample -->
+
+    <owl:Class rdf:about="&mdr;DataElementExample">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;exemplifyingExemplification"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;dataElementExampleItem"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#Datatype -->
+
+    <owl:Class rdf:about="&mdr;Datatype">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;datatypeSchemeReference"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;datatypeDescription"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;datatypeName"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;datatypeAnnotation"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#Definition -->
+
+    <owl:Class rdf:about="&mdr;Definition">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;definitionText"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;specificallyUsing"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;definingEntryOf"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;definitionSourceReference"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;preferredDefinition"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#DerivationRule -->
+
+    <owl:Class rdf:about="&mdr;DerivationRule">
+        <rdfs:subClassOf rdf:resource="&mdr;AdministeredItem"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;appliedToDerivationRuleApplication"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;derivationRuleSpecification"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;derivationRuleAdministrationRecord"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#Designation -->
+
+    <owl:Class rdf:about="&mdr;Designation">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;specificallyReferencing"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;namingEntryOf"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;preferredDesignation"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;name"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#EnumeratedConceptualDomain -->
+
+    <owl:Class rdf:about="&mdr;EnumeratedConceptualDomain">
+        <rdfs:subClassOf rdf:resource="&mdr;ConceptualDomain"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;containingValueMeaningSet"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#EnumeratedValueDomain -->
+
+    <owl:Class rdf:about="&mdr;EnumeratedValueDomain">
+        <rdfs:subClassOf rdf:resource="&mdr;ValueDomain"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#ItemIdentifier -->
+
+    <owl:Class rdf:about="&mdr;ItemIdentifier">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;itemRegistrationAuthorityIdentifier"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;dataIdentifier"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;version"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#LanguageIdentification -->
+
+    <owl:Class rdf:about="&mdr;LanguageIdentification">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;languageIdentifier"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#LanguageSection -->
+
+    <owl:Class rdf:about="&mdr;LanguageSection">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;languageSectionLanguageIdentifier"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRContact -->
+
+    <owl:Class rdf:about="&mdr;MDRContact">
+        <rdfs:subClassOf rdf:resource="&mdr;Contact"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRContext -->
+
+    <owl:Class rdf:about="&mdr;MDRContext">
+        <rdfs:subClassOf rdf:resource="&mdr;Context"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRContextAdministrationRecord -->
+
+    <owl:Class rdf:about="&mdr;MDRContextAdministrationRecord">
+        <rdfs:subClassOf rdf:resource="&mdr;AdministrationRecord"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRContextContext -->
+
+    <owl:Class rdf:about="&mdr;MDRContextContext">
+        <rdfs:subClassOf rdf:resource="&mdr;AdministeredItemContext"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRContextDefinition -->
+
+    <owl:Class rdf:about="&mdr;MDRContextDefinition">
+        <rdfs:subClassOf rdf:resource="&mdr;Definition"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRContextDesignation -->
+
+    <owl:Class rdf:about="&mdr;MDRContextDesignation">
+        <rdfs:subClassOf rdf:resource="&mdr;Designation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRContextItemIdentifier -->
+
+    <owl:Class rdf:about="&mdr;MDRContextItemIdentifier">
+        <rdfs:subClassOf rdf:resource="&mdr;ItemIdentifier"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRContextLanguageSection -->
+
+    <owl:Class rdf:about="&mdr;MDRContextLanguageSection">
+        <rdfs:subClassOf rdf:resource="&mdr;LanguageSection"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRContextStewardshipRelationship -->
+
+    <owl:Class rdf:about="&mdr;MDRContextStewardshipRelationship">
+        <rdfs:subClassOf rdf:resource="&mdr;StewardshipRelationship"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRContextSubmissionRelationship -->
+
+    <owl:Class rdf:about="&mdr;MDRContextSubmissionRelationship">
+        <rdfs:subClassOf rdf:resource="&mdr;SubmissionRelationship"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRContextTerminologicalEntry -->
+
+    <owl:Class rdf:about="&mdr;MDRContextTerminologicalEntry">
+        <rdfs:subClassOf rdf:resource="&mdr;TerminologicalEntry"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRLanguageIdentification -->
+
+    <owl:Class rdf:about="&mdr;MDRLanguageIdentification">
+        <rdfs:subClassOf rdf:resource="&mdr;LanguageIdentification"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRRegistrar -->
+
+    <owl:Class rdf:about="&mdr;MDRRegistrar">
+        <rdfs:subClassOf rdf:resource="&mdr;Registrar"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRRegistrationAuthority -->
+
+    <owl:Class rdf:about="&mdr;MDRRegistrationAuthority">
+        <rdfs:subClassOf rdf:resource="&mdr;RegistrationAuthority"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRRegistrationAuthorityIdentifier -->
+
+    <owl:Class rdf:about="&mdr;MDRRegistrationAuthorityIdentifier">
+        <rdfs:subClassOf rdf:resource="&mdr;RegistrationAuthorityIdentifier"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRStewardship -->
+
+    <owl:Class rdf:about="&mdr;MDRStewardship">
+        <rdfs:subClassOf rdf:resource="&mdr;Stewardship"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRSubmission -->
+
+    <owl:Class rdf:about="&mdr;MDRSubmission">
+        <rdfs:subClassOf rdf:resource="&mdr;Submission"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#NonEnumeratedConceptualDomain -->
+
+    <owl:Class rdf:about="&mdr;NonEnumeratedConceptualDomain">
+        <rdfs:subClassOf rdf:resource="&mdr;ConceptualDomain"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;representedByNonEnumeratedConceptualDomainRepresentation"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;nonEnumeratedConceptualDomainDescription"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#NonEnumeratedValueDomain -->
+
+    <owl:Class rdf:about="&mdr;NonEnumeratedValueDomain">
+        <rdfs:subClassOf rdf:resource="&mdr;ValueDomain"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;representingNonEnumeratedConceptualDomainRepresentation"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;nonEnumeratedDomainDescription"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#ObjectClass -->
+
+    <owl:Class rdf:about="&mdr;ObjectClass">
+        <rdfs:subClassOf rdf:resource="&mdr;AdministeredItem"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;objectClassAdministrationRecord"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#Organization -->
+
+    <owl:Class rdf:about="&mdr;Organization">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;administering"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;organizationMailAddress"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;providing"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;submitting"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;organizationName"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#PermissibleValue -->
+
+    <owl:Class rdf:about="&mdr;PermissibleValue">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;hasPermittedValue"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;permissibleValueBeginDate"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;hasPermissibleValueMeaning"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;containedInPermissibleValueSet"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;permissibleValueEndDate"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#Property -->
+
+    <owl:Class rdf:about="&mdr;Property">
+        <rdfs:subClassOf rdf:resource="&mdr;AdministeredItem"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;propertyAdministrationRecord"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#ReferenceDocument -->
+
+    <owl:Class rdf:about="&mdr;ReferenceDocument">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;describing"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;referenceDocumentLanguageIdentifier"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;referenceDocumentIdentifier"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;providedBy"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;referenceDocumentTypeDescription"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;referenceDocumentTitle"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#Registrar -->
+
+    <owl:Class rdf:about="&mdr;Registrar">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;represents"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;registrarIdentifier"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;registrarContact"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#RegistrationAuthority -->
+
+    <owl:Class rdf:about="&mdr;RegistrationAuthority">
+        <rdfs:subClassOf rdf:resource="&mdr;Organization"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;documentationLanguageIdentifier"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;registrationAuthorityIdentifier"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;representedBy"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;registering"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#RegistrationAuthorityIdentifier -->
+
+    <owl:Class rdf:about="&mdr;RegistrationAuthorityIdentifier">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;internationalCodeDesignator"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;organizationIdentifier"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#RepresentationClass -->
+
+    <owl:Class rdf:about="&mdr;RepresentationClass">
+        <rdfs:subClassOf rdf:resource="&mdr;AdministeredItem"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;representationClassAdministrationRecord"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;typingDataElementRepresentationClass"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;typingValueDomainRepresentationClass"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#Stewardship -->
+
+    <owl:Class rdf:about="&mdr;Stewardship">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;administers"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;stewardshipContact"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#StewardshipRelationship -->
+
+    <owl:Class rdf:about="&mdr;StewardshipRelationship">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;administer"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;administeredItems"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;stewardshipOrganization"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#Submission -->
+
+    <owl:Class rdf:about="&mdr;Submission">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;submits"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;submissionContact"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#SubmissionRelationship -->
+
+    <owl:Class rdf:about="&mdr;SubmissionRelationship">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;submissionOrganization"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;submitter"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;submittedItems"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#TerminologicalEntry -->
+
+    <owl:Class rdf:about="&mdr;TerminologicalEntry">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;containingTerminologicalEntryLanguage"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#UnitOfMeasure -->
+
+    <owl:Class rdf:about="&mdr;UnitOfMeasure">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;unitOfMeasureName"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;unitOfMeasurePrecision"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#Value -->
+
+    <owl:Class rdf:about="&mdr;Value">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;valueItem"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;usedInPermittedValue"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#ValueDomain -->
+
+    <owl:Class rdf:about="&mdr;ValueDomain">
+        <rdfs:subClassOf rdf:resource="&mdr;AdministeredItem"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;valueDomainDatatype"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;valueDomainMaximumCharacterQuantity"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;representingConceptualDomainRepresentation"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;valueDomainUnitOfMeasure"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;typedByValueDomainRepresentationClass"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;valueDomainFormat"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;representingDataElementRepresentation"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;valueDomainAdministrationRecord"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#ValueDomainRelationship -->
+
+    <owl:Class rdf:about="&mdr;ValueDomainRelationship">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;describingValueDomainRelationship"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;valueDomainRelationshipTypeDescription"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#ValueDomainRelationshipAssociation -->
+
+    <owl:Class rdf:about="&mdr;ValueDomainRelationshipAssociation">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;relatingValueDomainRelationship"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;describedByValueDomainRelationship"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#ValueMeaning -->
+
+    <owl:Class rdf:about="&mdr;ValueMeaning">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;usedInPermissibleValueMeaning"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;valueMeaningBeginDate"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;valueMeaningIdentifier"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;valueMeaningDescription"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;containedInValueMeaningSet"/>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&mdr;valueMeaningEndDate"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRContact -->
+
+    <owl:NamedIndividual rdf:about="&mdr;MDRContact">
+        <contactName>Semantic MDR Contact</contactName>
+        <contactInformation>salus-srdc@srdc.com.tr</contactInformation>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRContext -->
+
+    <owl:NamedIndividual rdf:about="&mdr;MDRContext">
+        <contextDescription rdf:datatype="&xsd;string">Default Context where all other Contexts are named and defined on - MetaData Registry itself</contextDescription>
+        <contextAdministrationRecord rdf:resource="&mdr;MDRContextAdministrationRecord"/>
+        <contextAdministeredItemContext rdf:resource="&mdr;MDRContextContext"/>
+        <having rdf:resource="&mdr;MDRContextContext"/>
+        <administeredBy rdf:resource="&mdr;MDRContextStewardshipRelationship"/>
+        <submittedBy rdf:resource="&mdr;MDRContextSubmissionRelationship"/>
+        <registeredBy rdf:resource="&mdr;MDRRegistrationAuthority"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRContextAdministrationRecord -->
+
+    <owl:NamedIndividual rdf:about="&mdr;MDRContextAdministrationRecord">
+        <creationDate rdf:datatype="&xsd;dateTime">2012-12-21T15:38:00</creationDate>
+        <registrationStatus>Qualified</registrationStatus>
+        <administrativeStatus>Qualified</administrativeStatus>
+        <administeredItemIdentifier rdf:resource="&mdr;MDRContextItemIdentifier"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRContextContext -->
+
+    <owl:NamedIndividual rdf:about="&mdr;MDRContextContext">
+        <administeredItemContextContext rdf:resource="&mdr;MDRContext"/>
+        <grouping rdf:resource="&mdr;MDRContext"/>
+        <administeredItemContextTerminologicalEntry rdf:resource="&mdr;MDRContextTerminologicalEntry"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRContextDefinition -->
+
+    <owl:NamedIndividual rdf:about="&mdr;MDRContextDefinition">
+        <definitionText>Default (parent) Context for all other Contexs or AdministeredItems which will belong to the default Context of the Semantic MDR</definitionText>
+        <definingEntryOf rdf:resource="&mdr;MDRContextLanguageSection"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRContextDesignation -->
+
+    <owl:NamedIndividual rdf:about="&mdr;MDRContextDesignation">
+        <name>Semantic MDR Default/Parent Context</name>
+        <namingEntryOf rdf:resource="&mdr;MDRContextLanguageSection"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRContextItemIdentifier -->
+
+    <owl:NamedIndividual rdf:about="&mdr;MDRContextItemIdentifier">
+        <version>0.1</version>
+        <dataIdentifier>edaaf6fa-c198-4700-a8a4-d81c3b085498</dataIdentifier>
+        <itemRegistrationAuthorityIdentifier rdf:resource="&mdr;MDRRegistrationAuthorityIdentifier"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRContextLanguageSection -->
+
+    <owl:NamedIndividual rdf:about="&mdr;MDRContextLanguageSection">
+        <containingDefinitionEntry rdf:resource="&mdr;MDRContextDefinition"/>
+        <containingNameEntry rdf:resource="&mdr;MDRContextDesignation"/>
+        <partitioning rdf:resource="&mdr;MDRContextTerminologicalEntry"/>
+        <languageSectionLanguageIdentifier rdf:resource="&mdr;MDRLanguageIdentification"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRContextStewardshipRelationship -->
+
+    <owl:NamedIndividual rdf:about="&mdr;MDRContextStewardshipRelationship">
+        <administeredItems rdf:resource="&mdr;MDRContext"/>
+        <stewardshipOrganization rdf:resource="&mdr;MDRRegistrationAuthority"/>
+        <administer rdf:resource="&mdr;MDRStewardship"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRContextSubmissionRelationship -->
+
+    <owl:NamedIndividual rdf:about="&mdr;MDRContextSubmissionRelationship">
+        <submittedItems rdf:resource="&mdr;MDRContext"/>
+        <submissionOrganization rdf:resource="&mdr;MDRRegistrationAuthority"/>
+        <submitter rdf:resource="&mdr;MDRSubmission"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRContextTerminologicalEntry -->
+
+    <owl:NamedIndividual rdf:about="&mdr;MDRContextTerminologicalEntry">
+        <terminologicalEntryAdministeredItemContext rdf:resource="&mdr;MDRContextContext"/>
+        <containingTerminologicalEntryLanguage rdf:resource="&mdr;MDRContextLanguageSection"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRLanguageIdentification -->
+
+    <owl:NamedIndividual rdf:about="&mdr;MDRLanguageIdentification">
+        <languageIdentifier>eng</languageIdentifier>
+        <countryIdentifier>TR</countryIdentifier>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRRegistrar -->
+
+    <owl:NamedIndividual rdf:about="&mdr;MDRRegistrar">
+        <registrarIdentifier>eu.salusproject</registrarIdentifier>
+        <registrarContact rdf:resource="&mdr;MDRContact"/>
+        <represents rdf:resource="&mdr;MDRRegistrationAuthority"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRRegistrationAuthority -->
+
+    <owl:NamedIndividual rdf:about="&mdr;MDRRegistrationAuthority">
+        <organizationName>SRDC Software Research Development Consultancy Ltd.</organizationName>
+        <organizationMailAddress>srdc@srdc.com.tr</organizationMailAddress>
+        <registering rdf:resource="&mdr;MDRContext"/>
+        <administering rdf:resource="&mdr;MDRContextStewardshipRelationship"/>
+        <submitting rdf:resource="&mdr;MDRContextSubmissionRelationship"/>
+        <documentationLanguageIdentifier rdf:resource="&mdr;MDRLanguageIdentification"/>
+        <representedBy rdf:resource="&mdr;MDRRegistrar"/>
+        <registrationAuthorityIdentifier rdf:resource="&mdr;MDRRegistrationAuthorityIdentifier"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRRegistrationAuthorityIdentifier -->
+
+    <owl:NamedIndividual rdf:about="&mdr;MDRRegistrationAuthorityIdentifier">
+        <internationalCodeDesignator>Semantic MDR</internationalCodeDesignator>
+        <organizationIdentifier>eu.salusproject.mdr</organizationIdentifier>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRStewardship -->
+
+    <owl:NamedIndividual rdf:about="&mdr;MDRStewardship">
+        <stewardshipContact rdf:resource="&mdr;MDRContact"/>
+        <administers rdf:resource="&mdr;MDRContextStewardshipRelationship"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.salusproject.eu/iso11179-3/mdr#MDRSubmission -->
+
+    <owl:NamedIndividual rdf:about="&mdr;MDRSubmission">
+        <submissionContact rdf:resource="&mdr;MDRContact"/>
+        <submits rdf:resource="&mdr;MDRContextSubmissionRelationship"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+
