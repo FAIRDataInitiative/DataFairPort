@@ -2,31 +2,39 @@
 
 
 <!DOCTYPE rdf:RDF [
-    <!ENTITY terms "http://purl.org/dc/terms/" >
+    <!ENTITY dc "http://purl.org/dc/terms/" >
     <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
     <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
     <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
     <!ENTITY fair "http://fairdata.org/ontology/FAIR-Data#" >
+	<!ENTITY vann "http://purl.org/vocab/vann/" >
     <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+	<!ENTITY protege "http://protege.stanford.edu/plugins/owl/protege#" >
 ]>
 
 
 <rdf:RDF xmlns="http://fairdata.org/ontology/FAIR-Data#"
      xml:base="http://fairdata.org/ontology/FAIR-Data"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:dc="http://purl.org/dc/terms/"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+	 xmlns:vann="http://purl.org/vocab/vann/"
+	 xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:fair="http://fairdata.org/ontology/FAIR-Data#">
+	 
     <owl:Ontology rdf:about="http://datafairport.org/ontology/FAIR-schema.owl#">
         <rdfs:label>FAIR Ontology</rdfs:label>
         <rdfs:comment rdf:datatype="&xsd;string">FAIR Schema Ontology</rdfs:comment>
         <owl:versionInfo rdf:datatype="&xsd;string">alpha</owl:versionInfo>
         <dc:license rdf:datatype="&xsd;anyURI">http://creativecommons.org/licenses/by/4.0/</dc:license>
         <dc:creator rdf:datatype="&xsd;anyURI">http://orcid.org/0000-0003-4727-9435</dc:creator>
+        <dc:creator rdf:datatype="&xsd;anyURI">http://orcid.org/0000-0001-6960-357X</dc:creator>
         <vann:preferredNamespaceUri rdf:datatype="&xsd;string">http://datafairport.org/ontology/FAIR-schema.owl</vann:preferredNamespaceUri>
-        <protege:defaultLanguage>en</protege:defaultLanguage>
+		<vann:preferredNamespacePrefix xml:lang="en">fair</vann:preferredNamespacePrefix>
+		<protege:defaultLanguage>en</protege:defaultLanguage>
+		<dc:title xml:lang="en">FAIR Ontology</dc:title>
 	</owl:Ontology>
     
 
@@ -44,7 +52,7 @@
 
     <!-- http://purl.org/dc/terms/creator -->
 
-    <owl:AnnotationProperty rdf:about="&terms;creator"/>
+    <owl:AnnotationProperty rdf:about="&dc;creator"/>
     
 
 
