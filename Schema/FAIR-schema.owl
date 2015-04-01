@@ -13,8 +13,8 @@
 ]>
 
 
-<rdf:RDF xmlns="http://fairdata.org/ontology/FAIR-Data#"
-     xml:base="http://fairdata.org/ontology/FAIR-Data"
+<rdf:RDF xmlns="http://datafairport.org/ontology/FAIR-schema.owl#"
+     xml:base="http://datafairport.org/ontology/FAIR-schema.owl#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:dc="http://purl.org/dc/terms/"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
@@ -22,7 +22,7 @@
 	 xmlns:vann="http://purl.org/vocab/vann/"
 	 xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-     xmlns:fair="http://fairdata.org/ontology/FAIR-Data#">
+     xmlns:fair="http://datafairport.org/ontology/FAIR-schema.owl#">
 	 
     <owl:Ontology rdf:about="http://datafairport.org/ontology/FAIR-schema.owl#">
         <rdfs:label>FAIR Ontology</rdfs:label>
