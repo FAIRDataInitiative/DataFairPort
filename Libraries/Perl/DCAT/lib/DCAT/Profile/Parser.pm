@@ -1,11 +1,14 @@
 package DCAT::Profile::Parser;
+
+use lib "../../../lib";
+
 use strict;
 use Carp;
 use DCAT::Base;
 use DCAT::NAMESPACES;
 use RDF::Trine::Parser;
 use RDF::Trine::Model;
-use RDF::Query;
+use RDF::Query; 
 use LWP::Simple;
 
 

@@ -1,4 +1,7 @@
 package DCAT::Profile::Property;
+
+use lib "../../../lib/";
+
 use strict;
 use Carp;
 use DCAT::Base;
