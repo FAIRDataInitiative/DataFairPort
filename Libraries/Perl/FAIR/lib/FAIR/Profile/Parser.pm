@@ -4,7 +4,7 @@ use lib "../../../lib";
 
 use strict;
 use Carp;
-use FAIR::Base; 
+use FAIR::Base;
 use FAIR::NAMESPACES;
 use RDF::Trine::Parser;
 use RDF::Trine::Model;
@@ -419,7 +419,7 @@ sub _fillProperty {
 	while (my $row = $iterator2->next){
 		my $restrictionURI = $row->{allowed_values}->value if $row->{allowed_values};
 		next unless $restrictionURI;
-		$PropertyObject->add_ValueRange($restrictionURI);
+		$PropertyObject->add_AllowedValue($restrictionURI);
 	}
 	
 	
