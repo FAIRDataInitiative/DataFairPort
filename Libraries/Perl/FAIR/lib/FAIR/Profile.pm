@@ -1,7 +1,10 @@
 package FAIR::Profile;
+use Moose;
+
 use strict;
 use Carp;
 use lib "../";
+use Moose;
 use FAIR::Base;
 use FAIR::NAMESPACES;
 use FAIR::Profile::Class;
@@ -228,94 +231,90 @@ Mark Wilkinson (markw at illuminae dot com)
 =cut
 
 
-{
+has URI => (
+	is => 'rw',
+	isa => "Str",
+	builder => '_generate_URI',
+	);
 
-	# Encapsulated:
-	# DATA
-	#___________________________________________________________
-	#ATTRIBUTES
+has type => (
+	is => 'rw',
+	isa => 'ArrayRef[Str]',
+	traits => [qw/Serializable/],  # it is, but it is handled differently than most serializable traits
+	default => sub {[FAIR.'FAIRProfile']},
+	);
 
-	my %_attr_data =    #     				DEFAULT    	ACCESSIBILITY
-	  (
-		label => ['Descriptor Profile Schema', 'read'],
-		title => [ undef, 'read/write' ],
-		description => [ undef, 'read/write' ],
-		modified => [ undef, 'read/write' ],
-                license => [ undef, 'read/write' ],
-                issued => [ undef, 'read/write' ],
-    		organization => [ undef, 'read/write' ],
-		identifier => [ undef, 'read/write' ],
-		schemardfs_URL => [FAIR, 'read/write'],
-		_hasClass => [undef, 'read/write'],
-		type => [[FAIR.'FAIRProfile'], 'read'],
-		
-		URI => [undef, 'read/write'],
-		
-		'-hasClass' => [undef, 'read/write']
+has hasClass => (
+	is => 'rw',
+#	isa => 'ArrayRef[Fair::Profile::Class]',
+	isa => 'ArrayRef',
+	traits => [qw/Serializable/],
+	writer => '_add_Class',
+	default => sub {[]},
+	);
 
-	  );
+has label => (
+	is => 'rw',
+	isa => "Str",
+	default => 'FAIR Profile Descriptor',
+	traits => [qw/Serializable/],
+	);
 
-	#_____________________________________________________________
-	# METHODS, to operate on encapsulated class data
-	# Is a specified object attribute accessible in a given mode
-	sub _accessible {
-		my ( $self, $attr, $mode ) = @_;
-		$_attr_data{$attr}[1] =~ /$mode/;
-	}
+has title => (
+	is => 'rw',
+	isa => "Str",
+	traits => [qw/Serializable/],
+	);
 
-	# Classwide default value for a specified object attribute
-	sub _default_for {
-		my ( $self, $attr ) = @_;
-		$_attr_data{$attr}[0];
-	}
+has description => (
+	is => 'rw',
+	isa => "Str",
+	traits => [qw/Serializable/],
+	);
 
-	# List of names of all specified object attributes
-	sub _standard_keys {
-		keys %_attr_data;
-	}
+has license => (
+	is => 'rw',
+	isa => "Str",
+	traits => [qw/Serializable/],
+	);
 
+has organization => (
+	is => 'rw',
+	isa => "Str",
+	traits => [qw/Serializable/],
+	);
+
+has identifier => (
+	is => 'rw',
+	isa => "Str",
+	traits => [qw/Serializable/],
+	);
+
+has schemardfs_URL => (
+	is => 'rw',
+	isa => "Str",
+	traits => [qw/Serializable/],
+	default => FAIR,
+	);
+
+sub _generate_URI {
+	my ($self, $newval) = @_;
+	return $newval if $newval;
+	
+	my $ug = UUID::Generator::PurePerl->new();  
+	my $ug1 = $ug->generate_v4()->as_string;
+	return "http://datafairport.org/sampledata/profileschemaprofile/$ug1";
 }
 
-sub new {
-	my ( $caller, %args ) = @_;
-	my $caller_is_obj = ref( $caller );
-	return $caller if $caller_is_obj;
-	my $class = $caller_is_obj || $caller;
-	my $proxy;
-	my $self = bless {}, $class;
-	foreach my $attrname ( $self->_standard_keys ) {
-		if ( exists $args{$attrname} ) {
-			$self->{$attrname} = $args{$attrname};
-		} elsif ( $caller_is_obj ) {
-			$self->{$attrname} = $caller->{$attrname};
-		} else {
-			$self->{$attrname} = $self->_default_for( $attrname );
-		}
-	}
-	my $ug1 = Data::UUID::MT->new( version => 4 );
-	$ug1 = $ug1->create_string;
-	$self->{URI} = ("http://datafairport.org/sampledata/profileschema/$ug1")  unless $self->{URI};
-
-	return $self;
-}
 
 sub add_Class {   
 	my ($self, $class) = @_;
 	die "not a FAIR Profile Schema Class *$class->type*" unless (FAIR.'FAIRClass' ~~ $class->type);
-	my $classes = $self->_hasClass;
+	my $classes = $self->hasClass;
 	push @$classes, $class;
-	$self->_hasClass($classes);
-	return 1;
+	$self->_add_Class($classes);
 }
 
-sub hasClass {   
-	my ($self) = shift;
-	if (@_) {
-		print STDERR "YOU CANNOT ADD CLASSES USING THE ->hasClass method;  use add_Class instead!\n";
-		return 0;
-	}
-	return $self->_hasClass;
-}
 
 
 sub serialize {
@@ -337,31 +336,4 @@ sub serialize {
 	return $serializer->serialize_model_to_string($model);
 }
 
-
-sub AUTOLOAD {
-	no strict "refs";
-	my ( $self, $newval ) = @_;
-	$AUTOLOAD =~ /.*::(\w+)/;
-	my $attr = $1;
-	if ( $self->_accessible( $attr, 'write' ) ) {
-		*{$AUTOLOAD} = sub {
-			if ( defined $_[1] ) { $_[0]->{$attr} = $_[1] }
-			return $_[0]->{$attr};
-		};    ### end of created subroutine
-###  this is called first time only
-		if ( defined $newval ) {
-			$self->{$attr} = $newval;
-		}
-		return $self->{$attr};
-	} elsif ( $self->_accessible( $attr, 'read' ) ) {
-		*{$AUTOLOAD} = sub {
-			return $_[0]->{$attr};
-		};    ### end of created subroutine
-		return $self->{$attr};
-	}
-
-	# Must have been a mistake then...
-	croak "No such method: $AUTOLOAD";
-}
-sub DESTROY { }
 1;

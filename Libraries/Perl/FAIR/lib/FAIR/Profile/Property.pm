@@ -4,12 +4,12 @@ use lib "../../../lib/";
 
 use strict;
 use Carp;
-use FAIR::Base; 
+use Moose;
+#use FAIR::Base; 
 use FAIR::NAMESPACES;
-use Data::UUID::MT;
-use vars qw($AUTOLOAD @ISA);
-
+use UUID::Generator::PurePerl;  # slower, but it will work on all setups!
 use base 'FAIR::Base';
+use FAIR::Profile::SerializableProperty;
 
 
 =head1 NAME
@@ -150,153 +150,71 @@ Mark Wilkinson (markw at illuminae dot com)
 
 =cut
 
+has label => (
+	is => 'rw',
+	isa => "Str",   # this should be forced to be a URI
+	traits => ['Serializable'],
+	);	
+
+has onPropertyType => (
+	is => 'rw',
+	isa => "Str",   # this should be forced to be a URI
+	traits => ['Serializable'],
+	);
+
+has allowedValues => (
+	is => 'rw',
+	isa => 'ArrayRef',  # one day make this a forced URI!
+	traits =>  ['Serializable'],
+	writer => '_add_AllowedValue'
+);
+
+has minCount => (
+	is => 'rw',
+	isa => "Int",
+	traits => ['Serializable'],
+	);
+
+has maxCount => (
+	is => 'rw',
+	isa => "Int",
+	traits => ['Serializable'],
+	);
+
+has type => (
+	is => 'rw',
+	isa => 'ArrayRef[Str]',
+	traits => ['Serializable'],
+	default => sub {[FAIR.'FAIRProperty']},
+	);
+
+has URI => (
+	is => 'rw',
+	isa => "Str",
+	traits => ['Serializable'],
+	builder => '_generate_URI',
+	);
 
 
-{
-
-	# Encapsulated:
-	# DATA
-	#___________________________________________________________
-	#ATTRIBUTES
-
-	my %_attr_data =    #     				DEFAULT    	ACCESSIBILITY
-	  (
-		#_requirement_status => [ 'optional', 'read/write' ],  # 'optional' or 'required'
-		onPropertyType => [ undef, 'read/write' ],  # a URI referring to an ontological predicate
-		_allowedValues => [undef, 'read/write' ],   # this is a list of URL references to either other Profiles, or to SKOS view on an ontology (Jupp et al, 2013)
-		label => ['FAIR Profile Property', 'read'],
-		#allow_multiple => ['true', 'read/write'],   # can this property appear multiple times?
-		_minCount => [undef, 'read/write' ],
-		_maxCount => [undef, 'read/write' ],
-		-minCount => [undef, 'read/write' ],
-		-maxCount => [undef, 'read/write' ],
-
-		type => [[FAIR.'FAIRProperty'], 'read'],
+sub _generate_URI {
+	my ($self, $newval) = @_;
+	return $newval if $newval;
 	
-		URI => [undef, 'read'],
-
-		'-allowedValues'  => [undef, 'read/write' ],
-		#'-requirement_status' => [undef, 'read/write'],
-	  );
-
-	#_____________________________________________________________
-	# METHODS, to operate on encapsulated class data
-	# Is a specified object attribute accessible in a given mode
-	sub _accessible {
-		my ( $self, $attr, $mode ) = @_;
-		$_attr_data{$attr}[1] =~ /$mode/;
-	}
-
-	# Classwide default value for a specified object attribute
-	sub _default_for {
-		my ( $self, $attr ) = @_;
-		$_attr_data{$attr}[0];
-	}
-
-	# List of names of all specified object attributes
-	sub _standard_keys {
-		keys %_attr_data;
-	}
-
-}
-
-sub new {
-	my ( $caller, %args ) = @_;
-	my $caller_is_obj = ref( $caller );
-	return $caller if $caller_is_obj;
-	my $class = $caller_is_obj || $caller;
-	my $proxy;
-	my $self = bless {}, $class;
-	foreach my $attrname ( $self->_standard_keys ) {
-		if ( exists $args{$attrname} ) {
-			$self->{$attrname} = $args{$attrname};
-		} elsif ( $caller_is_obj ) {
-			$self->{$attrname} = $caller->{$attrname};
-		} else {
-			$self->{$attrname} = $self->_default_for( $attrname );
-		}
-	}
-	my $ug1 = Data::UUID::MT->new( version => 4 );
-	$ug1 = $ug1->create_string;
-	$self->{URI} = ("http://datafairport.org/sampledata/profileschemaproperty/$ug1")  unless $self->{URI};
-
-	return $self;
+	my $ug = UUID::Generator::PurePerl->new();  
+	my $ug1 = $ug->generate_v4()->as_string;
+	return "http://datafairport.org/sampledata/profileschemaproperty/$ug1";
 }
 
 
-sub add_ValueRange {   
+sub add_AllowedValue {   
 	my ($self, $p) = @_;
 	die "not a valid profile property-value range $p" unless ($p =~ /^https?:/);
-	my $ps = $self->_allowedValues;
+	my $ps = $self->allowedValues;
 	push @$ps, $p;
-	$self->_allowedValues($ps);
+	$self->_add_AllowedValue($ps);
 	return 1;
 }
 
-sub allowedValues {
-	my ($self) = shift;
-	if (@_) {
-		print STDERR "YOU CANNOT ADD PROPERTY RANGES USING THE ->allowedValues method;  use add_ValueRange instead!\n";
-		return 0;
-	}
-	return $self->_allowedValues;
-}
 
 
-sub set_MinCount {   
-	my ($self, $p) = @_;
-	$self->_minCount($p);
-	return [$self->_minCount()];
-}
-
-sub minCount {
-	my ($self) = shift;
-	if (@_) {
-		print STDERR "YOU CANNOT SET minValue using ->minValue method;  use set_MinValue instead!\n";
-		return 0;
-	}
-	return [$self->_minCount];
-}
-
-sub maxCount {
-	my ($self) = shift;
-	if (@_) {
-		print STDERR "YOU CANNOT SET  minValue using ->maxValue method;  use set_MaxValue  instead!\n";
-		return 0;
-	}
-	return [$self->_maxCount];
-}
-
-sub set_MaxCount {   
-	my ($self, $p) = @_;
-	$self->_maxCount($p);
-	return [$self->_maxCount()];
-}
-
-sub AUTOLOAD {
-	no strict "refs";
-	my ( $self, $newval ) = @_;
-	$AUTOLOAD =~ /.*::(\w+)/;
-	my $attr = $1;
-	if ( $self->_accessible( $attr, 'write' ) ) {
-		*{$AUTOLOAD} = sub {
-			if ( defined $_[1] ) { $_[0]->{$attr} = $_[1] }
-			return $_[0]->{$attr};
-		};    ### end of created subroutine
-###  this is called first time only
-		if ( defined $newval ) {
-			$self->{$attr} = $newval;
-		}
-		return $self->{$attr};
-	} elsif ( $self->_accessible( $attr, 'read' ) ) {
-		*{$AUTOLOAD} = sub {
-			return $_[0]->{$attr};
-		};    ### end of created subroutine
-		return $self->{$attr};
-	}
-
-	# Must have been a mistake then...
-	croak "No such method: $AUTOLOAD";
-}
-sub DESTROY { }
 1;

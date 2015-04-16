@@ -5,7 +5,6 @@
 	<ns1:schemardfs_URL rdf:resource="http://fairdata.org/ontology/FAIR-Data#"/>
 	<ns2:description>Just the ORCID ID and its resolvable URL</ns2:description>
 	<ns2:identifier>doi:33333333333</ns2:identifier>
-	<ns2:issued>May 26, 2014</ns2:issued>
 	<ns2:license>Anyone may use this freely</ns2:license>
 	<ns2:organization>wilkinsonlab.info</ns2:organization>
 	<ns2:title>Simple ORCID record descriptor</ns2:title>
@@ -13,19 +12,19 @@
 	<ns3:label>Metadata around an ORCID record</ns3:label>
 </rdf:Description>
 <rdf:Description xmlns:ns1="http://fairdata.org/ontology/FAIR-Data#" xmlns:ns2="http://www.w3.org/2000/01/rdf-schema#" rdf:about="http://biordf.org/DataFairPort/ProfileSchemas/DemoORCIDProfileScheme.rdf#ORCID">
-	<ns1:hasProperty rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/1a9608e6-f3e2-422c-a52d-e9cf64f6d8c1"/>
-	<ns1:hasProperty rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/5634dac8-dfbd-478f-87f1-04d203053c2b"/>
+	<ns1:hasProperty rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/05428f61-feef-478a-a670-12bc1e70416a"/>
+	<ns1:hasProperty rdf:resource="http://datafairport.org/sampledata/profileschemaproperty/d7f04d90-1ccd-46e2-bb3e-7f4a8d4ca0f0"/>
 	<rdf:type rdf:resource="http://fairdata.org/ontology/FAIR-Data#FAIRClass"/>
 	<ns2:label>ORCID Records</ns2:label>
 </rdf:Description>
-<rdf:Description xmlns:ns1="http://fairdata.org/ontology/FAIR-Data#" xmlns:ns2="http://www.w3.org/2000/01/rdf-schema#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/1a9608e6-f3e2-422c-a52d-e9cf64f6d8c1">
+<rdf:Description xmlns:ns1="http://fairdata.org/ontology/FAIR-Data#" xmlns:ns2="http://www.w3.org/2000/01/rdf-schema#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/05428f61-feef-478a-a670-12bc1e70416a">
 	<ns1:allowedValues rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
 	<ns1:maxCount>1</ns1:maxCount>
 	<ns1:minCount>1</ns1:minCount>
 	<rdf:type rdf:resource="http://fairdata.org/ontology/FAIR-Data#FAIRProperty"/>
 	<ns2:label>ORCID URL</ns2:label>
 </rdf:Description>
-<rdf:Description xmlns:ns1="http://fairdata.org/ontology/FAIR-Data#" xmlns:ns2="http://www.w3.org/2000/01/rdf-schema#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/5634dac8-dfbd-478f-87f1-04d203053c2b">
+<rdf:Description xmlns:ns1="http://fairdata.org/ontology/FAIR-Data#" xmlns:ns2="http://www.w3.org/2000/01/rdf-schema#" rdf:about="http://datafairport.org/sampledata/profileschemaproperty/d7f04d90-1ccd-46e2-bb3e-7f4a8d4ca0f0">
 	<ns1:allowedValues rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
 	<ns1:maxCount>1</ns1:maxCount>
 	<ns1:minCount>1</ns1:minCount>

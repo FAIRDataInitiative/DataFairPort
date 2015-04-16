@@ -1,12 +1,15 @@
 package FAIR::Profile::Class;
 use strict;
 use Carp;
+use Moose;
 use lib "../../";
 use FAIR::Base; 
 use FAIR::NAMESPACES;
 use vars qw($AUTOLOAD @ISA);
+use FAIR::Profile::SerializableProperty;
 
 use base 'FAIR::Base';
+no if $] >= 5.017011, warnings => 'experimental::smartmatch';  # perl 5.18 warns about smartmatch... 
 
 #use vars qw /$VERSION/;
 #$VERSION = sprintf "%d.%02d", q$Revision: 1.5 $ =~ /: (\d+)\.(\d+)/;
@@ -128,126 +131,70 @@ Mark Wilkinson (markw at illuminae dot com)
 
 
 
-{
+has URI => (
+	is => 'rw',
+	isa => "Str",
+	builder => '_generate_URI',
+	);
 
-	# Encapsulated:
-	# DATA
-	#___________________________________________________________
-	#ATTRIBUTES
+has type => (
+	is => 'rw',
+	isa => 'ArrayRef[Str]',
+	traits => [qw/Serializable/],  # it is, but it is handled differently than most serializable traits
+	default => sub {[FAIR.'FAIRClass']},
+	);
 
-	my %_attr_data =    #     				DEFAULT    	ACCESSIBILITY
-	  (
-		_hasProperty => [ undef, 'read/write' ],  # a list
-		label => ['FAIR Profile Class', 'read'],
-		type => [[FAIR.'FAIRClass'], 'read'],
-		onClassType => [undef, 'read/write'],  # this is a URI to an OWL class or RDFS class
-		_template => [undef, 'read/write'],  # the Template::Toolkit HTML template to render this class
-		-hasProperty => [ undef, 'read/write' ],  # a list
-		
-		URI => [undef, 'read/write'],
+has label => (
+	is => 'rw',
+	isa => "Str",
+	default => 'FAIR Profile Class',
+	traits => [qw/Serializable/],
+	);
 
-	  );
+has hasProperty => (
+	is => 'rw',
+#	isa => 'ArrayRef[Fair::Profile::Property]',
+	isa => 'ArrayRef',
+	traits => [qw/Serializable/],
+	writer => '_add_Property',
+	default => sub {[]},
+	);
 
-	#_____________________________________________________________
-	# METHODS, to operate on encapsulated class data
-	# Is a specified object attribute accessible in a given mode
-	sub _accessible {
-		my ( $self, $attr, $mode ) = @_;
-		$_attr_data{$attr}[1] =~ /$mode/;
-	}
+has onClassType => (  # represents the OWL Class URI 
+	is => 'rw',
+	isa => "Str",  # TODO - this should be constrained to be a URI
+	traits => [qw/Serializable/],
+	);
 
-	# Classwide default value for a specified object attribute
-	sub _default_for {
-		my ( $self, $attr ) = @_;
-		$_attr_data{$attr}[0];
-	}
+has template => (  # represents the OWL Class URI 
+	is => 'rw',
+	isa => "Str",  # TODO - this should be constrained to be a URI
+	);
 
-	# List of names of all specified object attributes
-	sub _standard_keys {
-		keys %_attr_data;
-	}
-
+sub _generate_URI {
+	my ($self, $newval) = @_;
+	return $newval if $newval;
+	
+	my $ug = UUID::Generator::PurePerl->new();  
+	my $ug1 = $ug->generate_v4()->as_string;
+	return "http://datafairport.org/sampledata/profileschemaclass/$ug1";
 }
-
-sub new {
-	my ( $caller, %args ) = @_;
-	my $caller_is_obj = ref( $caller );
-	return $caller if $caller_is_obj;
-	my $class = $caller_is_obj || $caller;
-	my $proxy;
-	my $self = bless {}, $class;
-	foreach my $attrname ( $self->_standard_keys ) {
-		if ( exists $args{$attrname} ) {
-			$self->{$attrname} = $args{$attrname};
-		} elsif ( $caller_is_obj ) {
-			$self->{$attrname} = $caller->{$attrname};
-		} else {
-			$self->{$attrname} = $self->_default_for( $attrname );
-		}
-	}
-	my $ug1 = Data::UUID::MT->new( version => 4 );
-	$ug1 = $ug1->create_string;
-	$self->{URI} =("http://datafairport.org/sampledata/profileschemaclass/$ug1") unless $self->{URI};
-	return $self;
-}
-
 
 sub add_Property {   
 	my ($self, $p) = @_;
-	die "not a FAIR Profile Schema Property $p->type" unless (FAIR.'FAIRProperty' ~~ $p->type);
-	my $ps = $self->_hasProperty;
+	# print STDERR "ADD PROPERTY TYPE:", $p->meta->name, "\n";
+	die "not a FAIR Profile Schema Property " .($p->type)."\n" unless (FAIR.'FAIRProperty' ~~ $p->type);
+	my $ps = $self->hasProperty;
 	push @$ps, $p;
-	$self->_hasProperty($ps);
+	$self->_add_Property($ps);
 	return 1;
 }
 
-sub hasProperty {  # capitalization matches the capitalization of the predicate in the RDFS
-	my ($self) = shift;
-	if (@_) {
-		print STDERR "YOU CANNOT ADD PROPERTIES USING THE ->hasProperty method;  use add_Property instead!\n";
-		return 0;
-	}
-	return $self->_hasProperty;
-}
 
-
-sub set_Template {   
-	my ($self, $t) = @_;
-	die "not a template URL reference " unless ($t =~ /^http:\/\//);
-	$self->_template($t);
-	return 1;
-}
-
-sub get_Template {   
+sub get_Template {   # redundant...
 	my ($self) = @_;
-	return $self->_template();
+	return $self->template();
 }
 
 
-sub AUTOLOAD {
-	no strict "refs";
-	my ( $self, $newval ) = @_;
-	$AUTOLOAD =~ /.*::(\w+)/;
-	my $attr = $1;
-	if ( $self->_accessible( $attr, 'write' ) ) {
-		*{$AUTOLOAD} = sub {
-			if ( defined $_[1] ) { $_[0]->{$attr} = $_[1] }
-			return $_[0]->{$attr};
-		};    ### end of created subroutine
-###  this is called first time only
-		if ( defined $newval ) {
-			$self->{$attr} = $newval;
-		}
-		return $self->{$attr};
-	} elsif ( $self->_accessible( $attr, 'read' ) ) {
-		*{$AUTOLOAD} = sub {
-			return $_[0]->{$attr};
-		};    ### end of created subroutine
-		return $self->{$attr};
-	}
-
-	# Must have been a mistake then...
-	croak "No such method: $AUTOLOAD";
-}
-sub DESTROY { }
 1;

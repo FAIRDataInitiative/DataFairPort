@@ -83,48 +83,57 @@ sub _toTriples {
 	my $fair = RDF::Trine::Namespace->new( FAIR);
         $namespaces{FAIR} = $fair;
 
-	my $sub = $self->URI;
 
-        foreach my $key($self->_standard_keys){   # GOOD LORD!  This subroutine just keeps getting uglier and uglier!
+	# now go through all of the properties of that subject to begin constructing the triples
+	my %attributes;
+	map {$attributes{$_} = 1} $self->meta->get_attribute_list;
+	my $sub = $self->URI;  # the subject of the triples 
+	delete $attributes{'URI'};  # this attribute we have taken care of
+	
+	my $types = $self->type;	
+	foreach my $type(@$types){
+	    my $stm = statement($sub, RDF."type", $type);
+	    $model->add_statement($stm);                    
+	}
+	delete $attributes{'type'}; # now we've taken care of that one!
 
-            next if $key =~ /^_/;   # not a method representing a predicate
-            next if $key eq "URI";
-            
-            if ($key =~ /^\-(\S+)/) {  # a method representing a predicate that can have multiple values, so it is modeled as a subroutine
-                my $method = $1;
-                my $objects = $self->$method;  # call the subroutine.  All return a list-ref; sometimes its a list of DCAT objects, sometimes a listref of strings
-                my @subjects = ();
-                foreach my $object(@$objects){
-                    #print STDERR $object, "\n";
+		
+	# now process the rest - serialize the property if it is marked as "serializable";
+        foreach my $attributename(keys %attributes){
+		my $attribute = $self->meta->get_attribute($attributename);
+		next unless $attribute->does('Serializable');  # if this isn't a serializable property, skip it
+		my $predicate = $attribute->name;  # the FAIR Moose object predicate names are identical to the OWL/Schema predicate names, 
+		my $reader = $attribute->get_read_method;  # in case there is a specific reader subroutine associated with the property
+		my $values = $self->$reader;  # call the subroutine.  All return a list-ref; sometimes its a list of DCAT objects, sometimes a listref of strings
+		
+		unless (ref($values)){  # some properties return listrefs, others return just a string
+			$values = [$values]  # so force it to be a listref before we iterate over the return value
+		}
+		foreach my $object(@$values){
+		    #print STDERR $object, "\n";
 		    next unless ($object);  # might be undef
-                    if (ref($object) && $object->can('_toTriples')) {  # is it a DCAT object?  if so, unpack it  
-                        $object->_toTriples($model);  # recursive call... unpack that DCAT object to triples
-                        my $toConnect = $object->URI;
-                        my $namespace = $namespaces{$predicate_namespaces{$method}};
-                        my $stm = statement($sub, $namespace.$method, $toConnect);
-                        $model->add_statement($stm);                                        
-                    } else {  # if it isn't a DCAT object, then it's just a listref of strings
-                        my $namespace = $namespaces{$predicate_namespaces{$method}};
-                        my $stm = statement($sub, $namespace.$method, $object);
-                        $model->add_statement($stm);                    
-                    }
-                }
-                next;
-            } elsif ($key =~ /^type/) {   # rdf:type
-                my $types = $self->type;  # call the subroutine.  All return a list-ref
-                foreach my $type(@$types){
-                    my $stm = statement($sub, RDF."type", $type);
-                    $model->add_statement($stm);                    
-                }
-                next;
-            } else {
-                # print STDERR $key, "\n";
-                my $namespace = $namespaces{$predicate_namespaces{$key}};
-                my $value = $self->$key;
-                next unless defined $value;
-                my $stm = statement($sub, $namespace.$key, $value);
-                $model->add_statement($stm);
-            }
+		    if (ref($object) && $object->can('_toTriples')) {  # is it a FAIR object?  if so, unpack it  
+			$object->_toTriples($model);  # recursive call... unpack that FAIR object to its triples
+			my $toConnect = $object->URI;  # get that objects URI
+			my $namespace = $namespaces{$predicate_namespaces{$predicate}};   # look up the namespace of that predicate
+			die "no namespace found for $predicate\n" unless $namespace;
+			my $stm = statement($sub, $namespace.$predicate, $toConnect);  # and create the triple joining that object to the current model
+			$model->add_statement($stm);                                        
+		    } else {  # if it isn't a DCAT object, then it's just a listref of strings
+			my $namespace = $namespaces{$predicate_namespaces{$predicate}};
+			my $stm = statement($sub, $namespace.$predicate, $object);
+			$model->add_statement($stm);                    
+		    }
+		}
+            #    next;
+            #} else {
+            #    # print STDERR $key, "\n";
+            #    my $namespace = $namespaces{$predicate_namespaces{$key}};
+            #    my $value = $self->$key;
+            #    next unless defined $value;
+            #    my $stm = statement($sub, $namespace.$key, $value);
+            #    $model->add_statement($stm);
+            #}
         }
 	return $model;
 }

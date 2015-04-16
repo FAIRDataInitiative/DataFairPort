@@ -29,8 +29,8 @@ my $UPProteinClass = FAIR::Profile::Class->new(
         onPropertyType => RDFS.'seeAlso',
         label => "see also",
     );
-    $seeAlsoProperty->set_MinCount('1');
-    $seeAlsoProperty->add_ValueRange("http://biordf.org/DataFairPort/ProfileSchemas/ProfileUniProtHGNC.rdf");
+    $seeAlsoProperty->minCount('1');
+    $seeAlsoProperty->add_AllowedValue("http://biordf.org/DataFairPort/ProfileSchemas/ProfileUniProtHGNC.rdf");
     $UPProteinClass->add_Property($seeAlsoProperty);
     
     
@@ -68,8 +68,8 @@ my $UPHGNCClass = FAIR::Profile::Class->new(
         label => "database",
     );
     
-    $databaseProperty->set_MinCount('1');
-    $databaseProperty->add_ValueRange("http://biordf.org/DataFairPort/ProfileSchemas/ProfileUniProtDatabase.rdf");
+    $databaseProperty->minCount('1');
+    $databaseProperty->add_AllowedValue("http://biordf.org/DataFairPort/ProfileSchemas/ProfileUniProtDatabase.rdf");
     $UPHGNCClass->add_Property($databaseProperty);
     
 
