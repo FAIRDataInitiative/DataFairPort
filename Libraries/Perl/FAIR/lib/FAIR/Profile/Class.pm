@@ -2,8 +2,6 @@ package FAIR::Profile::Class;
 use strict;
 use Carp;
 use Moose;
-use lib "../../";
-use FAIR::Base; 
 use FAIR::NAMESPACES;
 use vars qw($AUTOLOAD @ISA);
 use FAIR::Profile::SerializableProperty;

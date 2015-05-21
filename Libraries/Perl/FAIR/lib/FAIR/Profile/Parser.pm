@@ -1,6 +1,5 @@
 package FAIR::Profile::Parser;
-
-use lib "../../../lib";
+use Moose;
 
 use strict;
 use Carp;
@@ -10,9 +9,10 @@ use RDF::Trine::Parser;
 use RDF::Trine::Model;
 use RDF::Query; 
 use LWP::Simple;
-
-
-use vars qw($AUTOLOAD @ISA);
+use FAIR::Profile; 
+use FAIR::Profile::Class;
+use FAIR::Profile::Property;
+use FAIR::NAMESPACES;
 
 use base 'FAIR::Base';
 
@@ -118,66 +118,23 @@ Mark Wilkinson (markw at illuminae dot com)
 
 
 
-{
+has filename => (
+	is => 'rw',
+	isa => "Str",
+	);
 
-	# Encapsulated:
-	# DATA
-	#___________________________________________________________
-	#ATTRIBUTES
+has model => (
+	is => 'rw',
+	isa => 'RDF::Trine::Model',
+	default => sub { my $store = RDF::Trine::Store::Memory->new();
+			my $model = RDF::Trine::Model->new($store); return $model;},
+	);
 
-	my %_attr_data =    #     				DEFAULT    	ACCESSIBILITY
-	  (
-		filename => [ undef, 'read/write' ], 
-		model => [undef, 'read/write'],
-		profile => [undef, 'read/write'],
-		
+has profile => (
+	is => 'rw',
+	isa => 'FAIR::Profile',
+	);
 
-	  );
-
-	#_____________________________________________________________
-	# METHODS, to operate on encapsulated class data
-	# Is a specified object attribute accessible in a given mode
-	sub _accessible {
-		my ( $self, $attr, $mode ) = @_;
-		$_attr_data{$attr}[1] =~ /$mode/;
-	}
-
-	# Classwide default value for a specified object attribute
-	sub _default_for {
-		my ( $self, $attr ) = @_;
-		$_attr_data{$attr}[0];
-	}
-
-	# List of names of all specified object attributes
-	sub _standard_keys {
-		keys %_attr_data;
-	}
-
-}
-
-sub new {
-	my ( $caller, %args ) = @_;
-	my $caller_is_obj = ref( $caller );
-	return $caller if $caller_is_obj;
-	my $class = $caller_is_obj || $caller;
-	my $proxy;
-	my $self = bless {}, $class;
-	foreach my $attrname ( $self->_standard_keys ) {
-		if ( exists $args{$attrname} ) {
-			$self->{$attrname} = $args{$attrname};
-		} elsif ( $caller_is_obj ) {
-			$self->{$attrname} = $caller->{$attrname};
-		} else {
-			$self->{$attrname} = $self->_default_for( $attrname );
-		}
-	}
-	unless ($self->model){
-            my $store = RDF::Trine::Store::Memory->new();
-            my $model = RDF::Trine::Model->new($store);
-		$self->model($model);
-	}
-	return $self;
-}
 
 sub parse {
 	
@@ -223,30 +180,28 @@ sub getProfile {
 
 sub _fillProfile {
 	my ($self, $URITrine) = @_;
-#		label => ['Descriptor Profile Schema', 'read'],
-#		title => [ undef, 'read/write' ],
-#		description => [ undef, 'read/write' ],
-#		modified => [ undef, 'read/write' ],
-#                license => [ undef, 'read/write' ],
-#                issued => [ undef, 'read/write' ],
-#    		organization => [ undef, 'read/write' ],
-#		identifier => [ undef, 'read/write' ],
-#		schemardfs_URL => ["http://raw.githubusercontent.com/markwilkinson/DataFairPort/master/Schema/DCATProfile.rdfs", 'read/write'],
-#		_has_class => [undef, 'read/write'],
-#		type => [['http://dcat.profile.schema/Schema'], 'read'],
-#		
-#		URI => [undef, 'read/write'],
+	#has URI => (
+	#has type => (
+	#has hasClass => (
+	#has label => (
+	#has title => (
+	#has description => (
+	#has license => (
+	#has organization => (
+	#has identifier => (
+	#has schemardfs_URL => (
+
 	my %ns = %FAIR::Base::predicate_namespaces;
 	my $prefixes = _generatePrefixHeader();
-	my $query = "SELECT ?label ?title ?description ?modified ?license ?issued ?organization ?identifier ?schemardfs_URL ?type
+	my $query = "SELECT ?label ?title ?description ?license ?organization ?identifier ?schemardfs_URL ?type
 	WHERE { ";
 	my $whereclause = "";
 	my $URI = $URITrine->value;
-	foreach my $element(qw(label title description modified license issued organization identifier schemardfs_URL type)){
+	foreach my $element(qw(label title description license organization identifier schemardfs_URL type)){
 		$whereclause .= "OPTIONAL {<$URI> $ns{$element}:$element ?$element} .\n";
 	}
-	#print STDERR $whereclause;
 	$query = $prefixes . $query . $whereclause . "}";
+	#print STDERR $query;
 	my $Q = RDF::Query->new( $query );
 	my $iterator = $Q->execute( $self->model );
 	my $row = $iterator->next;  # should only be one!
@@ -287,15 +242,14 @@ sub _fillClasses {
 	my ($self) = @_;
 	my $ProfileObject = $self->profile;
 	my $model = $self->model;
+	my %ns = %FAIR::Base::predicate_namespaces;
 	
 	my $ProfileURI = $ProfileObject->URI;
 
-	my $has_class = $FAIR::Base::predicate_namespaces{has_class};	
-	no strict "refs";
-	$has_class = &$has_class."has_class";
-	use strict "refs";
+	my $prefixes = _generatePrefixHeader();
 	
-	my $query = RDF::Query->new( "SELECT ?c WHERE {<$ProfileURI>  <$has_class> ?c}" );
+	my $query = RDF::Query->new( "$prefixes
+				    SELECT ?c WHERE {<$ProfileURI>  $ns{hasClass}:hasClass ?c}" );
 	my $iterator = $query->execute( $model );
 	my $profile;
 	while (my $row = $iterator->next) {
@@ -318,13 +272,13 @@ sub _fillClass {
 		#class_type => [undef, 'read/write'],  # this is a URI to an OWL class or RDFS class
 
 	my $model = $self->model;
-	
 	my %ns = %FAIR::Base::predicate_namespaces;
+	
 	my $prefixes = _generatePrefixHeader();
-	my $query = "SELECT ?label ?class_type 
+	my $query = "SELECT ?label ?onClassType 
 	WHERE { ";
 	my $whereclause = "";
-	foreach my $element(qw(label class_type)){
+	foreach my $element(qw(label onClassType)){
 		$whereclause .= "OPTIONAL {<$ClassURI> $ns{$element}:$element ?$element} .\n";
 	}
 	#print STDERR $whereclause;
@@ -334,11 +288,11 @@ sub _fillClass {
 	my $row = $iterator->next;  # should only be one!
 	
 	my $label = $row->{label}->value if $row->{label};
-	my $class_type = $row->{class_type}->value if $row->{class_type};
-	my $ClassObject = DCAT::Profile::Class->new(
+	my $class_type = $row->{onClassType}->value if $row->{onClassType};
+	my $ClassObject = FAIR::Profile::Class->new(
 		URI => $ClassURI,
 		label => $label,
-		class_type => $class_type,
+		onClassType => $class_type,
 	);
 	
 	return $ClassObject;
@@ -349,14 +303,13 @@ sub _fillClass {
 sub _fillProperties {
 	my ($self, $ClassObject) = @_;
 	my $model = $self->model;
+	my %ns = %FAIR::Base::predicate_namespaces;
+
 	my $ClassURI = $ClassObject->URI;
 	
-	my $has_property = $FAIR::Base::predicate_namespaces{has_property};	
-	no strict "refs";
-	$has_property = &$has_property."has_property";
-	use strict "refs";
-
-	my $query = RDF::Query->new( "SELECT ?p WHERE {<$ClassURI>  <$has_property> ?p}" );
+	my $prefixes = _generatePrefixHeader();
+	my $query = RDF::Query->new( "$prefixes
+				    SELECT ?p WHERE {<$ClassURI> $ns{hasProperty}:hasProperty  ?p}" );
 	my $iterator = $query->execute( $model );
 	my $profile;
 	while (my $row = $iterator->next) {
@@ -382,10 +335,10 @@ sub _fillProperty {
 	
 	my %ns = %FAIR::Base::predicate_namespaces;
 	my $prefixes = _generatePrefixHeader();
-	my $query = "SELECT ?label ?property_type ?requirement_status ?allow_multiple 
+	my $query = "SELECT ?label ?onPropertyType ?requirement_status ?allow_multiple 
 	WHERE { ";
 	my $whereclause = "";
-	foreach my $element(qw(label property_type requirement_status allow_multiple)){
+	foreach my $element(qw(label onPropertyType maxCount minCount)){
 		$whereclause .= "OPTIONAL {<$PropertyURI> $ns{$element}:$element ?$element} .\n";
 	}
 	#print STDERR $whereclause;
@@ -395,21 +348,25 @@ sub _fillProperty {
 	my $row = $iterator->next;  # should only be one!
 	
 	my $label = $row->{label}->value if $row->{label};
-	my $property_type = $row->{property_type}->value if $row->{property_type};
-	my $allow_multiple = $row->{allow_multiple}->value if $row->{allow_multiple};
-	my $required = $row->{requirement_status}->value if $row->{requirement_status};
+	my $property_type = $row->{onPropertyType}->value if $row->{onPropertyType};
+	my $maxCount = $row->{maxCount}->value if $row->{maxCount};
+	my $minCount = $row->{minCount}->value if $row->{minCount};
 	my $PropertyObject = FAIR::Profile::Property->new(
 		URI => $PropertyURI,
 		label => $label,
-		property_type => $property_type,
-		allow_multiple => $allow_multiple,
+		onPropertyType => $property_type,
 	);
-	$PropertyObject->set_RequirementStatus($required?$required:'optional');
+	if (defined $maxCount) {
+		$PropertyObject->maxCount($maxCount);
+	}
+	if (defined $minCount) {
+		$PropertyObject->minCount($minCount);
+	}
 
 	my $query2 = "SELECT ?allowed_values
 	WHERE { ";
 	my $whereclause2 = "";
-	foreach my $element(qw(allowed_values)){
+	foreach my $element(qw(allowedValues)){
 		$whereclause2 .= "OPTIONAL {<$PropertyURI> $ns{$element}:$element ?$element} .\n";
 	}
 	#print STDERR $whereclause2;
@@ -430,7 +387,7 @@ sub _fillProperty {
 
 sub _generatePrefixHeader {
 	no strict "refs";
-	my $header;
+	my $header = "";
 	foreach my $namespace (qw(DCAT
         DC
         DCTYPE
@@ -440,37 +397,9 @@ sub _generatePrefixHeader {
         SKOS
         VCARD
         XSD
-	DCTS)) {
+	FAIR)) {
 		$header = $header . "PREFIX $namespace: <".&$namespace.">\n";
 	}
 	return $header
 }
-
-
-sub AUTOLOAD {
-	no strict "refs";
-	my ( $self, $newval ) = @_;
-	$AUTOLOAD =~ /.*::(\w+)/;
-	my $attr = $1;
-	if ( $self->_accessible( $attr, 'write' ) ) {
-		*{$AUTOLOAD} = sub {
-			if ( defined $_[1] ) { $_[0]->{$attr} = $_[1] }
-			return $_[0]->{$attr};
-		};    ### end of created subroutine
-###  this is called first time only
-		if ( defined $newval ) {
-			$self->{$attr} = $newval;
-		}
-		return $self->{$attr};
-	} elsif ( $self->_accessible( $attr, 'read' ) ) {
-		*{$AUTOLOAD} = sub {
-			return $_[0]->{$attr};
-		};    ### end of created subroutine
-		return $self->{$attr};
-	}
-
-	# Must have been a mistake then...
-	croak "No such method: $AUTOLOAD";
-}
-sub DESTROY { }
 1;

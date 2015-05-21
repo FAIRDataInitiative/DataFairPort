@@ -1,4 +1,7 @@
+
 {{$NEXT}}
+
+- Moosified and modified predicates to match the new OWL ontology created by Michel at the Hinxton hackathon
 
 0.001     2014-05-21 11:44:55 Europe/Madrid
 
