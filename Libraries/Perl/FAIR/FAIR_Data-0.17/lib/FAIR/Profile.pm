@@ -1,5 +1,5 @@
 package FAIR::Profile;
-
+$FAIR::Profile::VERSION = '0.17';
 
 # ABSTRACT: the base class representing a FAIR Profile.  Everything else is attached to this
 
@@ -19,218 +19,27 @@ use RDF::Trine::Store::Memory;
 use base 'FAIR::Base';
 
 
-=head1 NAME
-
-
-FAIR::Profile - a module representing a DCAT Profile.
-
-
-=head1 SYNOPSIS
-
- use FAIR;
- use FAIR::Profile::Parser;
- use FAIR::Profile;
- 
- my $parser = FAIR::Profile::Parser->new(filename => "./ProfileSchema.rdf");
- my $Profile = $parser->parse;  # A DCAT::Profile from a file
-
- my $Profile2 = FAIR::Profile->new(
-		label => 'UBC Thesis Submission Profile',
-		title => 'UBC Thesis Submission Profile'
-		description => 'the metadata that must be associated with thesis deposition',
-		modified => 'May 21, 2014',
-                license => 'CC',
-                issued => 'May 21, 2014,
-    		organization => 'University of British Columbia',
-		identifier => 'doi:123.123.123',
-		URI => 'http://ubc.ca/library/thesis/metadataprofile.rdf'
- )
- 
- my $ProfileClass = FAIR::Profile::Class->new(
-    class_type => FAIR."dataset",  # DCAT is an exported constant
-    URI => "http://datafairport.org/examples/ProfileSchemas/DCATDatasetExample.rdf",
-   );
-
- my $TitleProperty = FAIR::Profile::Property->new(
-    property_type => DCT.'title', # DCT is an exported constant
-    allow_multiple => "false",
- );
- $TitleProperty->set_RequirementStatus('required');
- $TitleProperty->add_ValueRange(XSD."string");
- $ProfileClass->add_Property($TitleProperty);
-
-
- my $DescrProperty = FAIR::Profile::Property->new(
-    property_type => DCT.'description',
-    allow_multiple => "false",
- );
- $DescrProperty->set_RequirementStatus('required');
- $DescrProperty->add_ValueRange(XSD."string"); # XSD is an exported constant
- $ProfileClass->add_Property($DescrProperty);
-
- $Profile2->add_Class($DCATDatasetClass);
-
- my $profileRDF =  $Profile2->serialize;
- open(OUT, ">ProfileSchema.rdf") or die "$!\n";
- print OUT $schema;
- close OUT;
-
- 
-=cut
-
-=head1 DESCRIPTION
-
-DCAT Profiles describe the metadata elements, and constrained values, that should be
-associated with a given information entity.  They ARE NOT containers for this metadata,
-they only describe what that metadata should look like (meta-meta-data :-) )
-
-This module represents a DCAT Profile, and can be serialized into RDF.
-The objects it contains (classes and properties) will tell you what metadata fields
-are required/optional, and what possible values they are allowed to contain.
-
-DCAT Profiles are not part of the official DCAT specification, but the idea was raised
-by the DCAT working group as something that might be useful... it
-certainly is!
-=cut
-
-=head1 AUTHORS
-
-Mark Wilkinson (markw at illuminae dot com)
-
-=cut
-
-=head1 METHODS
-
-
-=head2 new
-
- Title : new
- Usage : my $ProfileParser = DCAT::Profile->new();
- Function: Builds a new DCAT::Profile
- Returns : DCAT::Profile
- Args : label => $string
-	title => $string
-	description => $string
-	modified => $date
-        license => $string
-        issued => $date
-    	organization => $string
-	identifier => $string
-	URI => $URI (optional - a unique URI will be auto-generated)
-
-
-=cut
-
-=head2 label
-
- Title : label
- Usage : $label = $Profile->label($label);
- Function: get/set the RDF label for this object when serialized
- Returns : string
- Args : string
-
-=cut
-
-=head2 title
-
- Title : title
- Usage : $title = $Profile->title($title);
- Function: get/set the title of this Profile
- Returns : string
- Args : string
-
-=cut
-
-=head2 description
-
- Title : description
- Usage : $desc = $Profile->description($desc);
- Function: get/set the description of this Profile
- Returns : string
- Args : string
-
-=cut
-
-
-=head2 modified
-
- Title : modified
- Usage : $date = $Profile->modified($date);
- Function: get/set the modified date of this Profile
- Returns : string  (one day this will be more rigorous!)
- Args : string (one day this will be more rigorous!)
-
-=cut
-
-
-=head2 issued
-
- Title : issued
- Usage : $date = $Profile->issued($date);
- Function: get/set the created/issued date of this Profile
- Returns : string  (one day this will be more rigorous!)
- Args : string (one day this will be more rigorous!)
-
-=cut
 
 
 
-=head2 organization
-
- Title : organization
- Usage : $name = $Profile->organization($name);
- Function: get/set the organization who created this Profile
- Returns : string  (should probably be a URI... one day)
- Args : string  (should probably be a URI... one day)
-
-=cut
 
 
-=head2 identifier
-
- Title : identifier
- Usage : $id = $Profile->identifier($id);
- Function: get/set the unique identifier for this Profile
- Returns : string  (should be a URI or a DOI if available)
- Args : string   (should be a URI or a DOI if available)
-
-=cut
 
 
-=head2 URI
-
- Title : URI
- Usage : $uri = $Profile->URI($uri);
- Function: get/set the URI for this Profile - the root URI in the RDF
- Returns : string  (should be a URI)
- Args : string   (should be a URI)
- notes:  if this is not supplied, a unique URI will be automatically generated
-
-=cut
 
 
-=head2 add_Class
-
- Title : add_Class
- Usage : $Profile->add_Class($Class);
- Function: add a new DCAT::Profile::Class to the Profile
- Returns : boolean (1 for success)
- Args : DCAT::Profile::Class
-
-=cut
 
 
-=head2 has_class
 
- Title : has_class
- Usage : $Profile->has_class();
- Function: retrieve all Classes for the profile
- Returns : listref of DCAT::Profile::Class objects
- Args : none
- Note:  the capitalization of the method name
-        matches the capitalization of the RDF predicate...
 
-=cut
+
+
+
+
+
+
+
+
 
 
 has URI => (
@@ -339,3 +148,203 @@ sub serialize {
 }
 
 1;
+
+__END__
+
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+FAIR::Profile - the base class representing a FAIR Profile.  Everything else is attached to this
+
+=head1 VERSION
+
+version 0.17
+
+=head1 SYNOPSIS
+
+ use FAIR;
+ use FAIR::Profile::Parser;
+ use FAIR::Profile;
+ 
+ my $parser = FAIR::Profile::Parser->new(filename => "./ProfileSchema.rdf");
+ my $Profile = $parser->parse;  # A DCAT::Profile from a file
+
+ my $Profile2 = FAIR::Profile->new(
+		label => 'UBC Thesis Submission Profile',
+		title => 'UBC Thesis Submission Profile'
+		description => 'the metadata that must be associated with thesis deposition',
+		modified => 'May 21, 2014',
+                license => 'CC',
+                issued => 'May 21, 2014,
+    		organization => 'University of British Columbia',
+		identifier => 'doi:123.123.123',
+		URI => 'http://ubc.ca/library/thesis/metadataprofile.rdf'
+ )
+ 
+ my $ProfileClass = FAIR::Profile::Class->new(
+    class_type => FAIR."dataset",  # DCAT is an exported constant
+    URI => "http://datafairport.org/examples/ProfileSchemas/DCATDatasetExample.rdf",
+   );
+
+ my $TitleProperty = FAIR::Profile::Property->new(
+    property_type => DCT.'title', # DCT is an exported constant
+    allow_multiple => "false",
+ );
+ $TitleProperty->set_RequirementStatus('required');
+ $TitleProperty->add_ValueRange(XSD."string");
+ $ProfileClass->add_Property($TitleProperty);
+
+
+ my $DescrProperty = FAIR::Profile::Property->new(
+    property_type => DCT.'description',
+    allow_multiple => "false",
+ );
+ $DescrProperty->set_RequirementStatus('required');
+ $DescrProperty->add_ValueRange(XSD."string"); # XSD is an exported constant
+ $ProfileClass->add_Property($DescrProperty);
+
+ $Profile2->add_Class($DCATDatasetClass);
+
+ my $profileRDF =  $Profile2->serialize;
+ open(OUT, ">ProfileSchema.rdf") or die "$!\n";
+ print OUT $schema;
+ close OUT;
+
+=head1 DESCRIPTION
+
+DCAT Profiles describe the metadata elements, and constrained values, that should be
+associated with a given information entity.  They ARE NOT containers for this metadata,
+they only describe what that metadata should look like (meta-meta-data :-) )
+
+This module represents a DCAT Profile, and can be serialized into RDF.
+The objects it contains (classes and properties) will tell you what metadata fields
+are required/optional, and what possible values they are allowed to contain.
+
+DCAT Profiles are not part of the official DCAT specification, but the idea was raised
+by the DCAT working group as something that might be useful... it
+certainly is!
+
+=head1 NAME
+
+FAIR::Profile - a module representing a DCAT Profile.
+
+=head1 AUTHORS
+
+Mark Wilkinson (markw at illuminae dot com)
+
+=head1 METHODS
+
+=head2 new
+
+ Title : new
+ Usage : my $ProfileParser = DCAT::Profile->new();
+ Function: Builds a new DCAT::Profile
+ Returns : DCAT::Profile
+ Args : label => $string
+	title => $string
+	description => $string
+	modified => $date
+        license => $string
+        issued => $date
+    	organization => $string
+	identifier => $string
+	URI => $URI (optional - a unique URI will be auto-generated)
+
+=head2 label
+
+ Title : label
+ Usage : $label = $Profile->label($label);
+ Function: get/set the RDF label for this object when serialized
+ Returns : string
+ Args : string
+
+=head2 title
+
+ Title : title
+ Usage : $title = $Profile->title($title);
+ Function: get/set the title of this Profile
+ Returns : string
+ Args : string
+
+=head2 description
+
+ Title : description
+ Usage : $desc = $Profile->description($desc);
+ Function: get/set the description of this Profile
+ Returns : string
+ Args : string
+
+=head2 modified
+
+ Title : modified
+ Usage : $date = $Profile->modified($date);
+ Function: get/set the modified date of this Profile
+ Returns : string  (one day this will be more rigorous!)
+ Args : string (one day this will be more rigorous!)
+
+=head2 issued
+
+ Title : issued
+ Usage : $date = $Profile->issued($date);
+ Function: get/set the created/issued date of this Profile
+ Returns : string  (one day this will be more rigorous!)
+ Args : string (one day this will be more rigorous!)
+
+=head2 organization
+
+ Title : organization
+ Usage : $name = $Profile->organization($name);
+ Function: get/set the organization who created this Profile
+ Returns : string  (should probably be a URI... one day)
+ Args : string  (should probably be a URI... one day)
+
+=head2 identifier
+
+ Title : identifier
+ Usage : $id = $Profile->identifier($id);
+ Function: get/set the unique identifier for this Profile
+ Returns : string  (should be a URI or a DOI if available)
+ Args : string   (should be a URI or a DOI if available)
+
+=head2 URI
+
+ Title : URI
+ Usage : $uri = $Profile->URI($uri);
+ Function: get/set the URI for this Profile - the root URI in the RDF
+ Returns : string  (should be a URI)
+ Args : string   (should be a URI)
+ notes:  if this is not supplied, a unique URI will be automatically generated
+
+=head2 add_Class
+
+ Title : add_Class
+ Usage : $Profile->add_Class($Class);
+ Function: add a new DCAT::Profile::Class to the Profile
+ Returns : boolean (1 for success)
+ Args : DCAT::Profile::Class
+
+=head2 has_class
+
+ Title : has_class
+ Usage : $Profile->has_class();
+ Function: retrieve all Classes for the profile
+ Returns : listref of DCAT::Profile::Class objects
+ Args : none
+ Note:  the capitalization of the method name
+        matches the capitalization of the RDF predicate...
+
+=head1 AUTHOR
+
+Mark Wilkinson (markw [at] illuiminae [dot] com)
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2015 by Mark Wilkinson.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut

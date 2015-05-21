@@ -1,5 +1,5 @@
 package FAIR::Profile::Parser;
-
+$FAIR::Profile::Parser::VERSION = '0.17';
 
 # ABSTRACT: Parser that reads FAIR Profile RDF and creates a FAIR::Profile object
 
@@ -23,101 +23,15 @@ use base 'FAIR::Base';
 #use vars qw /$VERSION/;
 #$VERSION = sprintf "%d.%02d", q$Revision: 1.5 $ =~ /: (\d+)\.(\d+)/;
 
-=head1 NAME
-
-FAIR::Profile::Parser - a module for reading FAIR Profile RDF files
-
-=head1 SYNOPSIS
-
- use FAIR::Profile::Parser;
-
- my $parser = FAIR::Profile::Parser->new(filename => "./ProfileSchema.rdf");
- my $DatasetSchema = $parser->parse;
-
- my $schema =  $DatasetSchema->serialize;
- open(OUT, ">ProfileSchema2.rdf")
- print OUT $schema;
- close OUT;
-
- 
-=cut
-
-=head1 DESCRIPTION
-
-FAIR Profiles describe the metadata elements, and constrained values, that should be
-associated with a given information entity.  They ARE NOT containers for this metadata,
-they only describe what that metadata should look like (meta-meta-data :-) )
-
-This module will parse an RDF file containing a FAIR Profile into
-objects that can be used to construct a metadata capture interface.
-The objects will tell you what fields are required/optional, and what possible
-values they are allowed to contain.
-
-=cut
-
-=head1 AUTHORS
-
-Mark Wilkinson (markw at illuminae dot com)
-
-=cut
-
-=head1 METHODS
 
 
-=head2 new
-
- Title : new
- Usage : my $ProfileParser = FAIR::Profile::Parser->new();
- Function: Builds a new FAIR::Profile::Parser
- Returns : FAIR::Profile::Parser
- Args : filename => $filename
-        model => $model (an existing RDF::Trine::Model -
-	        if you don't supply this it will be created for you)
 
 
-=cut
-
-=head2 parse
-
- Title : parse
- Usage : my $ProfileObject = $ProfileParser->parse();
- Function: parse the file associated with the Parser
- Returns : FAIR::Profile
- Args : none
-
-=cut
-
-=head2 filename
-
- Title : filename
- Usage : $ProfileParser->filename($filename);
- Function: associate a file with the parser
- Returns : null
- Args : full or relative path to the file to be parsed
-
-=cut
 
 
-=head2 model
-
- Title : model
- Usage : $ProfileParser->model($RDFTrineModel);
- Function: associate an RDF::Trine::Model with the parser
- Returns : null
- Args : RDF::Trine::Model (this will be created for you, if not supplied)
-
-=cut
 
 
-=head2 profile
 
- Title : profile
- Usage : $Profile = $ProfileParser->profile;
- Function: retrieve the profile after a parse.  Must parse first!
- Returns : FAIR::Profile
- Args : none
-
-=cut
 
 
 
@@ -407,3 +321,105 @@ sub _generatePrefixHeader {
 	return $header
 }
 1;
+
+__END__
+
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+FAIR::Profile::Parser - Parser that reads FAIR Profile RDF and creates a FAIR::Profile object
+
+=head1 VERSION
+
+version 0.17
+
+=head1 SYNOPSIS
+
+ use FAIR::Profile::Parser;
+
+ my $parser = FAIR::Profile::Parser->new(filename => "./ProfileSchema.rdf");
+ my $DatasetSchema = $parser->parse;
+
+ my $schema =  $DatasetSchema->serialize;
+ open(OUT, ">ProfileSchema2.rdf")
+ print OUT $schema;
+ close OUT;
+
+=head1 DESCRIPTION
+
+FAIR Profiles describe the metadata elements, and constrained values, that should be
+associated with a given information entity.  They ARE NOT containers for this metadata,
+they only describe what that metadata should look like (meta-meta-data :-) )
+
+This module will parse an RDF file containing a FAIR Profile into
+objects that can be used to construct a metadata capture interface.
+The objects will tell you what fields are required/optional, and what possible
+values they are allowed to contain.
+
+=head1 NAME
+
+FAIR::Profile::Parser - a module for reading FAIR Profile RDF files
+
+=head1 AUTHORS
+
+Mark Wilkinson (markw at illuminae dot com)
+
+=head1 METHODS
+
+=head2 new
+
+ Title : new
+ Usage : my $ProfileParser = FAIR::Profile::Parser->new();
+ Function: Builds a new FAIR::Profile::Parser
+ Returns : FAIR::Profile::Parser
+ Args : filename => $filename
+        model => $model (an existing RDF::Trine::Model -
+	        if you don't supply this it will be created for you)
+
+=head2 parse
+
+ Title : parse
+ Usage : my $ProfileObject = $ProfileParser->parse();
+ Function: parse the file associated with the Parser
+ Returns : FAIR::Profile
+ Args : none
+
+=head2 filename
+
+ Title : filename
+ Usage : $ProfileParser->filename($filename);
+ Function: associate a file with the parser
+ Returns : null
+ Args : full or relative path to the file to be parsed
+
+=head2 model
+
+ Title : model
+ Usage : $ProfileParser->model($RDFTrineModel);
+ Function: associate an RDF::Trine::Model with the parser
+ Returns : null
+ Args : RDF::Trine::Model (this will be created for you, if not supplied)
+
+=head2 profile
+
+ Title : profile
+ Usage : $Profile = $ProfileParser->profile;
+ Function: retrieve the profile after a parse.  Must parse first!
+ Returns : FAIR::Profile
+ Args : none
+
+=head1 AUTHOR
+
+Mark Wilkinson (markw [at] illuiminae [dot] com)
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2015 by Mark Wilkinson.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut
