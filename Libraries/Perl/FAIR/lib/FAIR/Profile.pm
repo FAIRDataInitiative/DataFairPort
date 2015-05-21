@@ -3,8 +3,7 @@ use Moose;
 
 use strict;
 use Carp;
-use lib "../";
-use Moose;
+
 use FAIR::Base;
 use FAIR::NAMESPACES;
 use FAIR::Profile::Class;
@@ -12,7 +11,6 @@ use FAIR::Profile::Property;
 use FAIR::Profile::Parser;
 
 use RDF::Trine::Store::Memory;
-use vars qw($AUTOLOAD @ISA);
 
 use base 'FAIR::Base';
 

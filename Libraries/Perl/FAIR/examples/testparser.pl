@@ -1,7 +1,9 @@
 use lib "../lib/";
 use FAIR::Profile::Parser;
 
-my $parser = FAIR::Profile::Parser->new(filename => "./DemoMicroarrayProfileScheme.rdf");
+die "\n\nusage:  testparser.pl  ProfileFileName.rdf\n\n" unless $ARGV[0];
+
+my $parser = FAIR::Profile::Parser->new(filename => $ARGV[0]);
 my $DatasetSchema = $parser->parse;
 
 

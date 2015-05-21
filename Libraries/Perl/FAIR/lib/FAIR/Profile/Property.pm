@@ -1,7 +1,5 @@
 package FAIR::Profile::Property;
 
-use lib "../../../lib/";
-
 use strict;
 use Carp;
 use Moose;
@@ -154,19 +152,21 @@ has label => (
 	is => 'rw',
 	isa => "Str",   # this should be forced to be a URI
 	traits => ['Serializable'],
+	required => 1,
 	);	
 
 has onPropertyType => (
 	is => 'rw',
 	isa => "Str",   # this should be forced to be a URI
 	traits => ['Serializable'],
+	required => 1,
 	);
 
 has allowedValues => (
 	is => 'rw',
 	isa => 'ArrayRef',  # one day make this a forced URI!
 	traits =>  ['Serializable'],
-	writer => '_add_AllowedValue'
+	writer => '_add_AllowedValue',
 );
 
 has minCount => (
@@ -185,6 +185,7 @@ has type => (
 	is => 'rw',
 	isa => 'ArrayRef[Str]',
 	traits => ['Serializable'],
+	required => 1,
 	default => sub {[FAIR.'FAIRProperty']},
 	);
 
@@ -193,6 +194,8 @@ has URI => (
 	isa => "Str",
 	traits => ['Serializable'],
 	builder => '_generate_URI',
+	required => 1,
+
 	);
 
 

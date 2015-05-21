@@ -2,7 +2,6 @@ package FAIR::Base;
 
 use RDF::NS '20131205';
 use strict;
-use lib "../";
 
 use FAIR::NAMESPACES; 
 
