@@ -1,5 +1,5 @@
 package FAIR::NAMESPACES;
-
+$FAIR::NAMESPACES::VERSION = '0.17';
 
 # ABSTRACT: a utility object that contains the namespaces commonly used by FAIR profiles.  This shoudl probably be replaced by RDF::NS one day, because it is horribly hacky!
 
@@ -40,3 +40,30 @@ sub XSD ()   {return 'http://www.w3.org/2001/XMLSchema#' }
 sub FAIR() {return 'http://fairdata.org/ontology/FAIR-Data#'}
 
 1;
+
+__END__
+
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+FAIR::NAMESPACES - a utility object that contains the namespaces commonly used by FAIR profiles.  This shoudl probably be replaced by RDF::NS one day, because it is horribly hacky!
+
+=head1 VERSION
+
+version 0.17
+
+=head1 AUTHOR
+
+Mark Wilkinson (markw [at] illuiminae [dot] com)
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2015 by Mark Wilkinson.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut
