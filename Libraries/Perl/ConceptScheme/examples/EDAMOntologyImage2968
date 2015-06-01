@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description xmlns:ns1="http://www.w3.org/2002/07/owl#" rdf:about="http://biordf.org/DataFairPort/ConceptSchemes/EDAMOntologyImage2968">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#ConceptScheme"/>
+	<ns1:imports rdf:resource="http://purl.bioontology.org/ontology/EDAM"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://edamontology.org/data_0942">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>2D PAGE image</ns1:label>
+	<ns2:broader rdf:resource="http://edamontology.org/data_2968"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EDAMOntologyImage2968"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://edamontology.org/data_1289">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>Restriction map</ns1:label>
+	<ns2:broader rdf:resource="http://edamontology.org/data_2968"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EDAMOntologyImage2968"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://edamontology.org/data_1636">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>Heat map</ns1:label>
+	<ns2:broader rdf:resource="http://edamontology.org/data_2968"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EDAMOntologyImage2968"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://edamontology.org/data_1707">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>Phylogenetic tree image</ns1:label>
+	<ns2:broader rdf:resource="http://edamontology.org/data_2968"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EDAMOntologyImage2968"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://edamontology.org/data_1708">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>RNA secondary structure image</ns1:label>
+	<ns2:broader rdf:resource="http://edamontology.org/data_2968"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EDAMOntologyImage2968"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://edamontology.org/data_1709">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>Protein secondary structure image</ns1:label>
+	<ns2:broader rdf:resource="http://edamontology.org/data_2968"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EDAMOntologyImage2968"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://edamontology.org/data_1710">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>Structure image</ns1:label>
+	<ns2:broader rdf:resource="http://edamontology.org/data_2968"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EDAMOntologyImage2968"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://edamontology.org/data_1711">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>Sequence alignment image</ns1:label>
+	<ns2:broader rdf:resource="http://edamontology.org/data_2968"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EDAMOntologyImage2968"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://edamontology.org/data_1712">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>Chemical structure image</ns1:label>
+	<ns2:broader rdf:resource="http://edamontology.org/data_2968"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EDAMOntologyImage2968"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://edamontology.org/data_1713">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>Fate map</ns1:label>
+	<ns2:broader rdf:resource="http://edamontology.org/data_2968"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EDAMOntologyImage2968"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://edamontology.org/data_1714">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>Microarray spots image</ns1:label>
+	<ns2:broader rdf:resource="http://edamontology.org/data_2968"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EDAMOntologyImage2968"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://edamontology.org/data_2162">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>Helical wheel</ns1:label>
+	<ns2:broader rdf:resource="http://edamontology.org/data_2968"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EDAMOntologyImage2968"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://edamontology.org/data_2163">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>Helical net</ns1:label>
+	<ns2:broader rdf:resource="http://edamontology.org/data_2968"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EDAMOntologyImage2968"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://edamontology.org/data_2168">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>Sequence trace image</ns1:label>
+	<ns2:broader rdf:resource="http://edamontology.org/data_2968"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EDAMOntologyImage2968"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://edamontology.org/data_2586">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>Northern blot image</ns1:label>
+	<ns2:broader rdf:resource="http://edamontology.org/data_2968"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EDAMOntologyImage2968"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://edamontology.org/data_2968">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>Image</ns1:label>
+	<ns2:broader rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EDAMOntologyImage2968"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EDAMOntologyImage2968"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://edamontology.org/data_2969">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>Sequence image</ns1:label>
+	<ns2:broader rdf:resource="http://edamontology.org/data_2968"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EDAMOntologyImage2968"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://edamontology.org/data_2992">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>Protein structure image</ns1:label>
+	<ns2:broader rdf:resource="http://edamontology.org/data_2968"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EDAMOntologyImage2968"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://edamontology.org/data_3153">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>Protein image</ns1:label>
+	<ns2:broader rdf:resource="http://edamontology.org/data_2968"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EDAMOntologyImage2968"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://edamontology.org/data_3424">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>Raw image</ns1:label>
+	<ns2:broader rdf:resource="http://edamontology.org/data_2968"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EDAMOntologyImage2968"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://edamontology.org/data_3442">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>MRI image</ns1:label>
+	<ns2:broader rdf:resource="http://edamontology.org/data_2968"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EDAMOntologyImage2968"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://edamontology.org/data_3449">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>Cell migration track image</ns1:label>
+	<ns2:broader rdf:resource="http://edamontology.org/data_2968"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EDAMOntologyImage2968"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://edamontology.org/data_3490">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>Chemical structure sketch</ns1:label>
+	<ns2:broader rdf:resource="http://edamontology.org/data_2968"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/EDAMOntologyImage2968"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#Concept">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#ConceptScheme">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#broader">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#hasTopConcept">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#inScheme">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#narrower">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#topConceptOf">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+</rdf:Description>
+</rdf:RDF>

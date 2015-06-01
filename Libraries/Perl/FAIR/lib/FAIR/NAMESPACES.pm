@@ -37,6 +37,7 @@ sub SKOS ()  {return 'http://www.w3.org/2004/02/skos/core#' }
 sub VCARD () {return 'http://www.w3.org/2006/vcard/ns#' }
 sub XSD ()   {return 'http://www.w3.org/2001/XMLSchema#' }
 
-sub FAIR() {return 'http://fairdata.org/ontology/FAIR-Data#'}
+#sub FAIR() {return 'http://fairdata.org/ontology/FAIR-Data#'}
+sub FAIR() {return 'https://github.com/FAIRDataInitiative/DataFairPort/blob/master/Schema/FAIR-schema.owl#'}
 
 1;
