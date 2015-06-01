@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description xmlns:ns1="http://www.w3.org/2002/07/owl#" rdf:about="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#ConceptScheme"/>
+	<ns1:imports rdf:resource="http://purl.bioontology.org/ontology/SO"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000087">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>nuclear_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000088">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>mt_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000089">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>kinetoplast_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000090">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>plastid_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000091">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>apicoplast_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000092">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>ct_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000093">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>chromoplast_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000094">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>cyanelle_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000095">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>leucoplast_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000096">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>proplastid_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000097">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>nucleomorph_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000098">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>plasmid_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000099">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>proviral_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000100">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>endogenous_retroviral_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000111">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>transposable_element_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000127">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>silenced_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000128">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>gene_silenced_by_DNA_modification</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000129">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>gene_silenced_by_DNA_methylation</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000138">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>gene_rearranged_at_DNA_level</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000280">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>engineered_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000281">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>engineered_foreign_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000283">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>engineered_foreign_transposable_element_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000285">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>foreign_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000287">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>fusion_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000288">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>engineered_fusion_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000363">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>floxed_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000373">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>recombinationally_inverted_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000451">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>gene_with_polyadenylated_mRNA</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000455">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>gene_with_mRNA_with_frameshift</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000456">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>recombinationally_rearranged_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000459">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>gene_with_trans_spliced_transcript</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000548">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>gene_with_edited_transcript</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000654">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>maxicircle_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000690">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>gene_with_polycistronic_transcript</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000692">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>gene_with_dicistronic_transcript</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000693">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>gene_with_recoded_mRNA</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000697">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>gene_with_stop_codon_read_through</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000698">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>gene_with_stop_codon_redefined_as_pyrrolysine</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000704">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>gene</ns1:label>
+	<ns2:broader rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000710">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>gene_with_stop_codon_redefined_as_selenocysteine</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000711">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>gene_with_mRNA_recoded_by_translational_bypass</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000712">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>gene_with_transcript_with_translational_frameshift</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000721">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>gene_with_dicistronic_primary_transcript</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000722">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>gene_with_dicistronic_mRNA</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000816">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>rescue_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000818">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>wild_type_rescue_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000888">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>maternally_imprinted_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000889">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>paternally_imprinted_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000890">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>post_translationally_regulated_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000891">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>negatively_autoregulated_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2000/01/rdf-schema#" xmlns:ns2="http://www.w3.org/2004/02/skos/core#" rdf:about="http://purl.obolibrary.org/obo/SO_0000892">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+	<rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+	<ns1:label>positively_autoregulated_gene</ns1:label>
+	<ns2:broader rdf:resource="http://purl.obolibrary.org/obo/SO_0000704"/>
+	<ns2:inScheme rdf:resource="http://biordf.org/DataFairPort/ConceptSchemes/SequenceOntologyGene704"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#Concept">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#ConceptScheme">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#broader">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#hasTopConcept">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#inScheme">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#narrower">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#topConceptOf">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+</rdf:Description>
+</rdf:RDF>
