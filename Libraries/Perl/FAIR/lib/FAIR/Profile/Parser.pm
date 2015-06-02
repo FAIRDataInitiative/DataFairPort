@@ -119,6 +119,7 @@ Mark Wilkinson (markw at illuminae dot com)
 has filename => (
 	is => 'rw',
 	isa => "Str",
+	required => 1,
 	);
 
 has model => (
@@ -131,8 +132,8 @@ has model => (
 has profile => (
 	is => 'rw',
 	isa => 'FAIR::Profile',
+	
 	);
-
 
 sub parse {
 	
@@ -191,11 +192,11 @@ sub _fillProfile {
 
 	my %ns = %FAIR::Base::predicate_namespaces;
 	my $prefixes = _generatePrefixHeader();
-	my $query = "SELECT ?label ?title ?description ?license ?organization ?identifier ?schemardfs_URL ?type
+	my $query = "SELECT ?label ?title ?description ?modified ?license ?issued ?organization ?identifier ?schemardfs_URL ?type
 	WHERE { ";
 	my $whereclause = "";
 	my $URI = $URITrine->value;
-	foreach my $element(qw(label title description license organization identifier schemardfs_URL type)){
+	foreach my $element(qw(label title description modified license issued organization identifier schemardfs_URL type)){
 		$whereclause .= "OPTIONAL {<$URI> $ns{$element}:$element ?$element} .\n";
 	}
 	$query = $prefixes . $query . $whereclause . "}";
@@ -333,7 +334,7 @@ sub _fillProperty {
 	
 	my %ns = %FAIR::Base::predicate_namespaces;
 	my $prefixes = _generatePrefixHeader();
-	my $query = "SELECT ?label ?onPropertyType ?requirement_status ?allow_multiple 
+	my $query = "SELECT ?label ?onPropertyType ?maxCount ?minCount 
 	WHERE { ";
 	my $whereclause = "";
 	foreach my $element(qw(label onPropertyType maxCount minCount)){
@@ -361,7 +362,7 @@ sub _fillProperty {
 		$PropertyObject->minCount($minCount);
 	}
 
-	my $query2 = "SELECT ?allowed_values
+	my $query2 = "SELECT ?allowedValues
 	WHERE { ";
 	my $whereclause2 = "";
 	foreach my $element(qw(allowedValues)){
@@ -372,7 +373,7 @@ sub _fillProperty {
 	my $Q2 = RDF::Query->new( $query2 );
 	my $iterator2 = $Q2->execute( $self->model );
 	while (my $row = $iterator2->next){
-		my $restrictionURI = $row->{allowed_values}->value if $row->{allowed_values};
+		my $restrictionURI = $row->{allowedValues}->value if $row->{allowedValues};
 		next unless $restrictionURI;
 		$PropertyObject->add_AllowedValue($restrictionURI);
 	}
