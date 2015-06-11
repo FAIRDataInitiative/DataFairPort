@@ -330,7 +330,7 @@ sub printProfilerInfo {
     $model->add_statement($stm);
     $stm = statement($ns->proj('DragonDB_Allele_ProfileAlleleDescriptions'), $ns->fair('usesAccessor'), "http://antirrhinum.net/cgi-bin/LDP/Alleles");
     $model->add_statement($stm);
-    $stm = statement("http://antirrhinum.net/cgi-bin/LDP/Alleles", $ns->fair('accessorDescriptor'), "http://biordf.org/DataFairPort/DragonDB_Allele_Accessor.rdf");
+    $stm = statement($ns->proj('DragonDB_Allele_ProfileAlleleDescriptions'), $ns->fair('accessorDescriptor'), "http://biordf.org/DataFairPort/DragonDB_Allele_Accessor.rdf");
     $model->add_statement($stm);
     
     
@@ -340,7 +340,7 @@ sub printProfilerInfo {
     $model->add_statement($stm);
     $stm = statement($ns->proj('DragonDB_Allele_ProfileImagesSIO'), $ns->fair('usesAccessor'), "http://antirrhinum.net/cgi-bin/LDP/Alleles");
     $model->add_statement($stm);
-    $stm = statement("http://antirrhinum.net/cgi-bin/LDP/Alleles", $ns->fair('accessorDescriptor'), "http://biordf.org/DataFairPort/DragonDB_Allele_Accessor.rdf");
+    $stm = statement($ns->proj('DragonDB_Allele_ProfileImagesSIO'), $ns->fair('accessorDescriptor'), "http://biordf.org/DataFairPort/DragonDB_Allele_Accessor.rdf");
     $model->add_statement($stm);
     
     
@@ -348,13 +348,13 @@ sub printProfilerInfo {
     $model->add_statement($stm);
     $stm = statement($ns->proj('DragonDB_Allele_ProfileImagesEDAM'), $ns->fair('projectsFAIRProfile'), "http://biordf.org/DataFairPort/ProfileSchemas/Allele_Profile_SIO.rdf");
     $model->add_statement($stm);
-    $stm = statement($ns->proj('DragonDB_Allele_ProfileImagesEDAM'), $ns->fair('usesAccessor'), "http://antirrhinum.net/cgi-bin/LDP/Alleles");
+    $stm = statement($ns->proj('DragonDB_Allele_ProfileImagesEDAM'), $ns->fair('usesAccessor'), "http://biordf.org/DataFairPort/DragonDB_Allele_Accessor.rdf");
     $model->add_statement($stm);
-    $stm = statement("http://antirrhinum.net/cgi-bin/LDP/Alleles", $ns->fair('accessorDescriptor'), "http://biordf.org/DataFairPort/DragonDB_Allele_Accessor.rdf");
+    $stm = statement($ns->proj('DragonDB_Allele_ProfileImagesEDAM'), $ns->fair('accessorDescriptor'), "http://biordf.org/DataFairPort/DragonDB_Allele_Accessor.rdf");
     $model->add_statement($stm);
     
     
-    serializeThis($model);
+    print serializeThis($model);
     
 }
 
