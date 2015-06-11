@@ -156,7 +156,6 @@ has label => (
 has hasProperty => (
 	is => 'rw',
 	isa => 'ArrayRef[FAIR::Profile::Property]',
-#	isa => 'ArrayRef',
 	traits => [qw/Serializable/],
 	writer => '_add_Property',
 	default => sub {[]},
@@ -193,12 +192,6 @@ sub add_Property {
 	$self->_add_Property($ps);
 	return 1;
 }
-
-
-#sub get_Template {   # redundant...
-#	my ($self) = @_;
-#	return $self->template();
-#}
 
 
 1;

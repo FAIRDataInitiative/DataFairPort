@@ -238,7 +238,7 @@ has type => (
 	is => 'rw',
 	isa => 'ArrayRef[Str]',
 	traits => [qw/Serializable/],  # it is, but it is handled differently than most serializable traits
-	default => sub {[FAIR.'FAIRProfile']},
+	default => sub {[FAIR.'FAIRProfile', DC.'ProvenanceStatement']},
 	);
 
 has hasClass => (

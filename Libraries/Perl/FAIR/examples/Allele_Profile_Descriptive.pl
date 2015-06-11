@@ -5,6 +5,8 @@ use FAIR::Profile::Class;
 use FAIR::Profile::Property;
 use FAIR::NAMESPACES;
 
+use lib '../lib/';
+
 my $URL = "http://biordf.org/DataFairPort/ProfileSchemas/Allele_Profile_Descriptive.rdf";
 
 my $AlleleProfile = FAIR::Profile->new(

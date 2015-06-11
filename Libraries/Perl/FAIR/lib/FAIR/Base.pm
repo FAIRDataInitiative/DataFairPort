@@ -6,6 +6,17 @@ package FAIR::Base;
 
 use RDF::NS '20131205';
 use strict;
+use RDF::Trine::Store::Memory;
+use RDF::Trine::Model;
+use RDF::Trine::Namespace;
+use RDF::Trine::Statement;
+use RDF::Trine::Node::Resource;
+use RDF::Trine::Node::Literal;
+
+
+use Exporter qw(import);
+our @ISA =   qw(Exporter);
+our @EXPORT = qw(statement);
 
 use FAIR::NAMESPACES; 
 
