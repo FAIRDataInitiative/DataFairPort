@@ -22,7 +22,7 @@ my $AlleleProfile = FAIR::Profile->new(
 # ===== Protein Class
 my $AlleleClass = FAIR::Profile::Class->new(
     onClassType => "http://purl.obolibrary.org/obo/SO_0001023",  # allele
-    URI => "URL",
+    URI => "$URL",
     label => "FAIR Class of Allele",
    );
     
