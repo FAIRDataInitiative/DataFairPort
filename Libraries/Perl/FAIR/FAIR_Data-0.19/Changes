@@ -1,0 +1,10 @@
+
+0.19      2015-06-11 12:36:01+02:00 Europe/Madrid
+
+- fixed some circular dependencies
+
+- Moosified and modified predicates to match the new OWL ontology created by Michel at the Hinxton hackathon
+
+0.001     2014-05-21 11:44:55 Europe/Madrid
+
+    -- initial release
