@@ -103,6 +103,7 @@ The key words MUST, MUST NOT, REQUIRED,SHOULD,SHOULD NOT, RECOMMENDED, MAY, and 
             <li>the FAIR Property class describes aspects of the property, such as it's cardinality.  </li>
             <li>the final step in the chain is the value of the allowedValues predicate.  In this version of the FAIRport specification, there are three possible types of values.  (1) an XSD datatype; (2) a set of ontology Class URIs that have been converted into a SKOS Concept Scheme (see HERE for details); (3) the URI of another FAIR Profile (such that profiles can be "nested")</li>
         </ul>
+        </section>
         <section>
         <h2>Examples of FAIR Profiles</h2>
     This is a very simple FAIR Profile that describes one way of looking at an "Allele" record.  It tells us that it will project the Allele, and one property of that Allele - an image of the mutant - which will be classified according to the SKOS Concept Scheme at <a href='http://biordf.org/DataFairPort/ConceptSchemes/SIOOntologyImage81'>http://biordf.org/DataFairPort/ConceptSchemes/SIOOntologyImage81</a>.   (a discussion of these concept schemes is elsewhere [link]).
@@ -155,6 +156,7 @@ The key words MUST, MUST NOT, REQUIRED,SHOULD,SHOULD NOT, RECOMMENDED, MAY, and 
 The RDF of an Allele record projected through this FAIR Profile will, therefore, look like this:
 
 <pre class='example highlight'>
+  
 &lt;http://antirrhinum.net/cgi-bin/ace/generic/xml/DragonDB?name=4n;class=Allele&gt; 
     &lt;http://semanticscience.org/ontology/SIO_000205&gt; 
           &lt;http://antirrhinum.net/cgi-bin/ace/generic/tree/DragonDB?class=Phenotype_Picture&amp;name=4n-0&gt; ;
@@ -163,8 +165,8 @@ The RDF of an Allele record projected through this FAIR Profile will, therefore,
     a &lt;http://semanticscience.org/ontology/SIO_000081&gt; .
 &lt;http://purl.obolibrary.org/obo/SO_0001023&gt; &lt;http://www.w3.org/2000/01/rdf-schema#label&gt; &quot;Allele&quot; .
 &lt;http://semanticscience.org/ontology/SIO_000081&gt; &lt;http://www.w3.org/2000/01/rdf-schema#label&gt; &quot;Image&quot; .
+
 </pre>
         </section>
-    </section>
 </body>
 </html>
