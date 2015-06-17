@@ -273,6 +273,18 @@ has license => (
 	traits => [qw/Serializable/],
 	);
 
+has issued => (
+	is => 'rw',
+	isa => "Str",
+	traits => [qw/Serializable/],
+	);
+
+has modified => (
+	is => 'rw',
+	isa => "Str",
+	traits => [qw/Serializable/],
+	);
+
 has organization => (
 	is => 'rw',
 	isa => "Str",
@@ -285,12 +297,12 @@ has identifier => (
 	traits => [qw/Serializable/],
 	);
 
-has schemardfs_URL => (
-	is => 'rw',
-	isa => "Str",
-	traits => [qw/Serializable/],
-	default => FAIR,
-	);
+#has schemardfs_URL => (
+#	is => 'rw',
+#	isa => "Str",
+#	traits => [qw/Serializable/],
+#	default => FAIR,
+#	);
 
 sub _generate_URI {
 	my ($self, $newval) = @_;

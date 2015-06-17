@@ -92,6 +92,28 @@ Mark Wilkinson (markw at illuminae dot com)
 =cut
 
 
+=head2 data
+
+ Title : data
+ Usage : $ProfileParser->data($rdfdata);
+ Function: associate a data string with the parser
+ Returns : null
+ Args : string of RDF in the format specified in $Parser->data_format
+
+=cut
+
+
+=head2 data_format
+
+ Title : data_format
+ Usage : $ProfileParser->data_format($format);
+ Function: the format of the RDF data in ->data (if any)
+ Returns : null
+ Args : rdfxml | turtle | ntriples | nquads (or any type acceptable to RDF::Trine)
+
+=cut
+
+
 =head2 model
 
  Title : model
@@ -119,8 +141,20 @@ Mark Wilkinson (markw at illuminae dot com)
 has filename => (
 	is => 'rw',
 	isa => "Str",
-	required => 1,
+	required => 0,
 	);
+
+has data => (
+	is => 'rw',
+	isa => "Str",
+	required => 0,
+	);
+
+has data_format => (
+	is => 'rw',
+	isa => "Str",
+	required => 0,
+);
 
 has model => (
 	is => 'rw',
@@ -140,20 +174,28 @@ sub parse {
 	my ($self) = @_;
 	my $filename = $self->filename;
 	my $model = $self->model;
-	if ($filename =~ m'^http://') {
-		my $result = get($filename);
-		die "Nothing could be retrieved from $filename\n" unless $result;		
-		RDF::Trine::Parser->parse_url_into_model($filename, $model );
-		
-	} else {
+	my $data = $self->data;
+	if ($filename) {
+		if ($filename =~ m'^http://') {
+			my $result = get($filename);
+			die "Nothing could be retrieved from $filename\n" unless $result;		
+			RDF::Trine::Parser->parse_url_into_model($filename, $model );
 			
-		die "file $filename does not exist" unless (-e $filename);
-	#	open(IN, "$filename") || die "can't open input file $!\n";
-		RDF::Trine::Parser->parse_file_into_model( "", $filename, $model );
-	
+		} else {
+				
+			die "file $filename does not exist" unless (-e $filename);
+		#	open(IN, "$filename") || die "can't open input file $!\n";
+			RDF::Trine::Parser->parse_file_into_model( "", $filename, $model );
+		
+		}
+	} elsif ($data){
+		die "you can't pass data without telling me the ->data_format" unless ($self->data_format);
+		my $parser = RDF::Trine::Parser->new($self->data_format);
+		$parser->parse_into_model("", $data, $model );
 	}
 	
-	$self->model($model);  # I think this is unnecessary... its a reference anyway... but just in case!
+	
+	# $self->model($model);  # this appears to be redundant...
 	
 	my $profile = $self->getProfile();
 	return $profile;
@@ -225,7 +267,7 @@ sub _fillProfile {
 		issued => $issued,
 		organization => $organization,
 		identifier => $identifier,
-		schemardfs_URL => $schemardfs_URL,
+#		schemardfs_URL => $schemardfs_URL,
 	);
 	
 	$self->profile($ProfileObject);
