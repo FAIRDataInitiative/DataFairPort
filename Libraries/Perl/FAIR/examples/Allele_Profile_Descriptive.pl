@@ -15,6 +15,7 @@ my $AlleleProfile = FAIR::Profile->new(
 		description => "FAIR Profile Allele record properties, using textual descriptions and links to Gene Records",
                 license => "Anyone may use this freely",
                 issued => "May 21, 2015",
+                modified => "May 21, 2015",
     		organization => "wilkinsonlab.info",
 		identifier => "doi:Mark.Dragon.P1",
                 URI => "$URL#Profile",
