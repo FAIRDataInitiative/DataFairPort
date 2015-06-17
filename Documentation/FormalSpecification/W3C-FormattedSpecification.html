@@ -2,9 +2,9 @@
 <html>
   <head>
     <title>Data FAIRport Specification and Design Patterns: release 0.1</title>
-    <meta charset='utf-8'>
+    <meta charset='utf-8'/>
     <script src='https://www.w3.org/Tools/respec/respec-w3c-common'
-            async class='remove'></script>
+            class='remove'></script>
     <script class='remove'>
       var respecConfig = {
           specStatus: "unofficial",
@@ -147,10 +147,16 @@ The key words MUST, MUST NOT, REQUIRED,SHOULD,SHOULD NOT, RECOMMENDED, MAY, and 
    <ul> 
 <li>The Class described by this Profile is identified by its URL <code class='highlight'>http://biordf.org/DataFairPort/ProfileSchemas/Allele_Profile_SIO.rdf</code>.</li>
 <li>In it's metadata (#Profile) we find that it has the title "FAIR Profile the Image portion of an Allele record", among other useful bits of information</li>  
-<li>In this case, the FAIR Class definition and its FAIR Profile metadata are in the same document, but it doesn't need to be so. <b>FAIR Classes could share the same FAIR Profile metadata, which may be in an independent document anywhere on the Web</b>. </li> 
-<li>Inspecting that Class, we find that, in the RDF projection, it is going to be  <code class='highlight'> rdf:type http://purl.obolibrary.org/obo/SO_0001023>code> (Sequence Ontology "Allele" Class).  We also see that the Allele Class of these projected RDF individuals will have one property, which is defined by a locally-identified individual called <code class='highlight'>http://datafairport.org/sampledata/profileschemaproperty/991f68c2-f43f-4dd6-bf3b-68dafebb6a57</code>) </li>
-<li>Inspecting that property, we find that this property in the projected RDF will be <code class='highlight'>http://semanticscience.org/ontology/SIO_000205</code>, which is the SIO ontology's "is represented by" property.</li>
-<li>Finally, the allowedValues tells us that the values of this property are constrained to be one of the URIs in the SKOS ConceptScheme located at <code class='highlight'>http://biordf.org/DataFairPort/ConceptSchemes/SIOOntologyImage81</code> (this is a SKOSified slice of the OWL Classes along the "Image" branch of the SIO ontology)... this means that, in the RDF Projection, the value of the "is represented by" predicate will be some kind of SIO:Image</li>
+<li>In this case, the FAIR Class definition and its FAIR Profile metadata are in the same document, but it doesn't need to be so. <b>FAIR Classes could share the same
+FAIR Profile metadata, which may be in an independent document anywhere on the Web</b>. </li> 
+<li>Inspecting that Class, we find that, in the RDF projection, it is going to be  <code class='highlight'> rdf:type http://purl.obolibrary.org/obo/SO_0001023 </code>
+(Sequence Ontology "Allele" Class).  We also see that the Allele Class of these projected RDF individuals will have one property, which is defined by a locally-identified
+individual called <code class='highlight'>http://datafairport.org/sampledata/profileschemaproperty/991f68c2-f43f-4dd6-bf3b-68dafebb6a57</code>) </li>
+<li>Inspecting that property, we find that this property in the projected RDF will be <code class='highlight'>http://semanticscience.org/ontology/SIO_000205</code>,
+which is the SIO ontology's "is represented by" property.</li>
+<li>Finally, the allowedValues tells us that the values of this property are constrained to be one of the URIs in the SKOS ConceptScheme located at
+<code class='highlight'>http://biordf.org/DataFairPort/ConceptSchemes/SIOOntologyImage81</code> (this is a SKOSified slice of the OWL Classes along the "Image"
+branch of the SIO ontology)... this means that, in the RDF Projection, the value of the "is represented by" predicate will be some kind of SIO:Image</li>
 </ul>
 
 The RDF of an Allele record projected through this FAIR Profile will, therefore, look like this:
