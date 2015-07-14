@@ -1,11 +1,13 @@
 package FAIR::Accessor;
 
-our $VERSION = '0.15';
-# ABSTRACT: Module for creating Perl SADI services
 
 
 
-use lib "../";
+# ABSTRACT: all this does is assign the HTTP call to the correct routine
+
+
+
+#use lib "../";
 use base 'FAIR::AccessorBase';
 #
 #unless ($ENV{REQUEST_METHOD}){  # if running from command line

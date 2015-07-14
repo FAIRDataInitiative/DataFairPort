@@ -1,14 +1,7 @@
-- created the test suite
-
 {{$NEXT}}
 
-- updated to reflect new schema decided at the Harvard Dataverse meeting.  Major update!
+- fixed capitalization on the SerializeableProperty module
+- merged the Accessor code with the Profile code
+- prepared for CPAN distribution
 
 
-- fixed some circular dependencies
-
-- Moosified and modified predicates to match the new OWL ontology created by Michel at the Hinxton hackathon
-
-0.001     2014-05-21 11:44:55 Europe/Madrid
-
-    -- initial release

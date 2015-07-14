@@ -1,4 +1,4 @@
-package Fair::Profile::SerializableProperty;
+package FAIR::Profile::SerializableProperty;
 
 
 # ABSTRACT: a moose role that indicates that a certain property is intended to become part of the RDF serialization of the FAIR Profile.  All other properties are "utility" properties of the object

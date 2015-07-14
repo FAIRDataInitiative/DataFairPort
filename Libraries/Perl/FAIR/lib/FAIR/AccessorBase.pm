@@ -1,5 +1,11 @@
 package FAIR::AccessorBase;
-use lib "../";
+
+
+
+# ABSTRACT: The core Accessor functions
+
+
+#use lib "../";
 
 use Moose;
 
