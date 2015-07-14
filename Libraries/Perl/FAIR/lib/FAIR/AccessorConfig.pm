@@ -1,4 +1,10 @@
 package FAIR::AccessorConfig;
+
+
+
+# ABSTRACT: The key/value of the current configuration of the Accessor
+
+
 use strict;
 use warnings;
 use Moose;

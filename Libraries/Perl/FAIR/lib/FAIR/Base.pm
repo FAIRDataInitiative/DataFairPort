@@ -193,6 +193,16 @@ sub statement {
 
 
 
+=pod
+
+=head1  FAIR Base - the root of the FAIR modules
+
+The FAIR modules come from the Data FAIRport project (http://datafairport.org).  
+
+There are three main sections to this code:  FAIR::Profiles, FAIR Accessors, and FAIR Projectors.  (Projectors haven't been invented yet)
+
+=cut
+
 
 
 
