@@ -1,7 +1,4 @@
 {{$NEXT}}
 
-- fixed capitalization on the SerializeableProperty module
-- merged the Accessor code with the Profile code
-- prepared for CPAN distribution
-
+- refactored code to make it more RESTful
 

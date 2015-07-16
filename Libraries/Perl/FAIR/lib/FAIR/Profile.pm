@@ -17,7 +17,7 @@ use RDF::Trine::Store::Memory;
 =head1 NAME
 
 
-FAIR::Profile - a module representing a DCAT Profile.
+FAIR::Profile - a module representing a FAIR Profile.
 
 
 =head1 SYNOPSIS

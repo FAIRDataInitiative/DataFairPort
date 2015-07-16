@@ -5,8 +5,6 @@ package FAIR::AccessorBase;
 # ABSTRACT: The core Accessor functions
 
 
-#use lib "../";
-
 use Moose;
 
 use URI::Escape;
@@ -61,9 +59,11 @@ sub get_distribution_URIs {
 # ===============  STAGE 1 Subroutines
 
 sub manageContainerGET {
-    my ($self) = @_;
+    my ($self, %args) = @_;  # %args  are PATH => '/some/path'
+    my $PATH = $args{'PATH'};
+    
     my $BASE_URL = "http://" . $ENV{'SERVER_NAME'} . $ENV{'REQUEST_URI'};
-    my $PATH = $ENV{'PATH_INFO'} || "";
+    $BASE_URL .= $ENV{'PATH_INFO'}  if $ENV{'PATH_INFO'} ;
 
     my $store = RDF::Trine::Store::Memory->new();
     my $model = RDF::Trine::Model->new($store);
@@ -74,7 +74,7 @@ sub manageContainerGET {
     $statement = statement($BASE_URL, $ns->dc("title"), $self->Configuration->{'title'}); 
     $model->add_statement($statement); 
     
-    $self->callMetadataAccessor($BASE_URL, $PATH, $model, );
+    $self->callMetadataAccessor($BASE_URL, $PATH, $model);  
     
     $self->serializeThis($model);
 
@@ -84,8 +84,10 @@ sub manageContainerGET {
 sub callMetadataAccessor {
     my ($self, $subject, $PATH, $model) = @_;
 
-    my $result = $self->get_all_meta_URIs($PATH);
+    
+    my $result = $self->MetaContainer('PATH' => $PATH); # this subroutine is provided by the end-user in the Accessor script on the web
     $result = decode_json($result);
+    
     
     my $ns = $self->Configuration->Namespaces();
     
@@ -112,26 +114,15 @@ sub callMetadataAccessor {
 
 # ==================  Stage 2 subroutines =============
 
-sub manageResourceGET {
-    my ($self) = @_;
-    my $BASE_URL = "http://" . $ENV{'SERVER_NAME'} . $ENV{'REQUEST_URI'};
-    my $URL = "http://" . $ENV{'SERVER_NAME'} . $ENV{'REQUEST_URI'} . $ENV{'PATH_INFO'};
-
-    my $record = $ENV{'PATH_INFO'} || "";
-    $record =~ s/^\///;
-
-    my $NS = $self->Configuration->Namespaces();
+sub manageResourceGET {  # $self->manageResourceGET('PATH' => $path, 'ID' => $id);
+    my ($self, %ARGS) = @_;
+    my $PATH = $ARGS{'PATH'};
+    my $ID = $ARGS{'ID'};
     
     my $store = RDF::Trine::Store::Memory->new();
     my $model = RDF::Trine::Model->new($store);
-    
-    #  TODO - this isn't true for all records!  Need to dynamically type things... 
-    my $statement = statement($URL, $NS->rdf("type"), $NS->edam("data_0006")); 
-    $model->add_statement($statement); 
-    $statement = statement($URL, $NS->rdf("type"), $NS->sio("SIO_000088")); 
-    $model->add_statement($statement); 
-    
-    $self->callDataAccessor($model, $record);
+          
+    $self->callDataAccessor($model, $PATH, $ID);
 
     $self->serializeThis($model);
 
@@ -139,14 +130,15 @@ sub manageResourceGET {
 
 
 sub callDataAccessor {
-    my ($self, $model, $record) = @_;
+    my ($self, $model, $PATH, $ID) = @_;
+
+      # call out to user-provided subroutine
+    my $result = $self->Distributions('PATH' => $PATH, 'ID' => $ID);
+    $result = decode_json($result);
+
 
     my $BASE_URL = "http://" . $ENV{'SERVER_NAME'} . $ENV{'REQUEST_URI'};
     my $URL = "http://" . $ENV{'SERVER_NAME'} . $ENV{'REQUEST_URI'} . $ENV{'PATH_INFO'};
-	
-    my $result = $self->get_distribution_URIs($record);
-    $result = decode_json($result);
-    
     my $NS = $self->Configuration->Namespaces();
 
     my $distributions = $result->{'distributions'};

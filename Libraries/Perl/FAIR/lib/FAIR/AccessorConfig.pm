@@ -70,8 +70,8 @@ has 'mechanizedLicenseInfo' => (
     is => 'rw',
 );
 
-has 'baseURI' => (
-    isa => 'Str',
+has 'basePATH' => (
+    isa => 'Str',  # string representing a regular expression to be applied against $ENV{PATH_INFO}
     is => 'rw',
 );
 

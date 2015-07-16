@@ -7,20 +7,30 @@ package FAIR::Accessor;
 
 
 
-#use lib "../";
 use base 'FAIR::AccessorBase';
-#
-#unless ($ENV{REQUEST_METHOD}){  # if running from command line
-#        $ENV{REQUEST_METHOD} = "GET";
-#        $ENV{'REQUEST_URI'} = "/this/thing";
-#        $ENV{'SERVER_NAME'} = "example.net";
-#	$ENV{'PATH_INFO'} = "/479-467-29X";
-#}
+
+#  for testing at the command-line...
+unless ($ENV{REQUEST_METHOD}){  # if running from command line
+
+    if ($ARGV[0]) {  # if there are any user-supplied arguments
+        $ENV{REQUEST_METHOD} = $ARGV[0];
+        $ENV{'SERVER_NAME'} = $ARGV[1] ;
+        $ENV{'REQUEST_URI'} = $ARGV[2];
+        $ENV{'PATH_INFO'} = $ARGV[3] ;
+    } else {
+        $ENV{REQUEST_METHOD} = "GET";
+        $ENV{'SERVER_NAME'} =  "example.net";
+        $ENV{'REQUEST_URI'} = "/this/thing";
+        $ENV{'PATH_INFO'} = "/1234567";
+    }
+}
+
 
 sub handle_requests {
 
     my $self = shift;
-    
+    my $base = $self->Configuration->basePATH();  # $base is a regular expression that separates the "path" from the "id" portion of the PATH_INFO environment variable
+    $base ||= "";
     # THIS ROUTINE WILL BE SHARED BY ALL SERVERS
     if ($ENV{REQUEST_METHOD} eq "HEAD") {
         $self->manageHEAD();
@@ -29,13 +39,24 @@ sub handle_requests {
         $self->manageHEAD();
         exit;
     }  elsif ($ENV{REQUEST_METHOD} eq "GET") {
-            if ($ENV{'PATH_INFO'}) {  # this will never happen with the minimal server
-                    $self->printResourceHeader();
-                    $self->manageResourceGET();
-            } else {
-                    $self->printContainerHeader();
-                    $self->manageContainerGET();
-            }
+        
+        my $FULL_PATH = $ENV{'REQUEST_URI'} . $ENV{'PATH_INFO'};
+        
+        unless ($FULL_PATH =~ /($base)\/*(.*)/){
+            print "Status: 500\n"; 
+            print "Content-type: text/plain\n\nThe configured basePATH argument does not match the request URI\n\n";
+            exit 0;
+        }
+        my ($path, $id) = ($1, $2);
+        print STDERR "PATH *$path* ID *$id*\n";
+        
+        if ($id) {  # this is a request like  /Allele/dip21  where the user is asking for a specific individual
+                $self->printResourceHeader();
+                $self->manageResourceGET('PATH' => $path, 'ID' => $id);
+        } else {  # this is a request like /Allele  or /Allele/  where the user is asking for the container
+                $self->printContainerHeader();
+                $self->manageContainerGET('PATH' => $path);
+        }
     } else {
         print "Status: 405 Method Not Allowed\n"; 
         print "Content-type: text/plain\n\nYou can only request HEAD, OPTIONS or GET from this LD Platform Server\n\n";
@@ -82,6 +103,7 @@ The following code is a complete implementation of a 'Hello, World!' FAIR Access
     localNamespaces => {hw => 'http://hello.world.org/some/items/',
                         hw2 => 'http://another.hello.world.org/some/predicates/'},  # add a few new namespaces to the list of known namespaces....
     localMetadataElements => [qw(hw:Greeting hw2:grusse) ],  # things that we use in addition to common metadata elements
+    # baseURI => 'some/regular/expression', # OPTIONAL regexp to match the RESTful PATH part of the URL, before the ID number
 
  };
 
@@ -97,7 +119,7 @@ The following code is a complete implementation of a 'Hello, World!' FAIR Access
 
 
 
- =head2 get_all_meta_URIs
+ =head2 MetaContainer
 
   Function: REQUIRED SUBROUTINE - returns the first-stage LD Platform list of contained URIs and the dataset metadata.
   Args    : $starting_at_record : this will be passed-in to tell you what record to start with (for paginated responses)
@@ -109,10 +131,17 @@ The following code is a complete implementation of a 'Hello, World!' FAIR Access
 
  =cut
 
- sub get_all_meta_URIs {
+ sub MetaContainer {
 
-    my ($starting_at_record, $path_info) = @_;
-    $path_info ||="";
+    my ($self, %ARGS) = @_;
+    my $PATH = $ARGS{'PATH'} || "";  # if there was a specific path sent after the script URL, it will be here
+    
+    # this is how you would manage "RESTful" references to different subsets of your data repository
+    if ($PATH =~ /DataSliceX/) {
+        # some behavior for Data Slice X
+    } elsif ($PATH =~ /DataSliceY/) {
+        # some behavior for Data Slice Y
+    }
     
     my %result =  (  # NOTE THAT ALL OF THESE ARE OPTIONAL!  (and there are more fields.... see DCAT...)
                     'dc:title' => "Hello World Accessor Server",
@@ -125,7 +154,7 @@ The following code is a complete implementation of a 'Hello, World!' FAIR Access
                     'dcat:temporal' => 'http://reference.data.gov.uk/id/quarter/2006-Q1',  # look at this!!  It doesn't have to be this complex, but it can be!
                     'dcat:theme'  => 'http://example.org/ConceptSchemes/HelloWorld.rdf',  # this is the URI to a SKOS Concept Scheme
                     );
-    my $BASE_URL = "http://" . $ENV{'SERVER_NAME'} . $ENV{'REQUEST_URI'} . $path_info;
+    my $BASE_URL = "http://" . $ENV{'SERVER_NAME'} . $ENV{'REQUEST_URI'} . $PATH;
 
    # you may chose to return no record IDs at all, if you only want to serve repository-level metadata     
     my @known_records = ($BASE_URL . "/hello",
@@ -140,35 +169,46 @@ The following code is a complete implementation of a 'Hello, World!' FAIR Access
  }
 
 
- =head2 get_distribution_URIs
+ =head2 Distributions
 
   Function: REQUIRED IF get_all_meta_URIs list of URIs point back to this script.
            returns the second-stage LD Platform metadata describing the DCAT distributions, formats, and URLs
            for a particular record
   Args    : $ID : the desired ID number, as determined by the Accessor.pm module
            $PATH_INFO : the webserver's PATH_INFO environment value (in case the $ID best-guess is wrong... then you're on your own!)
-  Returns : JSON encoded hashref of 'meta URIs' representing individual DCAT distributions and their formats (format is key)
-            The format for this response is:
+  Returns : JSON encoded hashref of 'meta URIs' representing individual DCAT distributions and their mime-type (mime-type is key)
+            The format for this response is (you are always allowed to use lists as values if you wish):
             
             {"metadata":
                 {"rdf:type": ["edam:data_0006","sio:SIO_000088"]
+                 "my:metadatathingy":  "some value",
+                 "external:metadatatype":  "some other value"
                 },
             "distributions":
-                {"application/rdf+xml":"http://myserver.org/ThisScript/record/479-467-29X.rdf",
-                 "text/html":"http://myserver.org/ThisScript/record/479-467-29X.html"
+                {"application/rdf+xml" : "http://myserver.org/ThisScript/record/479-467-29X.rdf",
+                 "text/html" : "http://myserver.org/ThisScript/record/479-467-29X.html"
                 }
             }
 
  =cut
 
 
- sub get_distribution_URIs {
-    my ($self, $ID, $PATH_INFO) = @_;
+ sub Distributions {
+    my ($self, %ARGS) = @_;
 
+    my $PATH = $ARGS{'PATH'};  
+    my $ID = $ARGS{'ID'};
+    
     my %response;
-
     my %formats;
     my %metadata;
+
+    # this is how you would manage "RESTful" references to different subsets of your data repository
+    if ($PATH =~ /DataSliceX/) {
+        # some behavior for Data Slice X
+    } elsif ($PATH =~ /DataSliceY/) {
+        # some behavior for Data Slice Y
+    }
     
     $formats{'text/html'} = 'http://myserver.org/ThisScript/helloworld.html';
     $formats{'application/rdf+xml'} = 'http://myserver.org/ThisScript/helloworld.rdf';
@@ -206,6 +246,18 @@ The two subroutine names - get_all_meta_URIs  and  get_distribution_URIs - are n
 =cut
 
 
+=head1 Command-line testing
+
+If you wish to test your Accessor server at the command line, you can run it with the following commandline arguments (in order):
+
+ Method (always GET)
+ Domain
+ Request URI (i.e. the path to this script, including the script name)
+ PATH_INFO  (anything that should appear in the PATH_INFO variable of the webserver)
+
+  perl  myAccessorScript  GET  example.net  /this/myAccessorScript /1234567
+
+=cut
 
 
 
