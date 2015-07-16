@@ -48,6 +48,7 @@ sub handle_requests {
             exit 0;
         }
         my ($path, $id) = ($1, $2);
+        print STDERR "PATH *$path* ID *$id*\n";
         
         if ($id) {  # this is a request like  /Allele/dip21  where the user is asking for a specific individual
                 $self->printResourceHeader();
@@ -175,15 +176,17 @@ The following code is a complete implementation of a 'Hello, World!' FAIR Access
            for a particular record
   Args    : $ID : the desired ID number, as determined by the Accessor.pm module
            $PATH_INFO : the webserver's PATH_INFO environment value (in case the $ID best-guess is wrong... then you're on your own!)
-  Returns : JSON encoded hashref of 'meta URIs' representing individual DCAT distributions and their formats (format is key)
-            The format for this response is:
+  Returns : JSON encoded hashref of 'meta URIs' representing individual DCAT distributions and their mime-type (mime-type is key)
+            The format for this response is (you are always allowed to use lists as values if you wish):
             
             {"metadata":
                 {"rdf:type": ["edam:data_0006","sio:SIO_000088"]
+                 "my:metadatathingy":  "some value",
+                 "external:metadatatype":  "some other value"
                 },
             "distributions":
-                {"application/rdf+xml":"http://myserver.org/ThisScript/record/479-467-29X.rdf",
-                 "text/html":"http://myserver.org/ThisScript/record/479-467-29X.html"
+                {"application/rdf+xml" : "http://myserver.org/ThisScript/record/479-467-29X.rdf",
+                 "text/html" : "http://myserver.org/ThisScript/record/479-467-29X.html"
                 }
             }
 
