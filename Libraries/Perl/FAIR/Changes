@@ -1,4 +1,4 @@
 {{$NEXT}}
 
-- trying again to fix capitalization on the SerializeableProperty module
+- refactored code to make it more RESTful
 
