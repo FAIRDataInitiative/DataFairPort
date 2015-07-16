@@ -30,7 +30,7 @@ sub handle_requests {
 
     my $self = shift;
     my $base = $self->Configuration->basePATH();  # $base is a regular expression that separates the "path" from the "id" portion of the PATH_INFO environment variable
-    
+    $base ||= "";
     # THIS ROUTINE WILL BE SHARED BY ALL SERVERS
     if ($ENV{REQUEST_METHOD} eq "HEAD") {
         $self->manageHEAD();
@@ -42,14 +42,14 @@ sub handle_requests {
         
         my $FULL_PATH = $ENV{'REQUEST_URI'} . $ENV{'PATH_INFO'};
         
-        unless ($FULL_PATH =~ /($base)\/?(.*)/){
+        unless ($FULL_PATH =~ /($base)\/*(.*)/){
             print "Status: 500\n"; 
             print "Content-type: text/plain\n\nThe configured basePATH argument does not match the request URI\n\n";
             exit 0;
         }
         my ($path, $id) = ($1, $2);
         
-        if ($path && $id) {  # this is a request like  /Allele/dip21  where the user is asking for a specific individual
+        if ($id) {  # this is a request like  /Allele/dip21  where the user is asking for a specific individual
                 $self->printResourceHeader();
                 $self->manageResourceGET('PATH' => $path, 'ID' => $id);
         } else {  # this is a request like /Allele  or /Allele/  where the user is asking for the container

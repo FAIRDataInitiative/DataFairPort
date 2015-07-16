@@ -1,3 +1,5 @@
+#!/usr/bin/perl -w
+
 package EHDN_Accessor;  # this should be the same as your filename!
 
 use strict;
