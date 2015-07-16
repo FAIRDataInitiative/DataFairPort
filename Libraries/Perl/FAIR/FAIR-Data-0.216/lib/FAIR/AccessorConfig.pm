@@ -1,5 +1,5 @@
 package FAIR::AccessorConfig;
-
+$FAIR::AccessorConfig::VERSION = '0.216';
 
 
 # ABSTRACT: The key/value of the current configuration of the Accessor
@@ -70,8 +70,8 @@ has 'mechanizedLicenseInfo' => (
     is => 'rw',
 );
 
-has 'basePATH' => (
-    isa => 'Str',  # string representing a regular expression to be applied against $ENV{PATH_INFO}
+has 'baseURI' => (
+    isa => 'Str',
     is => 'rw',
 );
 
@@ -126,3 +126,31 @@ sub BUILD {
 }
 
 1;
+
+__END__
+
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+FAIR::AccessorConfig - The key/value of the current configuration of the Accessor
+
+=head1 VERSION
+
+version 0.216
+
+=head1 AUTHOR
+
+Mark Denis Wilkinson (markw [at] illuminae [dot] com)
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2015 by Mark Denis Wilkinson.
+
+This is free software, licensed under:
+
+  The Apache License, Version 2.0, January 2004
+
+=cut

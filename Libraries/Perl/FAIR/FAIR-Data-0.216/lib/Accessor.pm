@@ -1,5 +1,5 @@
 package FAIR::Accessor;
-
+$FAIR::Accessor::VERSION = '0.216';
 
 
 
@@ -7,29 +7,19 @@ package FAIR::Accessor;
 
 
 
+#use lib "../";
 use base 'FAIR::AccessorBase';
-
-#  for testing at the command-line...
-unless ($ENV{REQUEST_METHOD}){  # if running from command line
-
-    if ($ARGV[0]) {  # if there are any user-supplied arguments
-        $ENV{REQUEST_METHOD} = $ARGV[0];
-        $ENV{'SERVER_NAME'} = $ARGV[1] ;
-        $ENV{'REQUEST_URI'} = $ARGV[2];
-        $ENV{'PATH_INFO'} = $ARGV[3] ;
-    } else {
-        $ENV{REQUEST_METHOD} = "GET";
-        $ENV{'SERVER_NAME'} =  "example.net";
-        $ENV{'REQUEST_URI'} = "/this/thing";
-        $ENV{'PATH_INFO'} = "/1234567";
-    }
-}
-
+#
+#unless ($ENV{REQUEST_METHOD}){  # if running from command line
+#        $ENV{REQUEST_METHOD} = "GET";
+#        $ENV{'REQUEST_URI'} = "/this/thing";
+#        $ENV{'SERVER_NAME'} = "example.net";
+#	$ENV{'PATH_INFO'} = "/479-467-29X";
+#}
 
 sub handle_requests {
 
     my $self = shift;
-    my $base = $self->Configuration->basePATH();  # $base is a regular expression that separates the "path" from the "id" portion of the PATH_INFO environment variable
     
     # THIS ROUTINE WILL BE SHARED BY ALL SERVERS
     if ($ENV{REQUEST_METHOD} eq "HEAD") {
@@ -39,23 +29,13 @@ sub handle_requests {
         $self->manageHEAD();
         exit;
     }  elsif ($ENV{REQUEST_METHOD} eq "GET") {
-        
-        my $FULL_PATH = $ENV{'REQUEST_URI'} . $ENV{'PATH_INFO'};
-        
-        unless ($FULL_PATH =~ /($base)\/?(.*)/){
-            print "Status: 500\n"; 
-            print "Content-type: text/plain\n\nThe configured basePATH argument does not match the request URI\n\n";
-            exit 0;
-        }
-        my ($path, $id) = ($1, $2);
-        
-        if ($path && $id) {  # this is a request like  /Allele/dip21  where the user is asking for a specific individual
-                $self->printResourceHeader();
-                $self->manageResourceGET('PATH' => $path, 'ID' => $id);
-        } else {  # this is a request like /Allele  or /Allele/  where the user is asking for the container
-                $self->printContainerHeader();
-                $self->manageContainerGET('PATH' => $path);
-        }
+            if ($ENV{'PATH_INFO'}) {  # this will never happen with the minimal server
+                    $self->printResourceHeader();
+                    $self->manageResourceGET();
+            } else {
+                    $self->printContainerHeader();
+                    $self->manageContainerGET();
+            }
     } else {
         print "Status: 405 Method Not Allowed\n"; 
         print "Content-type: text/plain\n\nYou can only request HEAD, OPTIONS or GET from this LD Platform Server\n\n";
@@ -66,14 +46,30 @@ sub handle_requests {
 
 
 
+
+
+
+
+
+1;
+
+__END__
+
+=pod
+
+=encoding UTF-8
+
 =head1 NAME
 
-    FAIR::Accessor - Module for creating Linked Data Platform Accessors for the FAIR Data project
+FAIR::Accessor - all this does is assign the HTTP call to the correct routine
+
+=head1 VERSION
+
+version 0.216
 
 =head1 SYNOPSIS
 
 The following code is a complete implementation of a 'Hello, World!' FAIR Accessor
-
 
  #!/usr/bin/perl -w
 
@@ -102,7 +98,6 @@ The following code is a complete implementation of a 'Hello, World!' FAIR Access
     localNamespaces => {hw => 'http://hello.world.org/some/items/',
                         hw2 => 'http://another.hello.world.org/some/predicates/'},  # add a few new namespaces to the list of known namespaces....
     localMetadataElements => [qw(hw:Greeting hw2:grusse) ],  # things that we use in addition to common metadata elements
-    # baseURI => 'some/regular/expression', # OPTIONAL regexp to match the RESTful PATH part of the URL, before the ID number
 
  };
 
@@ -118,7 +113,7 @@ The following code is a complete implementation of a 'Hello, World!' FAIR Access
 
 
 
- =head2 MetaContainer
+ =head2 get_all_meta_URIs
 
   Function: REQUIRED SUBROUTINE - returns the first-stage LD Platform list of contained URIs and the dataset metadata.
   Args    : $starting_at_record : this will be passed-in to tell you what record to start with (for paginated responses)
@@ -130,17 +125,10 @@ The following code is a complete implementation of a 'Hello, World!' FAIR Access
 
  =cut
 
- sub MetaContainer {
+ sub get_all_meta_URIs {
 
-    my ($self, %ARGS) = @_;
-    my $PATH = $ARGS{'PATH'} || "";  # if there was a specific path sent after the script URL, it will be here
-    
-    # this is how you would manage "RESTful" references to different subsets of your data repository
-    if ($PATH =~ /DataSliceX/) {
-        # some behavior for Data Slice X
-    } elsif ($PATH =~ /DataSliceY/) {
-        # some behavior for Data Slice Y
-    }
+    my ($starting_at_record, $path_info) = @_;
+    $path_info ||="";
     
     my %result =  (  # NOTE THAT ALL OF THESE ARE OPTIONAL!  (and there are more fields.... see DCAT...)
                     'dc:title' => "Hello World Accessor Server",
@@ -153,7 +141,7 @@ The following code is a complete implementation of a 'Hello, World!' FAIR Access
                     'dcat:temporal' => 'http://reference.data.gov.uk/id/quarter/2006-Q1',  # look at this!!  It doesn't have to be this complex, but it can be!
                     'dcat:theme'  => 'http://example.org/ConceptSchemes/HelloWorld.rdf',  # this is the URI to a SKOS Concept Scheme
                     );
-    my $BASE_URL = "http://" . $ENV{'SERVER_NAME'} . $ENV{'REQUEST_URI'} . $PATH;
+    my $BASE_URL = "http://" . $ENV{'SERVER_NAME'} . $ENV{'REQUEST_URI'} . $path_info;
 
    # you may chose to return no record IDs at all, if you only want to serve repository-level metadata     
     my @known_records = ($BASE_URL . "/hello",
@@ -168,7 +156,7 @@ The following code is a complete implementation of a 'Hello, World!' FAIR Access
  }
 
 
- =head2 Distributions
+ =head2 get_distribution_URIs
 
   Function: REQUIRED IF get_all_meta_URIs list of URIs point back to this script.
            returns the second-stage LD Platform metadata describing the DCAT distributions, formats, and URLs
@@ -190,22 +178,13 @@ The following code is a complete implementation of a 'Hello, World!' FAIR Access
  =cut
 
 
- sub Distributions {
-    my ($self, %ARGS) = @_;
+ sub get_distribution_URIs {
+    my ($self, $ID, $PATH_INFO) = @_;
 
-    my $PATH = $ARGS{'PATH'};  
-    my $ID = $ARGS{'ID'};
-    
     my %response;
+
     my %formats;
     my %metadata;
-
-    # this is how you would manage "RESTful" references to different subsets of your data repository
-    if ($PATH =~ /DataSliceX/) {
-        # some behavior for Data Slice X
-    } elsif ($PATH =~ /DataSliceY/) {
-        # some behavior for Data Slice Y
-    }
     
     $formats{'text/html'} = 'http://myserver.org/ThisScript/helloworld.html';
     $formats{'application/rdf+xml'} = 'http://myserver.org/ThisScript/helloworld.rdf';
@@ -225,8 +204,6 @@ The following code is a complete implementation of a 'Hello, World!' FAIR Access
 
  }
 
-
-
 =head1 DESCRIPTION
 
 FAIR Accessors are an implementation of the W3Cs Linked Data Platform.  FAIR Accessors follow a two-stage interaction model, where the first stage
@@ -239,23 +216,20 @@ accomplished by the get_distribution_URIs subroutine.
 
 The two subroutine names - get_all_meta_URIs  and  get_distribution_URIs - are not flexible, as they are called by the underlying libraries.
 
+=head1 NAME
+
+    FAIR::Accessor - Module for creating Linked Data Platform Accessors for the FAIR Data project
+
+=head1 AUTHOR
+
+Mark Denis Wilkinson (markw [at] illuminae [dot] com)
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2015 by Mark Denis Wilkinson.
+
+This is free software, licensed under:
+
+  The Apache License, Version 2.0, January 2004
 
 =cut
-
-
-=head1 Command-line testing
-
-If you wish to test your Accessor server at the command line, you can run it with the following commandline arguments (in order):
-
- Method (always GET)
- Domain
- Request URI (i.e. the path to this script, including the script name)
- PATH_INFO  (anything that should appear in the PATH_INFO variable of the webserver)
-
-  perl  myAccessorScript  GET  example.net  /this/myAccessorScript /1234567
-
-=cut
-
-
-
-1;
