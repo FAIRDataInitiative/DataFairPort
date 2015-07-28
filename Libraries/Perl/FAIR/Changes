@@ -1,4 +1,9 @@
 {{$NEXT}}
 
+- Bug Fixes
+
+
+===========
+
 - refactored code to make it more RESTful
 

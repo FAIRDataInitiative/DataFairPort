@@ -40,9 +40,7 @@ sub handle_requests {
         exit;
     }  elsif ($ENV{REQUEST_METHOD} eq "GET") {
         
-        my $FULL_PATH = $ENV{'REQUEST_URI'} . $ENV{'PATH_INFO'};
-        
-        unless ($FULL_PATH =~ /($base)\/*(.*)/){
+        unless ($ENV{'REQUEST_URI'} =~ /($base)\/*(.*)/){
             print "Status: 500\n"; 
             print "Content-type: text/plain\n\nThe configured basePATH argument does not match the request URI\n\n";
             exit 0;
@@ -76,7 +74,7 @@ sub handle_requests {
 The following code is a complete implementation of a 'Hello, World!' FAIR Accessor
 
 
- #!/usr/bin/perl -w
+ C<#!/usr/bin/perl -w
 
  package HelloWorld_Accessor;  # this should be the same as your filename!
 
@@ -126,8 +124,26 @@ The following code is a complete implementation of a 'Hello, World!' FAIR Access
   $path : the webserver's PATH_INFO environment value (used to modify the behaviour of REST services)
   Returns : JSON encoded listref of 'meta URIs' representing individual records
   Note    :  meta URIs are generally URIs that point back to this same server; calling GET on a meta URI will
-            return an RDF description of the set of DCAT distributions for that record.\
-            this can be handled by the
+            return an RDF description of the set of DCAT distributions for that record.
+            The format of the JSON response is as follows:
+            
+            {"metadata:element1" : "some value",
+             "external:metadatatype":  "some other value",
+             "void:entities" : "3",
+             "ldp:contains" : ["http://myserver.org/ThisScript/record/479-467-29",
+                               "http://myserver.org/ThisScript/record/479-467-32",
+                               "http://myserver.org/ThisScript/record/479-467-434"
+                               ]
+            }
+            
+            Recommended metadata elements include dc:title, dcat:description,dcat:identifier,
+            dcat:keyword,dcat:landingPage,dcat:publisher,dcat:theme
+            
+            note #1:  Using dcat:theme requires you to create a SKOS concept scheme of the various ontology
+            terms that describe the data in your repository... this isn't hard, but it's not entirely trivial either...
+            
+            note #2:  if you return URLs in the ldp:contains, then you must also return the count of those URLs in void:entities
+
 
  =cut
 
@@ -228,19 +244,31 @@ The following code is a complete implementation of a 'Hello, World!' FAIR Access
 
  }
 
-
+>
 
 =head1 DESCRIPTION
 
-FAIR Accessors are an implementation of the W3Cs Linked Data Platform.  FAIR Accessors follow a two-stage interaction model, where the first stage
-retrieves a series of URLs representing meta-records for every record in that repository (or whatever slice of the repository is being served).
-This is accomplished by the get_all_meta_URIs subroutine.  These URLs will generally point back at this same Accessor script (e.g. with the
-record number appended to the URL:  http://this.host/thisscript/12345).
+FAIR Accessors are an implementation of the W3Cs Linked Data Platform.
 
-This script then expresses metadata about that record, including the available DCAT distributions and their file formats.  This is
-accomplished by the get_distribution_URIs subroutine.
+FAIR Accessors follow a two-stage interaction, where the first stage
+retrieves metadata about the repository, and (optionally) a series of URLs representing
+'meta-records' for every record in that repository (or whatever slice of the repository
+is being served). This is accomplished by the B<MetaContainer> subroutine.  These URLs
+will generally point back at this same Accessor script (e.g. with the
+record number appended to the URL:  I<http://this.host/thisscript/12345>).
 
-The two subroutine names - get_all_meta_URIs  and  get_distribution_URIs - are not flexible, as they are called by the underlying libraries.
+The second stage involves retrieving metadata about individual recoreds.
+The metadata is up to you, but optimally it would include the available
+DCAT distributions and their file formats.  The second stage can be accomplished
+by this same Accessor script, using the Distributions subroutine.
+
+The two subroutine names - B<MetaContainer>  and  B<Distributions> - are not flexible, as they are
+called by-name, by the Accessor libraries.
+
+You B<MUST> create the B<MetaContainer> subroutine, at a minimum, and it should return some metadata.
+It does not have to return a list of known records (in which case it simply acts as a metadata
+descriptor of the repository in general, nothing more... which is fine!... and there will be no
+second stage interaction.  In this case, you do not need to provide a B<Distributions> subroutine.)
 
 
 =cut
@@ -250,7 +278,7 @@ The two subroutine names - get_all_meta_URIs  and  get_distribution_URIs - are n
 
 If you wish to test your Accessor server at the command line, you can run it with the following commandline arguments (in order):
 
- Method (always GET)
+ Method (always GET, at the moment)
  Domain
  Request URI (i.e. the path to this script, including the script name)
  PATH_INFO  (anything that should appear in the PATH_INFO variable of the webserver)

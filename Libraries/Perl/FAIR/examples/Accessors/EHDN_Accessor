@@ -6,7 +6,7 @@ use strict;
 use warnings;
 use JSON;
 
-use lib "../../lib/";
+# use lib "../../lib/";
 
 #-----------------------------------------------------------------
 # Configuration and Daemon
@@ -26,7 +26,7 @@ my $config = {
     localNamespaces => {ehdn => 'http://ehdn.org/some/items/',
                         ehdnpred => 'http://ehdn.org/some/predicates/'},  # add a few new namespaces to the list of known namespaces....
     localMetadataElements => [qw(erdnpred:fromHospital erdnpred:lastevaluatedDate) ],  # things that we use in addition to common metadata elements
-    #basePATH => "this/thing",
+    basePATH => "EHDN_Accessor",
 
 };
 
@@ -78,10 +78,12 @@ sub MetaContainer {
                     'dcat:publisher' => 'http://www.euro-hd.net',
                     'dcat:temporal' => 'http://reference.data.gov.uk/id/quarter/2006-Q1',  # look at this!!  It doesn't have to be this complex, but it can be!
                     'dcat:theme'  => 'http://biordf.org/DataFairPort/ConceptSchemes/Huntingtons.rdf',  # this is the URI to a SKOS Concept Scheme
-                    'daml:has-Technical-Lead' => "Summer Student Joe",
-                    'daml:has-Administrative-Contact' => "John Doe",
+                    'daml:has-Technical-Lead' => "Joe Bloggs",
+                    'daml:has-Administrative-Contact' => "S.A. McCray",
                     'daml:has-Program-Manager' => "Jane Doe",
-                    'daml:has-Principle-Investigator' => "Big Doctor",
+                    'daml:has-Principle-Investigator' => "Dr. B. Mueller",
+                    'dcat:contactPoint' => 'http://biordf.org/DataFairPort/MiscRDF/Mueller.foaf',
+                    'dcat:license' => 'http://purl.org/NET/rdflicense/cc-by-nc-nd3.0',
                   );
     
     my $BASE_URL = "http://" . $ENV{'SERVER_NAME'} . $ENV{'REQUEST_URI'}; # this URI goes up to and including the script name... if you have basePATH set to include more than that, you need to deal with the logic yourself!
@@ -144,7 +146,7 @@ sub Distributions {
     $formats{'application/rdf+xml'} = "http://myserver.org/ThisScript/record/$ID.rdf";
 
     # set the ontological type for the record  (optional)
-    $metadata{'rdf:type'} = ['edam:data_0006', 'sio:SIO_000088'];
+    $metadata{'rdf:type'} = ['edam:data_0006', 'sio:SIO_001027'];
     
     # and whatever other metadata you wish (also optional)
     extractDataFromSpreadsheet(\%metadata, $ID);    
@@ -162,6 +164,12 @@ sub Distributions {
 # this is a service-specific piece of code, completely optional!
 sub extractDataFromSpreadsheet{
     my ($metadata, $ID) = @_;
+    
+
+    my $scriptname = $ENV{SCRIPT_NAME};
+    my $servername = $ENV{SERVER_NAME};
+
+    my $container_script = "http://$servername/$scriptname";
     
     use Spreadsheet::XLSX::Reader::LibXML;
     my $db_file = "registry3-enrolment.xlsx.xlsx";
@@ -182,7 +190,9 @@ sub extractDataFromSpreadsheet{
           
         $cell = $sheet->get_cell($row, 3);
           $metadata->{'ehdnpred:enrollmentState'} = $cell->value;
-        
+
+         $metadata->{'dcat:license'} = 'http://purl.org/NET/rdflicense/cc-by-nc-nd3.0';
+         $metadata->{'ldp:membershipResource'} = $container_script;
         last;
     }
 
