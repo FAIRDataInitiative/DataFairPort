@@ -136,9 +136,7 @@ sub callDataAccessor {
     my $result = $self->Distributions('PATH' => $PATH, 'ID' => $ID);
     $result = decode_json($result);
 
-
-    my $BASE_URL = "http://" . $ENV{'SERVER_NAME'} . $ENV{'REQUEST_URI'};
-    my $URL = "http://" . $ENV{'SERVER_NAME'} . $ENV{'REQUEST_URI'} . $ENV{'PATH_INFO'};
+    my $URL = "http://" . $ENV{'SERVER_NAME'} . $ENV{'REQUEST_URI'};
     my $NS = $self->Configuration->Namespaces();
 
     my $distributions = $result->{'distributions'};

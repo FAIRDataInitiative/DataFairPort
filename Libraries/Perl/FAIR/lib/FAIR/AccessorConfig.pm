@@ -27,6 +27,7 @@ my @CDE = qw(
     dcat:spatial
     dcat:temporal
     dcat:theme
+    dcat:license
     dc:title
     dcat:updateDate
     void:entities
@@ -120,8 +121,8 @@ sub BUILD {
 	    print STDERR  "Failed to set namespace $abbreviation  ==  $namespace   Make sure your abbreviation has no capital letters (Perl library quirk!)";
 	}
     }
-    
-    $self->MetadataElements(\@CDE,$self->localMetadataElements() );  # concatinate local with common metadata elements
+    my @MetaDataElements = (@CDE, @{$self->localMetadataElements()});
+    $self->MetadataElements(\@MetaDataElements);  # concatinate local with common metadata elements
     
 }
 
