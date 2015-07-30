@@ -185,13 +185,13 @@ sub parse {
 				
 			die "file $filename does not exist" unless (-e $filename);
 		#	open(IN, "$filename") || die "can't open input file $!\n";
-			RDF::Trine::Parser->parse_file_into_model( "", $filename, $model );
+			RDF::Trine::Parser->parse_file_into_model( "http://datafairport.org/fakepath/", $filename, $model );
 		
 		}
 	} elsif ($data){
 		die "you can't pass data without telling me the ->data_format" unless ($self->data_format);
 		my $parser = RDF::Trine::Parser->new($self->data_format);
-		$parser->parse_into_model("", $data, $model );
+		$parser->parse_into_model("http://datafairport.org/fakepath/", $data, $model );
 	}
 	
 	

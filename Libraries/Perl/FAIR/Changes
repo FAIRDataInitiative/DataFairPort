@@ -1,5 +1,10 @@
 {{$NEXT}}
 
+- set the base URI for the RDF parser since it is apparently important for the Redland libraries on OSX (but not on Ubuntu)
+
+
+==========
+
 - Bug Fixes
 
 
