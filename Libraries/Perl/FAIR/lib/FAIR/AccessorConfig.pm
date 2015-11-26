@@ -114,6 +114,11 @@ sub BUILD {
     die "can't set namespace $!\n" unless ($NS->SET(edam => "http://edamontology.org/"));
     die "can't set namespace $!\n" unless ($NS->SET(sio => "http://semanticscience.org/resource/"));
     die "can't set namespace $!\n" unless ($NS->SET(example => 'http://example.org/ns#'));
+    die "can't set namespace $!\n" unless ($NS->SET(prov => 'http://www.w3.org/ns/prov#'));
+    die "can't set namespace $!\n" unless ($NS->SET(dctypes => 'http://purl.org/dc/dcmitype/'));
+    die "can't set namespace $!\n" unless ($NS->SET(pav => 	'http://purl.org/pav/'));
+    die "can't set namespace $!\n" unless ($NS->SET(schemaorg => 'http://schema.org/'));
+    die "can't set namespace $!\n" unless ($NS->SET(void => 'http://rdfs.org/ns/void#'));
 
     foreach my $abbreviation(keys %{$self->localNamespaces()}){
 	my $namespace = $self->localNamespaces()->{$abbreviation};

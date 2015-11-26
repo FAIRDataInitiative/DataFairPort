@@ -80,31 +80,65 @@ sub manageContainerGET {
 
 }
 
+sub makeSensibleStatement {
+      my ($self, $subject, $predicate, $obj) = @_;
+      my $NS = $self->Configuration->Namespaces();
+      my ($ns, $pred) = split /:/, $predicate;
+      my $statement;
+      if ($obj =~ /^http:/) {  # if its a URL
+            $statement = statement($subject,  $NS->$ns($pred), $obj); 
+      } elsif ((!$obj =~ /\s/) && ($obj =~ /\S+:\S+/)){  # if it looks like a qname tag
+            my ($vns,$vobj) = split /:/, $obj;
+            if ($NS->$vns($vobj)) {
+                  $statement = statement($subject,  $NS->$ns($pred), $NS->$vns($vobj));                   
+            } else {
+                  $statement = statement($subject,  $NS->$ns($pred), $obj); 
+            }                             
+      } else {
+            $statement = statement($subject,  $NS->$ns($pred), $obj); 
+      }
+      return $statement;
+      
+}
+
 
 sub callMetadataAccessor {
     my ($self, $subject, $PATH, $model) = @_;
-
     
     my $result = $self->MetaContainer('PATH' => $PATH); # this subroutine is provided by the end-user in the Accessor script on the web
     $result = decode_json($result);
     
+    $model->begin_bulk_ops();
     
-    my $ns = $self->Configuration->Namespaces();
-    
-    foreach my $CDE(@{$self->Configuration->MetadataElements}){  # common metadata, plus locally specified metadata elements
-        next unless $result->{$CDE};  # this will reject any metadata that you didn't specify in the configuration
-        my ($namespace, $term) = split /:/, $CDE;
-        
-        if (ref($result->{$CDE}) =~ /ARRAY/) {
-            foreach (@{$result->{$CDE}}){
-                my $statement = statement($subject, $ns->$namespace($term), $_); 
-                $model->add_statement($statement);
-            }
-        } else {                    
-            my $statement = statement($subject,$ns->$namespace($term), $result->{$CDE}); 
-            $model->add_statement($statement);
-        }
+    foreach my $CDE(keys %$result){
+
+      next unless $result->{$CDE}; 
+      my $statement;
+      my $values = $result->{$CDE};
+      $values = [$values] unless (ref($values) =~ /ARRAY/);
+      foreach my $value(@$values){
+            $statement = $self->makeSensibleStatement($subject, $CDE, $value);
+            $model->add_statement($statement);                               
+      }
+
     }
+    $model->end_bulk_ops();
+    
+    # this code allows you to constrain the metadata... I don't like this idea anymore...
+    #foreach my $CDE(@{$self->Configuration->MetadataElements}){  # common metadata, plus locally specified metadata elements
+    #    next unless $result->{$CDE};  # this will reject any metadata that you didn't specify in the configuration
+    #    my ($namespace, $term) = split /:/, $CDE;
+    #    
+    #    if (ref($result->{$CDE}) =~ /ARRAY/) {
+    #        foreach (@{$result->{$CDE}}){
+    #            my $statement = statement($subject, $ns->$namespace($term), $_); 
+    #            $model->add_statement($statement);
+    #        }
+    #    } else {                    
+    #        my $statement = statement($subject,$ns->$namespace($term), $result->{$CDE}); 
+    #        $model->add_statement($statement);
+    #    }
+    #}
 }
 
 # ====================== END OF STAGE1 SUBROUTINES
@@ -141,18 +175,29 @@ sub callDataAccessor {
 
     my $distributions = $result->{'distributions'};
       foreach my $format(keys %$distributions){
+            next unless ($format =~ /\S/);
             my $location = $distributions->{$format};
             $location = [$location] unless (ref($location) =~ /ARRAY/);  # force it to be always be an arrayref just for code clarity
             
             foreach my $loc(@$location){
+                  next unless ($loc =~ /\S/);
                   my $statement = statement($URL, $NS->dcat('distribution'), $loc);
                   $model->add_statement($statement);
                   
                   $statement = statement($loc, $NS->rdf('type'), $NS->dcat('Distribution'));
                   $model->add_statement($statement);
                   
+                  $statement = statement($loc, $NS->rdf('type'), $NS->dctypes('Dataset'));
+                  $model->add_statement($statement);
+
                   $statement = statement($loc, $NS->dc('format'), $format);
                   $model->add_statement($statement);
+
+                  if (($format =~ /turtle/) || ($format =~ /rdf/) || ($format =~ /quads/)) {
+                        $statement = statement($loc, $NS->rdf('type'), $NS->void('Dataset'));
+                        $model->add_statement($statement);
+                  }
+                  
             
                   $statement = statement($loc, $NS->dcat('downloadURL'), $loc);
                   $model->add_statement($statement);
@@ -166,21 +211,10 @@ sub callDataAccessor {
             foreach my $predicate(keys %$metadata){
                   my $values = $metadata->{$predicate};
                   $values = [$values] unless (ref($values) =~ /ARRAY/);
-
-                  my ($ns,$pred) = split /:/, $predicate;
                                     
                   foreach my $value(@$values) {
-                        if ($value =~ /^http:/) {  # if its a URL
-                              my $statement = statement($URL,  $NS->$ns($pred), $value); 
-                              $model->add_statement($statement); 
-                        } elsif ($value =~ /\S+:\S+/){  # if it looks like a qname tag
-                              my ($vns,$vobj) = split /:/, $value;
-                              my $statement = statement($URL,  $NS->$ns($pred), $NS->$vns($vobj)); 
-                              $model->add_statement($statement); 
-                        } else {
-                              my $statement = statement($URL,  $NS->$ns($pred), $value); 
-                              $model->add_statement($statement);                               
-                        }
+                        my $statement = $self->makeSensibleStatement($URL, $predicate, $value);
+                        $model->add_statement($statement);                               
                   }
             }
       }
