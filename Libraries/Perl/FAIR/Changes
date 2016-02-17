@@ -1,5 +1,11 @@
 {{$NEXT}}
 
+- The rdf turtle serialization was too slow to use, so I switched everything to rdf+xml
+- the way the container is built is now to create an N3-formatted string of all records and then parse that into the $model.  This is slightly faster than adding one statement at a time (but probably more error-prone...)
+
+
+============
+
 - set the base URI for the RDF parser since it is apparently important for the Redland libraries on OSX (but not on Ubuntu)
 
 
