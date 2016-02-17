@@ -102,6 +102,47 @@ sub makeSensibleStatement {
 }
 
 
+#sub callMetadataAccessor {
+#    my ($self, $subject, $PATH, $model) = @_;
+#    
+#    my $result = $self->MetaContainer('PATH' => $PATH); # this subroutine is provided by the end-user in the Accessor script on the web
+#    $result = decode_json($result);
+#    
+#    $model->begin_bulk_ops();
+#    
+#    foreach my $CDE(keys %$result){
+#
+#      next unless $result->{$CDE}; 
+#      my $statement;
+#      my $values = $result->{$CDE};
+#      $values = [$values] unless (ref($values) =~ /ARRAY/);
+#      foreach my $value(@$values){
+#            $statement = $self->makeSensibleStatement($subject, $CDE, $value);
+#            $model->add_statement($statement);                               
+#      }
+#
+#    }
+#    $model->end_bulk_ops();
+#    
+#    # this code allows you to constrain the metadata... I don't like this idea anymore...
+#    #foreach my $CDE(@{$self->Configuration->MetadataElements}){  # common metadata, plus locally specified metadata elements
+#    #    next unless $result->{$CDE};  # this will reject any metadata that you didn't specify in the configuration
+#    #    my ($namespace, $term) = split /:/, $CDE;
+#    #    
+#    #    if (ref($result->{$CDE}) =~ /ARRAY/) {
+#    #        foreach (@{$result->{$CDE}}){
+#    #            my $statement = statement($subject, $ns->$namespace($term), $_); 
+#    #            $model->add_statement($statement);
+#    #        }
+#    #    } else {                    
+#    #        my $statement = statement($subject,$ns->$namespace($term), $result->{$CDE}); 
+#    #        $model->add_statement($statement);
+#    #    }
+#    #}
+#}
+
+
+
 sub callMetadataAccessor {
     my ($self, $subject, $PATH, $model) = @_;
     
@@ -116,11 +157,17 @@ sub callMetadataAccessor {
       my $statement;
       my $values = $result->{$CDE};
       $values = [$values] unless (ref($values) =~ /ARRAY/);
+      my $temprdf;  # doing this to make the import more efficient... I hope!
       foreach my $value(@$values){
             $statement = $self->makeSensibleStatement($subject, $CDE, $value);
-            $model->add_statement($statement);                               
+            my $str = $statement->as_string;  # almost n3 format... need to fix it a bit...
+            $str =~ s/^\(triple\s//;
+            $str =~ s/\)$/./;
+            $temprdf .= "$str\n";  # this is RDF in n3 format
       }
-
+      my $parser     = RDF::Trine::Parser->new( 'ntriples' );
+      $parser->parse_into_model( "http://example.org/", $temprdf, $model );
+ 
     }
     $model->end_bulk_ops();
     
@@ -140,7 +187,6 @@ sub callMetadataAccessor {
     #    }
     #}
 }
-
 # ====================== END OF STAGE1 SUBROUTINES
 
 
@@ -256,7 +302,8 @@ sub printResourceHeader {
         my $ETAG = $self->Configuration->ETAG_Base();
 	my $entity = $ENV{'PATH_INFO'};
 	$entity =~ s/^\///;
-	print "Content-Type: text/turtle\n";
+#	print "Content-Type: text/turtle\n";
+	print "Content-Type: application/rdf+xml\n";
 	print "ETag: \"$ETAG"."_"."$entity\"\n";
 	print "Allow: GET,OPTIONS,HEAD\n";
 	print 'Link: <http://www.w3.org/ns/ldp#Resource>; rel="type"'."\n\n";
@@ -266,7 +313,8 @@ sub printResourceHeader {
 sub printContainerHeader {
 	my ($self) = @_;
         my $ETAG = $self->Configuration->ETAG_Base();
-	print "Content-Type: text/turtle\n";
+#	print "Content-Type: text/turtle\n";
+	print "Content-Type: application/rdf+xml\n";
 	print "ETag: \"$ETAG\"\n";
 	print "Allow: GET,OPTIONS,HEAD\n";
 	print 'Link: <http://www.w3.org/ns/ldp#BasicContainer>; rel="type",'."\n";
@@ -289,7 +337,8 @@ sub manageHEAD {
 
 sub serializeThis{
     my ($self, $model) = @_;
-    my $serializer = RDF::Trine::Serializer->new('turtle');  # TODO - this should work with content negotiation
+#    my $serializer = RDF::Trine::Serializer->new('turtle');  # the turtle serializer is simply too slow to use...
+    my $serializer = RDF::Trine::Serializer->new('rdfxml');  # TODO - this should work with content negotiation
     print $serializer->serialize_model_to_string($model);
 }
 
