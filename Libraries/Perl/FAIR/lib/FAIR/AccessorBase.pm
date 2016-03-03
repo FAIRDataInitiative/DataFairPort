@@ -24,6 +24,7 @@ has 'Configuration' => (
     is => 'rw',
 );
 
+
 around BUILDARGS => sub {
       my %return;
       $return{'Configuration'} = FAIR::AccessorConfig->new(@_);
@@ -60,22 +61,26 @@ sub get_distribution_URIs {
 
 sub manageContainerGET {
     my ($self, %args) = @_;  # %args  are PATH => '/some/path'
-    my $PATH = $args{'PATH'};
     
-    my $BASE_URL = "http://" . $ENV{'SERVER_NAME'} . $ENV{'REQUEST_URI'};
+    unless ($ENV{'SCRIPT_NAME'}) {print STDERR "your servers implementation of CGI does not capture the SCRIPT_NAME; defaulting to REQUEST_URI!";}
+    my $SCRIPT_NAME = $ENV{'SCRIPT_NAME'}?$ENV{'SCRIPT_NAME'}:$ENV{REQUEST_URI};  # best guess!  
+    $SCRIPT_NAME =~ s/^\///;   # if it is there, get rid of the leading /
+    
+    my $BASE_URL = "http://" . $ENV{'SERVER_NAME'} . "/$SCRIPT_NAME";
     $BASE_URL .= $ENV{'PATH_INFO'}  if $ENV{'PATH_INFO'} ;
-
     my $store = RDF::Trine::Store::Memory->new();
     my $model = RDF::Trine::Model->new($store);
     my $ns = $self->Configuration->Namespaces;
         
+    $self->callMetadataAccessor($BASE_URL, $model);  
+
     my $statement = statement($BASE_URL, $ns->rdf("type"), $ns->ldp("BasicContainer")); 
-    $model->add_statement($statement); 
-    $statement = statement($BASE_URL, $ns->dc("title"), $self->Configuration->{'title'}); 
-    $model->add_statement($statement); 
+    $model->add_statement($statement);
     
-    $self->callMetadataAccessor($BASE_URL, $PATH, $model);  
-    
+    unless ($model->count_statements(RDF::Trine::Node::Resource->new($BASE_URL), RDF::Trine::Node::Resource->new($ns->dc("title")))){
+      $statement = statement($BASE_URL, $ns->dc("title"), $self->Configuration->{'title'}); 
+      $model->add_statement($statement); 
+    }
     $self->serializeThis($model);
 
 }
@@ -87,7 +92,7 @@ sub makeSensibleStatement {
       my $statement;
       if ($obj =~ /^http:/) {  # if its a URL
             $statement = statement($subject,  $NS->$ns($pred), $obj); 
-      } elsif ((!$obj =~ /\s/) && ($obj =~ /\S+:\S+/)){  # if it looks like a qname tag
+      } elsif ((!($obj =~ /\s/)) && ($obj =~ /\S+:\S+/)){  # if it looks like a qname tag
             my ($vns,$vobj) = split /:/, $obj;
             if ($NS->$vns($vobj)) {
                   $statement = statement($subject,  $NS->$ns($pred), $NS->$vns($vobj));                   
@@ -144,9 +149,9 @@ sub makeSensibleStatement {
 
 
 sub callMetadataAccessor {
-    my ($self, $subject, $PATH, $model) = @_;
+    my ($self, $subject, $model) = @_;
     
-    my $result = $self->MetaContainer('PATH' => $PATH); # this subroutine is provided by the end-user in the Accessor script on the web
+    my $result = $self->MetaContainer(); # this subroutine is provided by the end-user in the Accessor script on the web
     $result = decode_json($result);
     
     $model->begin_bulk_ops();

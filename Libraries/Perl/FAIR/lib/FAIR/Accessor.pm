@@ -16,11 +16,13 @@ unless ($ENV{REQUEST_METHOD}){  # if running from command line
         $ENV{REQUEST_METHOD} = $ARGV[0];
         $ENV{'SERVER_NAME'} = $ARGV[1] ;
         $ENV{'REQUEST_URI'} = $ARGV[2];
+        $ENV{'SCRIPT_NAME'} = $ARGV[2];
         $ENV{'PATH_INFO'} = $ARGV[3] ;
     } else {
         $ENV{REQUEST_METHOD} = "GET";
         $ENV{'SERVER_NAME'} =  "example.net";
         $ENV{'REQUEST_URI'} = "/this/thing";
+        $ENV{'SCRIPT_NAME'} = "/this/thing";
         $ENV{'PATH_INFO'} = "/1234567";
     }
 }
@@ -39,21 +41,20 @@ sub handle_requests {
         $self->manageHEAD();
         exit;
     }  elsif ($ENV{REQUEST_METHOD} eq "GET") {
-        
-        unless ($ENV{'REQUEST_URI'} =~ /($base)\/*(.*)/){
+        unless ($ENV{'REQUEST_URI'} =~ /$base/){
             print "Status: 500\n"; 
-            print "Content-type: text/plain\n\nThe configured basePATH argument does not match the request URI\n\n";
+            print "Content-type: text/plain\n\nThe configured basePATH argument $base does not match the request URI  $ENV{'REQUEST_URI'}\n\n";
             exit 0;
         }
-        my ($path, $id) = ($1, $2);
-        print STDERR "PATH *$path* ID *$id*\n";
+        my $id = $ENV{'PATH_INFO'};
+        $id =~ s/^\///;  # get rid of leading /
         
-        if ($id) {  # this is a request like  /Allele/dip21  where the user is asking for a specific individual
+        if ($id) {  #$ENV{'PATH_INFO'} this is a request like  /Allele/dip21  where the user is asking for a specific individual
                 $self->printResourceHeader();
-                $self->manageResourceGET('PATH' => $path, 'ID' => $id);
+                $self->manageResourceGET('ID' => $id);
         } else {  # this is a request like /Allele  or /Allele/  where the user is asking for the container
                 $self->printContainerHeader();
-                $self->manageContainerGET('PATH' => $path);
+                $self->manageContainerGET();
         }
     } else {
         print "Status: 405 Method Not Allowed\n"; 

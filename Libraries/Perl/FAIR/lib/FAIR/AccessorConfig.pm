@@ -43,7 +43,6 @@ my @CDE = qw(
 has 'title' => (
     isa => 'Str',
     is  => 'rw',
-    required => "yes",
 );
 
 has 'serviceTextualDescription' => (
