@@ -107,47 +107,6 @@ sub makeSensibleStatement {
 }
 
 
-#sub callMetadataAccessor {
-#    my ($self, $subject, $PATH, $model) = @_;
-#    
-#    my $result = $self->MetaContainer('PATH' => $PATH); # this subroutine is provided by the end-user in the Accessor script on the web
-#    $result = decode_json($result);
-#    
-#    $model->begin_bulk_ops();
-#    
-#    foreach my $CDE(keys %$result){
-#
-#      next unless $result->{$CDE}; 
-#      my $statement;
-#      my $values = $result->{$CDE};
-#      $values = [$values] unless (ref($values) =~ /ARRAY/);
-#      foreach my $value(@$values){
-#            $statement = $self->makeSensibleStatement($subject, $CDE, $value);
-#            $model->add_statement($statement);                               
-#      }
-#
-#    }
-#    $model->end_bulk_ops();
-#    
-#    # this code allows you to constrain the metadata... I don't like this idea anymore...
-#    #foreach my $CDE(@{$self->Configuration->MetadataElements}){  # common metadata, plus locally specified metadata elements
-#    #    next unless $result->{$CDE};  # this will reject any metadata that you didn't specify in the configuration
-#    #    my ($namespace, $term) = split /:/, $CDE;
-#    #    
-#    #    if (ref($result->{$CDE}) =~ /ARRAY/) {
-#    #        foreach (@{$result->{$CDE}}){
-#    #            my $statement = statement($subject, $ns->$namespace($term), $_); 
-#    #            $model->add_statement($statement);
-#    #        }
-#    #    } else {                    
-#    #        my $statement = statement($subject,$ns->$namespace($term), $result->{$CDE}); 
-#    #        $model->add_statement($statement);
-#    #    }
-#    #}
-#}
-
-
-
 sub callMetadataAccessor {
     my ($self, $subject, $model) = @_;
     
@@ -201,13 +160,12 @@ sub callMetadataAccessor {
 
 sub manageResourceGET {  # $self->manageResourceGET('PATH' => $path, 'ID' => $id);
     my ($self, %ARGS) = @_;
-    my $PATH = $ARGS{'PATH'};
     my $ID = $ARGS{'ID'};
     
     my $store = RDF::Trine::Store::Memory->new();
     my $model = RDF::Trine::Model->new($store);
           
-    $self->callDataAccessor($model, $PATH, $ID);
+    $self->callDataAccessor($model, $ID);
 
     $self->serializeThis($model);
 
@@ -215,10 +173,10 @@ sub manageResourceGET {  # $self->manageResourceGET('PATH' => $path, 'ID' => $id
 
 
 sub callDataAccessor {
-    my ($self, $model, $PATH, $ID) = @_;
+    my ($self, $model, $ID) = @_;
 
       # call out to user-provided subroutine
-    my $result = $self->Distributions('PATH' => $PATH, 'ID' => $ID);
+    my $result = $self->Distributions('ID' => $ID);
     $result = decode_json($result);
 
     my $URL = "http://" . $ENV{'SERVER_NAME'} . $ENV{'REQUEST_URI'};

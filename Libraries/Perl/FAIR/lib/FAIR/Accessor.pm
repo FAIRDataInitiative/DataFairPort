@@ -75,14 +75,14 @@ sub handle_requests {
 The following code is a complete implementation of a 'Hello, World!' FAIR Accessor
 
 
- C<#!/usr/bin/perl -w
+ C<##!/usr/local/bin/perl -w
 
- package HelloWorld_Accessor;  # this should be the same as your filename!
+ package Metadata;
 
  use strict;
  use warnings;
  use JSON;
-
+ use FAIR::Accessor;
 
  #-----------------------------------------------------------------
  # Configuration and Daemon
@@ -91,22 +91,17 @@ The following code is a complete implementation of a 'Hello, World!' FAIR Access
  use base 'FAIR::Accessor';
 
  my $config = {
-    title => 'Hello World Data Accessor',
-    serviceTextualDescription => 'Server for some Helloworld Data',
-    textualAccessibilityInfo => "The information from this server requries no authentication",  # this could also be a $URI describing the accessibiltiy
-    mechanizedAccessibilityInfo => "",  # this must be a URI to an RDF document
-    textualLicenseInfo => "CC-BY",  # this could also be a URI to the license info
-    mechanizedLicenseInfo =>  "", # this must be a URI to an RDF document
-    baseURI => "", # I don't know what this is used for yet, but I have a feeling I will need it!
-    ETAG_Base => "HelloWorld_Accessor_For_Greetings", # this is a unique identificaiton string for the service (required by the LDP specification)
-    localNamespaces => {hw => 'http://hello.world.org/some/items/',
-                        hw2 => 'http://another.hello.world.org/some/predicates/'},  # add a few new namespaces to the list of known namespaces....
-    localMetadataElements => [qw(hw:Greeting hw2:grusse) ],  # things that we use in addition to common metadata elements
-    # baseURI => 'some/regular/expression', # OPTIONAL regexp to match the RESTful PATH part of the URL, before the ID number
+   title => 'Semantic PHI Base Metadata Server',
+   ETAG_Base => "TopLevelMetadata_Accessor_For_SemanticPHIBase", # this is a unique identificaiton string for the service (required by the LDP specification)
+   localNamespaces => {
+	ontology => 'http://example.org/ontologies/MyOntology#', 
+	},  # add a few new namespaces to the list of known namespaces....
+   localMetadataElements => [qw(hw:Greeting hw2:grusse) ],  # things that we use in addition to common metadata elements
+   basePATH => 'Nameof/ThisScript', # REQUIRED regexp to match the RESTful PATH part of the URL, before the ID number
 
  };
 
- my $service = HelloWorld_Accessor->new(%$config);
+ my $service = Metadata->new(%$config);
 
  # start daemon
  $service->handle_requests;
@@ -116,10 +111,8 @@ The following code is a complete implementation of a 'Hello, World!' FAIR Access
  # Accessor Implementation
  #-----------------------------------------------------------------
 
-
-
+ 
  =head2 MetaContainer
-
   Function: REQUIRED SUBROUTINE - returns the first-stage LD Platform list of contained URIs and the dataset metadata.
   Args    : $starting_at_record : this will be passed-in to tell you what record to start with (for paginated responses)
   $path : the webserver's PATH_INFO environment value (used to modify the behaviour of REST services)
@@ -144,46 +137,38 @@ The following code is a complete implementation of a 'Hello, World!' FAIR Access
             terms that describe the data in your repository... this isn't hard, but it's not entirely trivial either...
             
             note #2:  if you return URLs in the ldp:contains, then you must also return the count of those URLs in void:entities
-
-
  =cut
-
+ 
+ 
  sub MetaContainer {
 
-    my ($self, %ARGS) = @_;
-    my $PATH = $ARGS{'PATH'} || "";  # if there was a specific path sent after the script URL, it will be here
-    
-    # this is how you would manage "RESTful" references to different subsets of your data repository
-    if ($PATH =~ /DataSliceX/) {
-        # some behavior for Data Slice X
-    } elsif ($PATH =~ /DataSliceY/) {
-        # some behavior for Data Slice Y
-    }
-    
-    my %result =  (  # NOTE THAT ALL OF THESE ARE OPTIONAL!  (and there are more fields.... see DCAT...)
-                    'dc:title' => "Hello World Accessor Server",
-                   'dcat:description' => "the prototype Accessor server for Hello World",
-                    'dcat:identifier' => "handle:HelloWorld1234567",
-                    'dcat:keyword' => ["greetings", "friendly", "welcome", "Hi"],
-                    'dcat:landingPage' => 'http://hello.world.net/homepage.html',
-                    'dcat:language' => 'en',
-                    'dcat:publisher' => 'http://hello.world.net',
-                    'dcat:temporal' => 'http://reference.data.gov.uk/id/quarter/2006-Q1',  # look at this!!  It doesn't have to be this complex, but it can be!
-                    'dcat:theme'  => 'http://example.org/ConceptSchemes/HelloWorld.rdf',  # this is the URI to a SKOS Concept Scheme
-                    );
-    my $BASE_URL = "http://" . $ENV{'SERVER_NAME'} . $ENV{'REQUEST_URI'} . $PATH;
+   my ($self, %ARGS) = @_;
 
-   # you may chose to return no record IDs at all, if you only want to serve repository-level metadata     
-    my @known_records = ($BASE_URL . "/hello",
-                         $BASE_URL . "/world",
-                         # ...  you need to generate this list of record URIs here... somehow
-                        );
-    $result{'void:entities'} = scalar(@known_records);  #  THE TOTAL *NUMBER* OF RECORDS THAT CAN BE SERVED
-    $result{'ldp:contains'} = \@known_records; # the listref of record ids
-    
-    return encode_json(\%result);
+   # this is how you would manage "RESTful" references to different subsets of your data repository
+   #if ($ENV{'REQUEST_URI'} =~ /DataSliceX/) {
+   #    # some behavior for Data Slice X
+   #} elsif ($ENV{'REQUEST_URI'} =~ /DataSliceY/) {
+   #    # some behavior for Data Slice Y
+   #}
+ 
+   my $metadata =  $self->getRepositoryMetadata();
+
+  # you may chose to return no record IDs at all, if you only want to serve repository-level metadata
+   
+   my $BASE_URL = "http://" . $ENV{'SERVER_NAME'} . $ENV{'REQUEST_URI'};
+
+   my @known_records = ('http://example.org/Nameof/ThisScript/123');  # generate a list of HTTP records
+   # note that the record URLs point to this script!
+   
+   # these two pieces of metadata are required by the LDP specification
+   $metadata->{'void:entities'} = scalar(@known_records);  #  THE TOTAL *NUMBER* OF RECORDS THAT CAN BE SERVED
+   $metadata->{'ldp:contains'} = \@known_records; # the listref of record ids
+
+   return encode_json($metadata);
 
  }
+
+ 
 
 
  =head2 Distributions
@@ -211,39 +196,90 @@ The following code is a complete implementation of a 'Hello, World!' FAIR Access
 
 
  sub Distributions {
-    my ($self, %ARGS) = @_;
+   my ($self, %ARGS) = @_;
 
-    my $PATH = $ARGS{'PATH'};  
-    my $ID = $ARGS{'ID'};
-    
-    my %response;
-    my %formats;
-    my %metadata;
+   my $ID = $ARGS{'ID'};
+   # ID is the piece of the URL that comes after http://example.org/Nameof/ThisScript/___here____
+   # you created these URLs in the MetaContainer routine above
+   my %response;
+   my %formats;
+   my %metadata;
 
-    # this is how you would manage "RESTful" references to different subsets of your data repository
-    if ($PATH =~ /DataSliceX/) {
-        # some behavior for Data Slice X
-    } elsif ($PATH =~ /DataSliceY/) {
-        # some behavior for Data Slice Y
-    }
-    
-    $formats{'text/html'} = 'http://myserver.org/ThisScript/helloworld.html';
-    $formats{'application/rdf+xml'} = 'http://myserver.org/ThisScript/helloworld.rdf';
+   # using the $ID, create the links to the actual records, in whatever format...
+   my $accnumber = $ID;  # maybe transform ID to get the accession
+   
+   # make the links to teh text and RDF versions of this record
+   $formats{'text/html'} = "http://example.org/query.php?acc=$accnumber";
+   $formats{'application/rdf+xml'} = "http://example.org/Resource/$ID";
 
-    # set the ontological type for the record  (optional)
-    $metadata{'rdf:type'} = ['edam:data_0006', 'sio:SIO_000088'];
-    
-    # and whatever other metadata you wish (also optional)
-    # extractMetaDataFromSpreadsheet(\%metadata, $ID);    
+   # set the ontological type for the record  (optional)
+   $metadata{'rdf:type'} = ['ontology:PHIBO_00022'];  # note the qNAME!  If you have defined 'ontology' in the $config hashref at the beginning, you can use a qname here
 
-    $response{distributions} = \%formats;
-    $response{metadata} = \%metadata if (keys %metadata);  # only set it if you can provided something
+   # and whatever other metadata you wish (also optional)
+   my $metadata	= $self->getDistributionMetadata($accnumber);
 
-    my $response  = encode_json(\%response);
-    
-    return $response;
+   $response{distributions} = \%formats;
+   $response{metadata} = $metadata if (keys %$metadata);  # only set it if you can provided something
+
+   my $response  = encode_json(\%response);
+
+   return $response;
 
  }
+
+ sub getRepositoryMetadata {
+   my %metadata = (
+   'dc:title' => "Semantic PHI Base Accessor",
+   'dcat:description' => "FAIR Accessor server for the Semantic PHI Base.  This server exposes the plant portion of the Pathogen Host Interaction database as Linked Data, following the FAIR Data Principles. This interface (the one you are reading) follows the W3C Linked Data Platform behaviors.   The data provided here is an RDF transformation of data kindly provided by the researchers at PHI Base (doi:10.1093/nar/gku1165)",
+   'dcat:identifier' => "http://linkeddata.systems/SemanticPHI/Metadata",
+   'dcat:keyword' => ["pathogenesis", "plant/pathogen interactions", "PHI Base", "semantic web", "linked data", "FAIR Data", "genetic database", "phytopathology"],
+   'dcat:landingPage' => 'http://www.phi-base.org/',
+   'foaf:page' => ['http://linkeddata.systems:8890/sparql','http://www.phi-base.org/'],
+   'dcat:language' => 'http://id.loc.gov/vocabulary/iso639-1/en',
+   'dc:language' => 'http://lexvo.org/id/iso639-3/eng', 
+   'dcat:publisher' => ['http://wilkinsonlab.info',"Rothamsted Research", ' http://www.rothamsted.ac.uk', 'http://www.phi-base.org'],
+   'dcat:theme'  => 'http://linkeddata.systems/ConceptSchemes/semanticphi_concept_scheme.rdf',  # this is the URI to a SKOS Concept Scheme
+  'daml:has-Technical-Lead' => ["Dr. Alejandro Rodriguez Gonzalez","Alejandro Rodriguez Iglesias"],
+  'daml:has-Principle-Investigator' => ["Dr. Mark Wilkinson","Dr. Kim Hammond-Kosack"],
+  'dc:creator' => 'http://www.phi-base.org/',
+  'pav:authoredBy' => ['http://orcid.org/0000-0002-9699-485X','http://orcid.org/0000-0002-6019-7306'],
+  'dcat:contactPoint' => 'http://biordf.org/DataFairPort/MiscRDF/Wilkinson.rdf',
+  'dcat:license' => 'http://purl.org/NET/rdflicense/cc-by-nd4.0',
+  'dc:license' => 'http://purl.org/NET/rdflicense/cc-by-nd4.0',
+  'dc:issued' => "2015-11-17", 
+  'rdf:type' => ['prov:Collection', 'dctypes:Dataset'],
+   );
+   return \%metadata;
+   
+ } 
+
+ sub getDistributionMetadata {
+  my ($self, $ID) = @_;
+  my %metadata = (
+        'dcat:description' => "RDF representation of PHI Base Interaction Record PHI:$ID",
+        'dc:title' => "PHI-Base Interaction PHI:$ID",
+        'dcat:modified' => "2015-11-17", 
+        'dc:issued' => "2015-11-17", 
+        'dcat:identifier' => "http://linkeddata.systems/SemanticPHI/Metadata",
+        'dcat:keyword' => ["pathogenesis", "host/pathogen interaction", "PHI Base"],
+        'dcat:landingPage' => ['http://www.phi-base.org/'],
+   	'foaf:page' => 'http://linkeddata.systems:8890/sparql',
+   	'foaf:page' => 'http://www.phi-base.org/',
+        'dcat:language' => 'http://id.loc.gov/vocabulary/iso639-1/en',
+   	'dcat:publisher' => ['http://wilkinsonlab.info',"Rothamsted Research", 'http://www.rothamsted.ac.uk', 'http://www.phi-base.org'],
+        'daml:has-Technical-Lead' => ["Dr. Alejandro Rodriguez Gonzalez", "Alejandro Rodriguez Iglesias"],
+        'daml:has-Principle-Investigator' => ["Dr. Mark Wilkinson","Dr. Kim Hammond-Kosack"],
+        'dcat:contactPoint' => 'http://biordf.org/DataFairPort/MiscRDF/Wilkinson.rdf',
+        'void:inDataset' => 'http://linkeddata.systems/SemanticPHIBase/Metadata',
+	'dcat:license' => 'http://purl.org/NET/rdflicense/cc-by-nd4.0',
+  	'dc:license' => 'http://purl.org/NET/rdflicense/cc-by-nd4.0',
+	'dc:creator' => 'http://www.phi-base.org/',
+  	'pav:authoredBy' => ['http://orcid.org/0000-0002-9699-485X', 'http://orcid.org/0000-0002-6019-7306'],
+	);
+  return \%metadata;
+ }
+
+
 
 >
 
