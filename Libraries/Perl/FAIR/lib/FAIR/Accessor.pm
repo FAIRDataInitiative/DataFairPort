@@ -21,9 +21,9 @@ unless ($ENV{REQUEST_METHOD}){  # if running from command line
     } else {
         $ENV{REQUEST_METHOD} = "GET";
         $ENV{'SERVER_NAME'} =  "example.net";
-        $ENV{'REQUEST_URI'} = "/this/thing";
-        $ENV{'SCRIPT_NAME'} = "/this/thing";
-        $ENV{'PATH_INFO'} = "/1234567";
+        $ENV{'REQUEST_URI'} = "/SemanticPHIBase/Metadata";
+        $ENV{'SCRIPT_NAME'} = "/SemanticPHIBase/Metadata";
+        $ENV{'PATH_INFO'} = "/INT_00000";
     }
 }
 
