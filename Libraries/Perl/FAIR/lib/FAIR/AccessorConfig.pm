@@ -118,6 +118,10 @@ sub BUILD {
     die "can't set namespace $!\n" unless ($NS->SET(pav => 	'http://purl.org/pav/'));
     die "can't set namespace $!\n" unless ($NS->SET(schemaorg => 'http://schema.org/'));
     die "can't set namespace $!\n" unless ($NS->SET(void => 'http://rdfs.org/ns/void#'));
+    die "can't set namespace $!\n" unless ($NS->SET(fair => 'http://datafairport.org/ontology/FAIR-schema.owl#'));
+    die "can't set namespace $!\n" unless ($NS->SET(rr => 'http://www.w3.org/ns/r2rml#'));
+    die "can't set namespace $!\n" unless ($NS->SET(rml => 'http://semweb.mmlab.be/ns/rml#'));
+    die "can't set namespace $!\n" unless ($NS->SET(ql => 'http://semweb.mmlab.be/ns/ql#'));
 
     foreach my $abbreviation(keys %{$self->localNamespaces()}){
 	my $namespace = $self->localNamespaces()->{$abbreviation};
