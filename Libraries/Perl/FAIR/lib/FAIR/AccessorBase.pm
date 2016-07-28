@@ -147,21 +147,7 @@ sub callMetadataAccessor {
             }
             $model->end_bulk_ops();
             
-            # this code allows you to constrain the metadata... I don't like this idea anymore...
-            #foreach my $CDE(@{$self->Configuration->MetadataElements}){  # common metadata, plus locally specified metadata elements
-            #    next unless $result->{$CDE};  # this will reject any metadata that you didn't specify in the configuration
-            #    my ($namespace, $term) = split /:/, $CDE;
-            #    
-            #    if (ref($result->{$CDE}) =~ /ARRAY/) {
-            #        foreach (@{$result->{$CDE}}){
-            #            my $statement = statement($subject, $ns->$namespace($term), $_); 
-            #            $model->add_statement($statement);
-            #        }
-            #    } else {                    
-            #        my $statement = statement($subject,$ns->$namespace($term), $result->{$CDE}); 
-            #        $model->add_statement($statement);
-            #    }
-          #}
+
       }
       if ($more && blessed($more) && $more->isa("RDF::Trine::Model")) {  # if they are doing this, they know what they are doing!  (we assume)
             my $iterator = $more->statements;

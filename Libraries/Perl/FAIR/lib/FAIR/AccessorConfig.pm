@@ -13,33 +13,6 @@ use RDF::NS '20131205';              # check at compile time
 # define common metadata elements here, and their namespaces
 
 
-my @CDE = qw(
-    dcat:contactPoint
-    dcat:description
-    dcat:distribution
-    dcat:frequency
-    dcat:identifier
-    dcat:keyword
-    dcat:landingPage
-    dcat:language
-    dcat:publisher
-    dcat:releaseDate
-    dcat:spatial
-    dcat:temporal
-    dcat:theme
-    dcat:license
-    dc:title
-    dcat:updateDate
-    void:entities
-    daml:has-Technical-Lead
-    daml:has-Administrative-Contact
-    daml:has-Program-Manager
-    daml:has-Principle-Investigator
-    
-    ldp:contains
-
-);
-
 has 'title' => (
     isa => 'Str',
     is  => 'rw',
@@ -80,10 +53,6 @@ has 'localNamespaces' => (
     is => 'rw',
 );
 
-has 'localMetadataElements' => (
-    isa => 'ArrayRef[Str]',
-    is => 'rw',
-);
 
 has 'Namespaces' => (
     isa => "RDF::NS",
@@ -95,13 +64,6 @@ has 'ETAG_Base' => (
     isa => "Str",
     is => "rw",
 );
-
-has 'MetadataElements' => (
-    isa => 'ArrayRef[Str]',
-    is => 'rw',
-);
-
-
 
 	
 
@@ -129,8 +91,7 @@ sub BUILD {
 	    print STDERR  "Failed to set namespace $abbreviation  ==  $namespace   Make sure your abbreviation has no capital letters (Perl library quirk!)";
 	}
     }
-    my @MetaDataElements = (@CDE, @{$self->localMetadataElements()});
-    $self->MetadataElements(\@MetaDataElements);  # concatinate local with common metadata elements
+
     
 }
 
