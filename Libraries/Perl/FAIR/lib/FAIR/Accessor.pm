@@ -96,7 +96,6 @@ The following code is a complete implementation of a 'Hello, World!' FAIR Access
    localNamespaces => {
 	ontology => 'http://example.org/ontologies/MyOntology#', 
 	},  # add a few new namespaces to the list of known namespaces....
-   localMetadataElements => [qw(hw:Greeting hw2:grusse) ],  # things that we use in addition to common metadata elements
    basePATH => 'Nameof/ThisScript', # REQUIRED regexp to match the RESTful PATH part of the URL, before the ID number
 
  };
