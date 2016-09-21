@@ -18,11 +18,11 @@ has 'NS' => (
 );
 
 sub createProjection {
-      my ($self, $formats, $URL, $SPARQL, $type, $predicate, $otype) = @_;  # 
+      my ($self, $formats, $URL, $SOURCE, $subtemplate, $type, $predicate, $objecttemplate, $otype, $availableFormats) = @_;  # 
     my $NS = $self->NS;
     my $model = $self->model;
     
-    push @{$formats->{"application/rdf+xml"}}, $URL;
+    push @{$formats->{"$availableFormats"}}, $URL;
     my $statement;
     
     #$statement = statement($URL, $NS->dcat('distribution'), $URL);
@@ -49,7 +49,7 @@ sub createProjection {
     $statement = statement($URL, $NS->dcat('downloadURL'), $URL);
     $model->add_statement($statement);
     
-    $self->ProjectionMap($URL, $SPARQL, $type, $predicate, $otype);
+    $self->ProjectionMap($URL, $SOURCE, $subtemplate, $type, $predicate, $objecttemplate, $otype);
     
     #
     #$statement = statement($TPF, $NS->rdf('subjectClass'), 'phi:PHIBO_00022');
@@ -63,7 +63,7 @@ sub createProjection {
   }
 
 sub ProjectionMap{
-    my ($self, $URL, $SPARQL, $type, $predicate, $otype) = @_;
+    my ($self, $URL, $SOURCE, $subtemplate, $type, $predicate, $objecttemplate, $otype) = @_;
     my $uuid = UUID::Generator::PurePerl->new();
     $uuid = $uuid->generate_v1();
     my $NS = $self->NS();
@@ -82,7 +82,7 @@ sub ProjectionMap{
         # Mapping
         #  <CSV>  rml:isSourceOf  <SRC>
         #  <SRC>  rml:source    <CSV>
-    $statement = statement($URL, $NS->rml('source'), $SPARQL);
+    $statement = statement($URL, $NS->rml('source'), $SOURCE);
     $model->add_statement($statement);
         
         #  <MAP>  rml:logicalSource <SRC>
@@ -105,7 +105,7 @@ sub ProjectionMap{
         # <SMAP> rr:template "http://something/{ID}"
 
 
-   my $templateurl = RDF::Trine::Node::Literal->new("http://linkeddata.systems/SemanticPHIBase/Resource/interaction/{ID}");
+   my $templateurl = RDF::Trine::Node::Literal->new($subtemplate);
     $statement = statement($SMAP, $NS->rr('template'), $templateurl);
     $model->add_statement($statement);
 
@@ -136,7 +136,7 @@ sub ProjectionMap{
     if ($otype =~ /\#string/){
         $templateurl = RDF::Trine::Node::Literal->new("{value}");
     } else {
-        $templateurl = RDF::Trine::Node::Literal->new("http://linkedata.systems/SemanticPHIBase/Resource/other/{value}");
+        $templateurl = RDF::Trine::Node::Literal->new($objecttemplate);
     }
     $statement = statement($SMAP2, $NS->rr('template'), $templateurl);
     $model->add_statement($statement);
