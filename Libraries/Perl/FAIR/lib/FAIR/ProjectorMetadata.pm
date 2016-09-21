@@ -18,11 +18,11 @@ has 'NS' => (
 );
 
 sub createProjection {
-      my ($self, $formats, $URL, $SOURCE, $subtemplate, $type, $predicate, $objecttemplate, $otype) = @_;  # 
+      my ($self, $formats, $URL, $SOURCE, $subtemplate, $type, $predicate, $objecttemplate, $otype, $availableFormats) = @_;  # 
     my $NS = $self->NS;
     my $model = $self->model;
     
-    push @{$formats->{"application/rdf+xml"}}, $URL;
+    push @{$formats->{"$availableFormats"}}, $URL;
     my $statement;
     
     #$statement = statement($URL, $NS->dcat('distribution'), $URL);
