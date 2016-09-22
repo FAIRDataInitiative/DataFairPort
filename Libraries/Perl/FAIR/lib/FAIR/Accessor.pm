@@ -111,7 +111,7 @@ The following code is a complete implementation of a 'Hello, World!' FAIR Access
  #-----------------------------------------------------------------
 
  
- =head2 MetaContainer
+ =head2 Container
   Function: REQUIRED SUBROUTINE - returns the first-stage LD Platform list of contained URIs and the dataset metadata.
   Args    : $starting_at_record : this will be passed-in to tell you what record to start with (for paginated responses)
   $path : the webserver's PATH_INFO environment value (used to modify the behaviour of REST services)
@@ -139,7 +139,7 @@ The following code is a complete implementation of a 'Hello, World!' FAIR Access
  =cut
  
  
- sub MetaContainer {
+ sub Container {
 
    my ($self, %ARGS) = @_;
 
@@ -170,7 +170,7 @@ The following code is a complete implementation of a 'Hello, World!' FAIR Access
  
 
 
- =head2 Distributions
+ =head2 MetaRecord
 
   Function: REQUIRED IF get_all_meta_URIs list of URIs point back to this script.
            returns the second-stage LD Platform metadata describing the DCAT distributions, formats, and URLs
@@ -194,7 +194,7 @@ The following code is a complete implementation of a 'Hello, World!' FAIR Access
  =cut
 
 
- sub Distributions {
+ sub MetaRecord {
    my ($self, %ARGS) = @_;
 
    my $ID = $ARGS{'ID'};
@@ -252,7 +252,7 @@ The following code is a complete implementation of a 'Hello, World!' FAIR Access
    
  } 
 
- sub getDistributionMetadata {
+ sub getRecordMetadata {
   my ($self, $ID) = @_;
   my %metadata = (
         'dcat:description' => "RDF representation of PHI Base Interaction Record PHI:$ID",
