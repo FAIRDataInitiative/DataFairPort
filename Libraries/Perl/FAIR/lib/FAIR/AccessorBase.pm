@@ -39,8 +39,7 @@ around BUILDARGS => sub {
 
 # ============================================
 #  All Daemons must implement this method
-
-sub get_all_meta_URIs {
+sub Container {
 	my ( @args ) = @_;
 
 	# user-specific implementation will override this method
@@ -49,7 +48,7 @@ sub get_all_meta_URIs {
 # ============================================
 #  Some Daemons may implement this method
 
-sub get_distribution_URIs {
+sub MetaRecord {
 	my ( @args ) = @_;
 
 	# user-specific implementation will override this method
@@ -74,7 +73,7 @@ sub manageContainerGET {
     my $model = RDF::Trine::Model->new($store);
     my $ns = $self->Configuration->Namespaces;
         
-    $self->callMetadataAccessor($BASE_URL, $model);  
+    $self->callAccessorContainer($BASE_URL, $model);  
 
     my $statement = statement($BASE_URL, $ns->rdf("type"), $ns->ldp("BasicContainer")); 
     $model->add_statement($statement);
@@ -90,67 +89,83 @@ sub manageContainerGET {
 sub makeSensibleStatement {
       my ($self, $subject, $predicate, $obj) = @_;
       my $NS = $self->Configuration->Namespaces();
-      my ($ns, $pred) = split /:/, $predicate;
-      my $statement;
-      if (($obj =~ /^http:/) || ($obj =~ /^https:/)) {  # if its a URL
-            $statement = statement($subject,  $NS->$ns($pred), $obj); 
-      } elsif ((!($obj =~ /\s/)) && ($obj =~ /\S+:\S+/)){  # if it looks like a qname tag
-            my ($vns,$vobj) = split /:/, $obj;
-            if ($NS->$vns($vobj)) {
-                  $statement = statement($subject,  $NS->$ns($pred), $NS->$vns($vobj));                   
-            } else {
-                  $statement = statement($subject,  $NS->$ns($pred), $obj); 
-            }                             
+      
+      if (($subject =~ /^http:/) || ($subject =~ /^https:/)) {
       } else {
-            $statement = statement($subject,  $NS->$ns($pred), $obj); 
+             my ($ns, $sub) = split /:/, $subject;
+             $subject = $NS->$ns($sub);   # add the namespace   
       }
+      
+      if (($predicate =~ /^http:/) || ($predicate =~ /^https:/)) {
+      } else {
+             my ($ns, $pred) = split /:/, $predicate;
+             $predicate = $NS->$ns($pred);   # add the namespace   
+      }
+         
+      if (($obj =~ /^http:/) || ($obj =~ /^https:/)) {  # if its a URL
+            # do nothing
+      } elsif ((!($obj =~ /\s/)) && ($obj =~ /\S+:\S+/)){  # if it looks like a qname tag
+            my ($ns,$obj) = split /:/, $obj;
+            if ($NS->$ns($obj)) {
+                  $obj =  $NS->$ns($obj);   # add the namespace               
+            }
+      }
+         
+      my $statement = statement($subject,  $predicate, $obj); 
+      
       return $statement;
       
 }
 
 
-sub callMetadataAccessor {
+sub callAccessorContainer {
       my ($self, $subject, $model) = @_;
       
-      my ($result, $more) = $self->MetaContainer(); # this subroutine is provided by the end-user in the Accessor script on the web
+      my ($Container) = $self->Container(); # this subroutine is provided by the end-user in the Accessor script on the web
+      die "Not a FAIR::Accessor::Container" unless $Container->isa("FAIR::Accessor::Container");
+
+
+      $model->begin_bulk_ops();
+      my %metadata = %{$Container->MetaData};
+
+      my $temprdf;  # doing this to make the import more efficient... I hope!
       
-      if (blessed($result) && $result->isa("RDF::Trine::Model")) {  # if they are doing this, they know what they are doing!  (we assume)
-            my $iterator = $result->statements;
-            while (my $stm = $iterator->next()) {
-                 $model->add_statement($stm);
-            }
+      # ADD THE METADATA key/value|array pairs
+      foreach my $CDE(keys %metadata){
+      
+            next unless $metadata{$CDE}; # if it is blank, ignore it
             
+            my $values = $metadata{$CDE};
+            $values = [$values] unless (ref($values) =~ /ARRAY/);
+            foreach my $value(@$values){
+                  my $statement = $self->makeSensibleStatement($subject, $CDE, $value);
+                  my $str = $statement->as_string;  # almost n3 format... need to fix it a bit...
+                  $str =~ s/^\(triple\s//;
+                  $str =~ s/\)$/./;
+                  $temprdf .= "$str\n";  # this is RDF in n3 format
+            }
+   
       }
-      else {
       
-            $result = decode_json($result);
-            
-            $model->begin_bulk_ops();
-            
-            foreach my $CDE(keys %$result){
-        
-              next unless $result->{$CDE}; 
-              my $statement;
-              my $values = $result->{$CDE};
-              $values = [$values] unless (ref($values) =~ /ARRAY/);
-              my $temprdf;  # doing this to make the import more efficient... I hope!
-              foreach my $value(@$values){
-                    $statement = $self->makeSensibleStatement($subject, $CDE, $value);
-                    my $str = $statement->as_string;  # almost n3 format... need to fix it a bit...
-                    $str =~ s/^\(triple\s//;
-                    $str =~ s/\)$/./;
-                    $temprdf .= "$str\n";  # this is RDF in n3 format
-              }
-              my $parser     = RDF::Trine::Parser->new( 'ntriples' );
-              $parser->parse_into_model( "http://example.org/", $temprdf, $model );
-         
-            }
-            $model->end_bulk_ops();
+      # ADD THE RECORD IDS with "contains"
+      my @records = @{$Container->Records};
+      foreach my $rec(@records){
+            my $statement = $self->makeSensibleStatement($subject, "ldp:contains", $rec);
+            my $str = $statement->as_string;  # almost n3 format... need to fix it a bit...
+            $str =~ s/^\(triple\s//;
+            $str =~ s/\)$/./;
+            $temprdf .= "$str\n";  # this is RDF in n3 format
+      }
+
+      my $parser     = RDF::Trine::Parser->new( 'ntriples' );
+      $parser->parse_into_model( "http://example.org/", $temprdf, $model );
+      
+      
+      $model->end_bulk_ops();
             
 
-      }
-      if ($more && blessed($more) && $more->isa("RDF::Trine::Model")) {  # if they are doing this, they know what they are doing!  (we assume)
-            my $iterator = $more->statements;
+      if ($Container->FreeFormRDF && blessed($Container->FreeFormRDF) && $Container->FreeFormRDF->isa("RDF::Trine::Model")) {  # if they are doing this, they know what they are doing!  (we assume)
+            my $iterator = $Container->FreeFormRDF->statements;
             while (my $stm = $iterator->next()) {
                  $model->add_statement($stm);
            }
@@ -179,66 +194,61 @@ sub manageResourceGET {  # $self->manageResourceGET('PATH' => $path, 'ID' => $id
 
 
 sub callDataAccessor {
-    my ($self, $model, $ID) = @_;
-
-      # call out to user-provided subroutine
-    my ($result, $projections) = $self->Distributions('ID' => $ID);
-    $result = decode_json($result);
-
-    my $URL = "http://" . $ENV{'SERVER_NAME'} . $ENV{'REQUEST_URI'};
-    my $NS = $self->Configuration->Namespaces();
-
-    my $distributions = $result->{'distributions'};
-      foreach my $format(keys %$distributions){
-            next unless ($format =~ /\S/);
-            my $location = $distributions->{$format};
-            $location = [$location] unless (ref($location) =~ /ARRAY/);  # force it to be always be an arrayref just for code clarity
-            
-            foreach my $loc(@$location){
-                  next unless ($loc =~ /\S/);
-                  my $statement = statement($URL, $NS->dcat('distribution'), $loc);
-                  $model->add_statement($statement);
-                  
-                  $statement = statement($loc, $NS->rdf('type'), $NS->dcat('Distribution'));
-                  $model->add_statement($statement);
-                  
-                  $statement = statement($loc, $NS->rdf('type'), $NS->dctypes('Dataset'));
-                  $model->add_statement($statement);
-
-                  $statement = statement($loc, $NS->dc('format'), $format);
-                  $model->add_statement($statement);
-
-                  if (($format =~ /turtle/) || ($format =~ /rdf/) || ($format =~ /quads/)) {
-                        $statement = statement($loc, $NS->rdf('type'), $NS->void('Dataset'));
-                        $model->add_statement($statement);
-                  }
-                  
-            
-                  $statement = statement($loc, $NS->dcat('downloadURL'), $loc);
-                  $model->add_statement($statement);
-            }
-      }
-                   
-        
-      my $metadata = $result->{'metadata'};
-      if ($metadata && keys %$metadata) {
+      my ($self, $model, $ID) = @_;
       
-            foreach my $predicate(keys %$metadata){
-                  my $values = $metadata->{$predicate};
-                  $values = [$values] unless (ref($values) =~ /ARRAY/);
-                                    
-                  foreach my $value(@$values) {
-                        my $statement = $self->makeSensibleStatement($URL, $predicate, $value);
-                        $model->add_statement($statement);                               
-                  }
+      # call out to user-provided subroutine
+      my ($MetaRecord) = $self->MetaRecord('ID' => $ID);  # this method is provided (hopefully) by the service provider's Accessor script.
+      # TODO - this should be a catch, not a call...
+      
+      
+      my $subject = "http://" . $ENV{'SERVER_NAME'} . $ENV{'REQUEST_URI'};
+      my $NS = $self->Configuration->Namespaces();
+
+      #----------------------------------------------------------------------------------
+      #  GENERIC METADATA----------------------------------------------------------------
+      #----------------------------------------------------------------------------------
+
+      my %metadata = %{$MetaRecord->MetaData};      
+      foreach my $CDE(keys %metadata){            
+            next unless $metadata{$CDE}; # if it is blank, ignore it
+            
+            my $values = $metadata{$CDE};
+            $values = [$values] unless (ref($values) =~ /ARRAY/);
+            foreach my $value(@$values){
+                  my $statement = $self->makeSensibleStatement($subject, $CDE, $value);
+                  $model->add_statement($statement);
             }
       }
-      if ($projections && blessed($projections) && $projections->isa("RDF::Trine::Model")) {  # if they are doing this, they know what they are doing!  (we assume)
-            $model->add_iterator($projections->as_stream);
+      
+      
+      #----------------------------------------------------------------------------------      
+      # DISTRIBUTION METADATA ---------------------------------------------
+      #----------------------------------------------------------------------------------
+
+      my $distributions = $MetaRecord->Distributions();
+      foreach my $Dist(@$distributions){
+            my $downloadURL = $Dist->downloadURL();
+            my $statement = $self->makeSensibleStatement($subject, $NS->dcat('distribution'), $downloadURL);
+            $model->add_statement($statement);
+            my $projector = 0;
+            foreach my $type($Dist->types){
+                  $statement = $self->makeSensibleStatement($downloadURL, $NS->rdf('type'), $type);
+                  $model->add_statement($statement);
+                  $projector = 1 if ($type =~ /Projector/);  # flag it as a projector for the if block below                  
+            }
+            
+            $statement = $self->makeSensibleStatement($downloadURL, $NS->dc('format'), $Dist->availableformats);
+            $model->add_statement($statement);            
+      
+            $statement = $self->makeSensibleStatement($downloadURL, $NS->dcat('downloadURL'), $downloadURL);
+            $model->add_statement($statement);
+            
+            if ($projector) {
+                  my $projectionmodel = $Dist->ProjectionModel();
+                  $model->add_iterator($projectionmodel->as_stream);
+            }
+            
       }
-
-
-      # okay, $model is now full!
 }
 
 
