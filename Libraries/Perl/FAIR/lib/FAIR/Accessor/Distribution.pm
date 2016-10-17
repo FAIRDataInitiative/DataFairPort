@@ -48,7 +48,7 @@ has 'objecttype'=> (
 
 has 'availableformats'=> (
       is => 'rw',
-      isa => 'Str',
+      isa => 'ArrayRef[Str]',
 );
 
 has 'distributionType' => (
@@ -85,9 +85,10 @@ has 'Projectionmodel' => (
 
 sub types {
       my ($self) = @_;
-      my $format = $self->availableformats;
+      my $formats = $self->availableformats();
+      my $formatstr = join ",", @$formats;
       my @types = @{$self->distributionType};
-      if (($format =~/turtle/) || ($format =~ /rdf/) || ($format =~ /quads/)) {
+      if (($formatstr =~/turtle/) || ($formatstr =~ /rdf/) || ($formatstr =~ /quads/)) {
             push @types, "void:Dataset";
       }
       
@@ -114,7 +115,8 @@ sub ProjectionModel {
     
     my $statement;
         
-    $statement = $self->makeSensibleStatement($SRC, $self->NS->rml('source'), $self->source);
+#    $statement = $self->makeSensibleStatement($SRC, $self->NS->rml('source'), $self->source);
+    $statement = $self->makeSensibleStatement($SRC, $self->NS->rml('source'), $self->downloadURL);
     $model->add_statement($statement);
         
        
@@ -180,122 +182,40 @@ sub ProjectionModel {
 }
 
 sub makeSensibleStatement {
-      my ($self, $subject, $predicate, $obj) = @_;
-      my $NS = $self->NS;
+      my ($self, $s, $p, $o) = @_;
+	my ($subject, $predicate, $object);
+      my $NS = $self->NS();
       
-      if (($subject =~ /^http:/) || ($subject =~ /^https:/)) {
+      if (($s =~ /^http:/) || ($s =~ /^https:/) || ref($s)) {
+		$subject = $s;
       } else {
-             my ($ns, $sub) = split /:/, $subject;
+             my ($ns, $sub) = split /:/, $s;
              $subject = $NS->$ns($sub);   # add the namespace   
       }
       
-      if (($predicate =~ /^http:/) || ($predicate =~ /^https:/)) {
+      if (($p =~ /^http:/) || ($p =~ /^https:/) || ref($p)) {
+	$predicate = $p;
       } else {
-             my ($ns, $pred) = split /:/, $predicate;
+             my ($ns, $pred) = split /:/, $p;
              $predicate = $NS->$ns($pred);   # add the namespace   
       }
          
-      if (($obj =~ /^http:/) || ($obj =~ /^https:/)) {  # if its a URL
-            # do nothing
-      } elsif ((!($obj =~ /\s/)) && ($obj =~ /\S+:\S+/)){  # if it looks like a qname tag
-            my ($ns,$obj) = split /:/, $obj;
+      if (($o =~ /^http:/) || ($o =~ /^https:/) || ref($o)) {  # if its a URL or an object
+            $object = $o
+      } elsif ((!($o =~ /\s/)) && ($o =~ /\S+:\S+/)){  # if it looks like a qname tag
+            my ($ns,$obj) = split /:/, $o;
             if ($NS->$ns($obj)) {
-                  $obj =  $NS->$ns($obj);   # add the namespace               
+                  $object =  $NS->$ns($obj);   # add the namespace               
             }
-      }
+      } else {
+		$object = $o
+	}
          
-      my $statement = statement($subject,  $predicate, $obj); 
+      my $statement = statement($subject,  $predicate, $object); 
       
       return $statement;
       
 }
-
-
-#
-#sub ProjectionMap{
-#    my ($self, $URL, $SOURCE, $subtemplate, $type, $predicate, $objecttemplate, $otype) = @_;
-#    my $uuid = UUID::Generator::PurePerl->new();
-#    $uuid = $uuid->generate_v1();
-#    my $NS = $self->NS();
-#
-#    my $model = $self->Projectionmodel;
-#    
-#    my $SRC = "http://datafairport.org/local/Source$uuid";
-#    my $MAP = "http://datafairport.org/local/Mappings$uuid";
-#    my $SMAP = "http://datafairport.org/local/SubjectMap$uuid";
-#    my $POMAP = "http://datafairport.org/local/POMap$uuid";
-#    my $OMAP =  "http://datafairport.org/local/ObjectMap$uuid";
-#    my $SMAP2 = "http://datafairport.org/local/SubjectMap2$uuid";
-#    
-#    
-#    my $statement;
-#        # Mapping
-#        #  <CSV>  rml:isSourceOf  <SRC>
-#        #  <SRC>  rml:source    <CSV>
-#    $statement = statement($URL, $NS->rml('source'), $SOURCE);
-#    $model->add_statement($statement);
-#        
-#        #  <MAP>  rml:logicalSource <SRC>
-#    $statement = statement($MAP, $NS->rml('logicalSource'), $URL);
-#    $model->add_statement($statement);
-#
-#    
-#        #  <SRC>  rml:hasMapping   <MAP>
-#    $statement = statement($URL, $NS->rml('hasMapping'), $MAP);
-#    $model->add_statement($statement);
-#        #  <SRC>  rml:referenceFormulation  ql:CSV
-#    $statement = statement($URL, $NS->rml('referenceFormulation'), $NS->ql('TriplePatternFragments'));
-#    $model->add_statement($statement);
-#
-#
-#        
-#        # <MAP> rr:subjectMap <SMAP>
-#    $statement = statement($MAP, $NS->rr('subjectMap'), $SMAP);
-#    $model->add_statement($statement);
-#        # <SMAP> rr:template "http://something/{ID}"
-#
-#
-#   my $templateurl = RDF::Trine::Node::Literal->new($subtemplate);
-#    $statement = statement($SMAP, $NS->rr('template'), $templateurl);
-#    $model->add_statement($statement);
-#
-#    $statement = statement($SMAP, $NS->rr('class'), $type);
-#    $model->add_statement($statement);
-#
-#    
-#    
-#        # <MAP>  rr:predicateObjectMap <POMAP>
-#    $statement = statement($MAP, $NS->rr('predicateObjectMap'), $POMAP);
-#    $model->add_statement($statement);
-#        #
-#        # <POMAP>  rr:predicate {$predicate}
-#    $statement = statement($POMAP, $NS->rr('predicate'), $predicate);
-#    $model->add_statement($statement);
-#        # <POMAP>  rr:objectMap <OMAP>
-#    $statement = statement($POMAP, $NS->rr('objectMap'), $OMAP);
-#    $model->add_statement($statement);
-#    
-#    
-#    
-#        #
-#        # <OMAP> rr:parentTriplesMap <OBJMAP>
-#    $statement = statement($OMAP, $NS->rr('parentTriplesMap'), $SMAP2);
-#    $model->add_statement($statement);
-#        # <OMAP> rr:subjecctMap <SMAP2>
-#        # <SMAP2>  rr:template "http://somethingelse/{out}
-#    if ($otype =~ /\#string/){
-#        $templateurl = RDF::Trine::Node::Literal->new("{value}");
-#    } else {
-#        $templateurl = RDF::Trine::Node::Literal->new($objecttemplate);
-#    }
-#    $statement = statement($SMAP2, $NS->rr('template'), $templateurl);
-#    $model->add_statement($statement);
-#
-#    $statement = statement($SMAP2, $NS->rr('class'), $otype);
-#    $model->add_statement($statement);
-#
-#        
-#}
 
 
 1;
