@@ -1,4 +1,18 @@
 package FAIR::CoreFunctions;
+
+
+=pod
+
+=head1 Name  FAIR::CoreFunctions
+
+=head1 Description 
+
+a Moose Role that contains things that various modules need to do
+
+=cut
+
+
+
 use strict;
 use Moose::Role;
 

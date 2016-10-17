@@ -1,4 +1,17 @@
 package FAIR::Accessor::Distribution;
+
+
+=pod
+
+=head1 Name  FAIR::Accessor::Distribution
+
+=head1 Description 
+
+This represents a DCAT Distribution for the FAIR Accessor
+
+=cut
+
+
 use strict;
 use Moose;
 use Data::UUID;

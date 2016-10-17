@@ -1,4 +1,18 @@
 package FAIR::ProjectorMetadata;
+
+
+
+=pod
+
+=head1 Name  FAIR::ProjectorMetadata
+
+=head1 Description 
+
+Projector Metadata includes things like the RML model, and stuff
+
+=cut
+
+
 use strict;
 use Moose;
 use UUID::Generator::PurePerl;
