@@ -1,15 +1,6 @@
 package FAIR::CoreFunctions;
+$FAIR::CoreFunctions::VERSION = '1.0';
 
-
-=pod
-
-=head1 Name  FAIR::CoreFunctions
-
-=head1 Description 
-
-a Moose Role that contains things that various modules need to do
-
-=cut
 
 
 
@@ -44,3 +35,37 @@ sub statement {
 }
 
 1;
+
+__END__
+
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+FAIR::CoreFunctions
+
+=head1 VERSION
+
+version 1.0
+
+=head1 Name  FAIR::CoreFunctions
+
+=head1 Description 
+
+a Moose Role that contains things that various modules need to do
+
+=head1 AUTHOR
+
+Mark Denis Wilkinson (markw [at] illuminae [dot] com)
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2016 by Mark Denis Wilkinson.
+
+This is free software, licensed under:
+
+  The Apache License, Version 2.0, January 2004
+
+=cut

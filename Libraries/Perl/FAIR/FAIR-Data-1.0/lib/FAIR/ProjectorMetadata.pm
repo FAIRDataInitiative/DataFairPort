@@ -1,16 +1,7 @@
 package FAIR::ProjectorMetadata;
+$FAIR::ProjectorMetadata::VERSION = '1.0';
 
 
-
-=pod
-
-=head1 Name  FAIR::ProjectorMetadata
-
-=head1 Description 
-
-Projector Metadata includes things like the RML model, and stuff
-
-=cut
 
 
 use strict;
@@ -163,3 +154,37 @@ sub ProjectionMap{
 
 
 1;
+
+__END__
+
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+FAIR::ProjectorMetadata
+
+=head1 VERSION
+
+version 1.0
+
+=head1 Name  FAIR::ProjectorMetadata
+
+=head1 Description 
+
+Projector Metadata includes things like the RML model, and stuff
+
+=head1 AUTHOR
+
+Mark Denis Wilkinson (markw [at] illuminae [dot] com)
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2016 by Mark Denis Wilkinson.
+
+This is free software, licensed under:
+
+  The Apache License, Version 2.0, January 2004
+
+=cut
