@@ -87,31 +87,36 @@ sub manageContainerGET {
 }
 
 sub makeSensibleStatement {
-      my ($self, $subject, $predicate, $obj) = @_;
+      my ($self, $s, $p, $o) = @_;
+	my ($subject, $predicate, $object);
       my $NS = $self->Configuration->Namespaces();
       
-      if (($subject =~ /^http:/) || ($subject =~ /^https:/)) {
+      if (($s =~ /^http:/) || ($s =~ /^https:/)) {
+		$subject = $s;
       } else {
-             my ($ns, $sub) = split /:/, $subject;
+             my ($ns, $sub) = split /:/, $s;
              $subject = $NS->$ns($sub);   # add the namespace   
       }
       
-      if (($predicate =~ /^http:/) || ($predicate =~ /^https:/)) {
+      if (($p =~ /^http:/) || ($p =~ /^https:/)) {
+	$predicate = $p;
       } else {
-             my ($ns, $pred) = split /:/, $predicate;
+             my ($ns, $pred) = split /:/, $p;
              $predicate = $NS->$ns($pred);   # add the namespace   
       }
          
-      if (($obj =~ /^http:/) || ($obj =~ /^https:/)) {  # if its a URL
-            # do nothing
-      } elsif ((!($obj =~ /\s/)) && ($obj =~ /\S+:\S+/)){  # if it looks like a qname tag
-            my ($ns,$obj) = split /:/, $obj;
+      if (($o =~ /^http:/) || ($o =~ /^https:/)) {  # if its a URL
+            $object = $o
+      } elsif ((!($o =~ /\s/)) && ($o =~ /\S+:\S+/)){  # if it looks like a qname tag
+            my ($ns,$obj) = split /:/, $o;
             if ($NS->$ns($obj)) {
-                  $obj =  $NS->$ns($obj);   # add the namespace               
+                  $object =  $NS->$ns($obj);   # add the namespace               
             }
-      }
+      } else {
+		$object = $o
+	}
          
-      my $statement = statement($subject,  $predicate, $obj); 
+      my $statement = statement($subject,  $predicate, $object); 
       
       return $statement;
       
@@ -237,8 +242,10 @@ sub callDataAccessor {
                   $projector = 1 if ($type =~ /Projector/);  # flag it as a projector for the if block below                  
             }
             
-            $statement = $self->makeSensibleStatement($downloadURL, $NS->dc('format'), $Dist->availableformats);
-            $model->add_statement($statement);            
+	    foreach my $form(@{$Dist->availableformats}){
+	            $statement = $self->makeSensibleStatement($downloadURL, $NS->dc('format'), $form);
+	            $model->add_statement($statement);            
+		}
       
             $statement = $self->makeSensibleStatement($downloadURL, $NS->dcat('downloadURL'), $downloadURL);
             $model->add_statement($statement);
