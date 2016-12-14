@@ -122,8 +122,8 @@ sub ProjectionModel {
 
     my $prefix = "http://" . $ENV{HTTP_HOST} . $ENV{REQUEST_URI};
     
-    my $URI = $prefix . "#Distribution$uuid";
-    $self->URI($URI);
+    #my $URI = $prefix . "#Distribution$uuid";
+    my $URI = $self->URI();
 
     my $SRC = $prefix . "#Source$uuid";
     my $MAP = $prefix . "#Mappings$uuid";
