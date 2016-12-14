@@ -1,6 +1,5 @@
 package FAIR::AccessorBase;
-
-
+use lib "../";
 
 
 
@@ -234,21 +233,22 @@ sub callDataAccessor {
       my $distributions = $MetaRecord->Distributions();
       foreach my $Dist(@$distributions){
             my $downloadURL = $Dist->downloadURL();
-            my $statement = $self->makeSensibleStatement($subject, $NS->dcat('distribution'), $downloadURL);
+            my $distURI = $Dist->URI();
+            my $statement = $self->makeSensibleStatement($subject, $NS->dcat('distribution'), $distURI);
             $model->add_statement($statement);
             my $projector = 0;
             foreach my $type($Dist->types){
-                  $statement = $self->makeSensibleStatement($downloadURL, $NS->rdf('type'), $type);
+                  $statement = $self->makeSensibleStatement($distURI, $NS->rdf('type'), $type);
                   $model->add_statement($statement);
                   $projector = 1 if ($type =~ /Projector/);  # flag it as a projector for the if block below                  
             }
             
 	    foreach my $form(@{$Dist->availableformats}){
-	            $statement = $self->makeSensibleStatement($downloadURL, $NS->dc('format'), $form);
+	            $statement = $self->makeSensibleStatement($distURI, $NS->dc('format'), $form);
 	            $model->add_statement($statement);            
 		}
       
-            $statement = $self->makeSensibleStatement($downloadURL, $NS->dcat('downloadURL'), $downloadURL);
+            $statement = $self->makeSensibleStatement($distURI, $NS->dcat('downloadURL'), $downloadURL);
             $model->add_statement($statement);
             
             if ($projector) {

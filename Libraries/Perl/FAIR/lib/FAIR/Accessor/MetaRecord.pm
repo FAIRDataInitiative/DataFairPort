@@ -1,17 +1,4 @@
 package FAIR::Accessor::MetaRecord;
-
-
-=pod
-
-=head1 Name  FAIR::Accessor::MetaRecord
-
-=head1 Description 
-
-This generates the behaviors for the LDP MetaRecord functions of the FAIR Accessor
-
-=cut
-
-
 use strict;
 use Moose;
 use UUID::Generator::PurePerl;

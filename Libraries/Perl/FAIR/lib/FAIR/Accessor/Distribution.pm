@@ -1,17 +1,4 @@
 package FAIR::Accessor::Distribution;
-
-
-=pod
-
-=head1 Name  FAIR::Accessor::Distribution
-
-=head1 Description 
-
-This represents a DCAT Distribution for the FAIR Accessor
-
-=cut
-
-
 use strict;
 use Moose;
 use Data::UUID;
@@ -30,6 +17,11 @@ has 'downloadURL'=> (
 );
 
 has 'source'=> (
+      is => 'rw',
+      isa => 'Str',
+);
+
+has 'URI'=> (
       is => 'rw',
       isa => 'Str',
 );
@@ -96,6 +88,16 @@ has 'Projectionmodel' => (
 );
 
 
+
+sub BUILD {
+      my $self = shift;
+      my $uuid = $self->UUID();
+      my $prefix = "http://" . $ENV{HTTP_HOST} . $ENV{REQUEST_URI};
+      my $URI = $prefix . "#Distribution$uuid";
+      $self->URI($URI);
+}
+
+
 sub types {
       my ($self) = @_;
       my $formats = $self->availableformats();
@@ -117,28 +119,32 @@ sub ProjectionModel {
     my $NS = $self->NS();
 
     my $model = $self->Projectionmodel;
+
+    my $prefix = "http://" . $ENV{HTTP_HOST} . $ENV{REQUEST_URI};
     
-    my $SRC = "http://datafairport.org/local/Source$uuid";
-    my $MAP = "http://datafairport.org/local/Mappings$uuid";
-    my $SMAP = "http://datafairport.org/local/SubjectMap$uuid";
-    my $POMAP = "http://datafairport.org/local/POMap$uuid";
-    my $OMAP =  "http://datafairport.org/local/ObjectMap$uuid";
-    my $SMAP2 = "http://datafairport.org/local/SubjectMap2$uuid";
-    
-    
-    my $statement;
-        
-#    $statement = $self->makeSensibleStatement($SRC, $self->NS->rml('source'), $self->source);
-    $statement = $self->makeSensibleStatement($SRC, $self->NS->rml('source'), $self->downloadURL);
+    #my $URI = $prefix . "#Distribution$uuid";
+    my $URI = $self->URI();
+
+    my $SRC = $prefix . "#Source$uuid";
+    my $MAP = $prefix . "#Mappings$uuid";
+    my $SMAP = $prefix . "#SubjectMap$uuid";
+    my $POMAP = $prefix . "#POMap$uuid";
+    my $OMAP =  $prefix . "#ObjectMap$uuid";
+    my $SMAP2 = $prefix . "#SubjectMap2$uuid";
+     
+            
+   my $statement;
+
+    $statement = $self->makeSensibleStatement($URI, $self->NS->rml('hasMapping'), $MAP);
     $model->add_statement($statement);
-        
-       
+
     $statement = $self->makeSensibleStatement($MAP, $self->NS->rml('logicalSource'), $SRC);
     $model->add_statement($statement);
 
+        
+#    $statement = $self->makeSensibleStatement($SRC, $self->NS->rml('source'), $self->source);
+#    $model->add_statement($statement);       
     
-    $statement = $self->makeSensibleStatement($SRC, $self->NS->rml('hasMapping'), $MAP);
-    $model->add_statement($statement);
         #  <SRC>  rml:referenceFormulation  ql:CSV
     $statement = $self->makeSensibleStatement($SRC, $self->NS->rml('referenceFormulation'), $self->NS->ql('TriplePatternFragments'));
     $model->add_statement($statement);
@@ -170,7 +176,6 @@ sub ProjectionModel {
         # <POMAP>  rr:objectMap <OMAP>
     $statement = $self->makeSensibleStatement($POMAP, $self->NS->rr('objectMap'), $OMAP);
     $model->add_statement($statement);
-    
     
     
         #

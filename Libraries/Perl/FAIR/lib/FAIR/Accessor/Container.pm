@@ -1,18 +1,4 @@
 package FAIR::Accessor::Container;
-
-
-
-=pod
-
-=head1 Name  FAIR::Accessor::Container
-
-=head1 Description 
-
-This generates the behaviors for the LDP Container-like functions of the FAIR Accessor
-
-=cut
-
-
 use strict;
 use Moose;
 use UUID::Generator::PurePerl;
