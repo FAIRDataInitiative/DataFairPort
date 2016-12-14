@@ -1,5 +1,6 @@
 package FAIR::AccessorBase;
-use lib "../";
+$FAIR::AccessorBase::VERSION = '1.002';
+
 
 
 
@@ -233,22 +234,21 @@ sub callDataAccessor {
       my $distributions = $MetaRecord->Distributions();
       foreach my $Dist(@$distributions){
             my $downloadURL = $Dist->downloadURL();
-            my $distURI = $Dist->URI();
-            my $statement = $self->makeSensibleStatement($subject, $NS->dcat('distribution'), $distURI);
+            my $statement = $self->makeSensibleStatement($subject, $NS->dcat('distribution'), $downloadURL);
             $model->add_statement($statement);
             my $projector = 0;
             foreach my $type($Dist->types){
-                  $statement = $self->makeSensibleStatement($distURI, $NS->rdf('type'), $type);
+                  $statement = $self->makeSensibleStatement($downloadURL, $NS->rdf('type'), $type);
                   $model->add_statement($statement);
                   $projector = 1 if ($type =~ /Projector/);  # flag it as a projector for the if block below                  
             }
             
 	    foreach my $form(@{$Dist->availableformats}){
-	            $statement = $self->makeSensibleStatement($distURI, $NS->dc('format'), $form);
+	            $statement = $self->makeSensibleStatement($downloadURL, $NS->dc('format'), $form);
 	            $model->add_statement($statement);            
 		}
       
-            $statement = $self->makeSensibleStatement($distURI, $NS->dcat('downloadURL'), $downloadURL);
+            $statement = $self->makeSensibleStatement($downloadURL, $NS->dcat('downloadURL'), $downloadURL);
             $model->add_statement($statement);
             
             if ($projector) {
@@ -339,3 +339,31 @@ sub serializeThis{
 
 
 1;
+
+__END__
+
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+FAIR::AccessorBase - The core Accessor functions
+
+=head1 VERSION
+
+version 1.002
+
+=head1 AUTHOR
+
+Mark Denis Wilkinson (markw [at] illuminae [dot] com)
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2016 by Mark Denis Wilkinson.
+
+This is free software, licensed under:
+
+  The Apache License, Version 2.0, January 2004
+
+=cut
